@@ -1,0 +1,11 @@
+{
+    "name": "@jc/element-plus-pro-components",
+    "version": "0.0.1",
+    "description": "二次封装的组件",
+    "dependencies": {
+        "@jc/element-plus-pro-utils": "workspace:*"
+    },
+    "devDependencies": {
+        "vue": "catalog:"
+    }
+}
