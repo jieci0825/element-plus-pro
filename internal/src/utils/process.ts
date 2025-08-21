@@ -9,12 +9,12 @@ import chalk from 'chalk'
 export const run = (command: string, cwd: string = projRoot) => {
     return new Promise<void>((resolve, reject) => {
         const [cmd, ...args] = command.split(' ')
-        const fullCmd = `${cmd} ${args.join(' ')}`
 
+        const fullCmd = `${cmd} ${args.join(' ')}`
         console.log(`run: ${chalk.green(fullCmd)}`)
 
         // 调用子进程执行命令
-        const app = spawn(fullCmd, args, {
+        const app = spawn(cmd, args, {
             cwd,
             stdio: 'inherit',
             shell: process.platform === 'win32'
