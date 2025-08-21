@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue'
 
-const proProps = {
+const proFormProps = {
     /**
      * @description 消息
      */
@@ -18,4 +18,4 @@ const proProps = {
     }
 } as const
 
-export type ProProps = ExtractPropTypes<typeof proProps>
+export type ProFormProps = ExtractPropTypes<typeof proFormProps>
