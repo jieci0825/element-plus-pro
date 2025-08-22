@@ -26,12 +26,13 @@ export const run = (command: string, cwd: string = projRoot) => {
             process.removeListener('exit', onProcessExit)
 
             if (code === 0) resolve()
-            else
+            else {
                 reject(
                     new Error(
                         `命令执行失败- \n Command: ${command} \n Code: ${code}`
                     )
                 )
+            }
         })
         process.on('exit', onProcessExit)
     })

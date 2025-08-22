@@ -1,11 +1,11 @@
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 
-const proFormProps = {
+export const proFormProps = {
     /**
      * @description 消息
      */
     message: {
-        type: String,
+        type: String as PropType<string>,
         required: true
     },
 
@@ -13,7 +13,7 @@ const proFormProps = {
      * @description 测试属性
      */
     test: {
-        type: String,
+        type: String as PropType<string>,
         default: 'test'
     }
 } as const

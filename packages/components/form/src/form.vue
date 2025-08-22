@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ProFormProps } from './form'
+import { proFormProps } from './form'
 
 defineOptions({
     name: 'ProForm'
 })
 
-const props = defineProps<ProFormProps>()
+const props = defineProps(proFormProps)
 </script>
 
 <template>
