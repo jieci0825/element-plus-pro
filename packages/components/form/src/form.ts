@@ -63,7 +63,7 @@ export interface ProFormItemType {
     /**
      * @description 传递给原 ElementPlus 表单项的插槽
      */
-    elSlots?: Record<string, Function>
+    elSlots?: Record<string, Function | string>
 
     /**
      * @description 启用自定义插槽，插槽名默认取用当前表单项的 key，则不会渲染默认的表单项，需要自行实现表单项
@@ -108,7 +108,7 @@ export const proFormProps = {
      */
     gutter: {
         type: Number as PropType<number>,
-        default: 10
+        default: 0
     },
 
     /**

@@ -3,19 +3,38 @@ import {
     type ProFormItemType,
     type ProFormProps
 } from './form'
-import { isFunction, isUndefined } from '@jc/element-plus-pro-utils'
+import {
+    isArray,
+    isFunction,
+    isObject,
+    isString,
+    isUndefined
+} from '@jc/element-plus-pro-utils'
 
 /**
  * 处理单个表单项-el插槽
  */
 function processFormItemElSlots(item: ProFormItemType): void {
-    // 处理插槽配置
-    if (!item.elSlots) {
+    // 如果是 undefined 或 数组，则是错误配置，直接重置为空对象
+    if (!item.elSlots || isArray(item.elSlots)) {
         item.elSlots = {}
-    } else if (isFunction(item.elSlots)) {
+        return
+    }
+
+    if (isFunction(item.elSlots)) {
         // 如果 elSlots 是一个函数，则将其转换为默认插槽
         item.elSlots = {
             default: item.elSlots
+        }
+        return
+    }
+
+    if (isObject(item.elSlots)) {
+        // 如果 elSlots 是一个对象，则遍历其属性，如果属性值是字符串，则将其转换为函数
+        for (const [key, value] of Object.entries(item.elSlots)) {
+            if (isString(value)) {
+                item.elSlots[key] = () => value
+            }
         }
     }
 }

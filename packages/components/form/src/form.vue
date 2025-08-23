@@ -19,10 +19,9 @@ const props = defineProps(proFormProps)
 const emit = defineEmits(proFormEmits)
 const elFormInstance = useTemplateRef('elFormRef')
 
-// 直接使用 toRef 创建响应式引用
 const formData = toRef(props, 'modelValue')
 
-// 创建一个处理表单项值更新的函数
+// 个处理表单项值更新
 function updateFormValue(key: string, value: any) {
     const newFormData = { ...formData.value, [key]: value }
     emit(UPDATE_MODEL_EVENT, newFormData)
