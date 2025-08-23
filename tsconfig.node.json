@@ -6,6 +6,6 @@
         "types": ["node"],
         "skipLibCheck": true
     },
-    "include": ["packages/**/*.{ts,tsx,vue}"],
+    "include": ["packages/**/*.{ts,tsx,vue}", "internal/**/*.ts"],
     "exclude": ["**/__tests__/**", "**/tests/**", "**/dist"]
 }

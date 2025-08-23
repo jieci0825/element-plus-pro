@@ -34,7 +34,8 @@ export default series(
     // 并行执行多个任务
     parallel(
         // 构建模块
-        runTask('buildModules')
+        runTask('buildModules'),
+        runTask('generateTypesDefinitions')
         // todo 生成类型定义...
     )
 
