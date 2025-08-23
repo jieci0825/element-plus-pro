@@ -56,7 +56,7 @@ const plugins: Plugin[] = [
 ]
 
 async function buildModulesComponents() {
-    // 过滤文件-获得所有需要打包的组件源代码文件路径数组
+    // 过滤文件-获得所有需要打包的组件源代码文件路径数组，即排除 test node_modules等目录下的文件
     //  - 这样可以将每一个文件都作为一个入口文件，进行单独打包
     const input = excludeFiles(
         await glob(['**/*.{js,ts,vue}', '!**/style/(index|css).{js,ts,vue}'], {
