@@ -46,6 +46,7 @@ export const generateTypesDefinitions = async () => {
                         paths: {
                             '@jc/element-plus-pro': [entryFilePath], // 路径映射：element-plus-pro -> 主入口文件
                             '@jc/element-plus-pro-utils': [`${typesDir}/utils`],
+                            '@jc/element-plus-pro-hooks': [`${typesDir}/hooks`],
                             '@jc/element-plus-pro-components': [
                                 `${typesDir}/components`
                             ],
