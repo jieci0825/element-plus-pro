@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTemplateRef, computed } from 'vue'
+import { useTemplateRef, computed, toRef } from 'vue'
 import {
     EProFormItemType,
     proFormEmits,
@@ -18,17 +18,15 @@ defineOptions({
 const props = defineProps(proFormProps)
 const emit = defineEmits(proFormEmits)
 const elFormInstance = useTemplateRef('elFormRef')
-console.log('elFormInstance', elFormInstance)
 
-const formData = computed({
-    get() {
-        return props.modelValue
-    },
-    set(newValue) {
-        console.log('~~新值~~', newValue)
-        emit(UPDATE_MODEL_EVENT, newValue)
-    }
-})
+// 直接使用 toRef 创建响应式引用
+const formData = toRef(props, 'modelValue')
+
+// 创建一个处理表单项值更新的函数
+function updateFormValue(key: string, value: any) {
+    const newFormData = { ...formData.value, [key]: value }
+    emit(UPDATE_MODEL_EVENT, newFormData)
+}
 
 // 计算表单项配置项列表
 const items = computed(() => processFormItems(props))
@@ -74,7 +72,10 @@ defineExpose({
                     <template v-else>
                         <Component
                             :is="getFormItemComp(item)"
-                            v-model="formData[item.key]"
+                            :model-value="formData[item.key]"
+                            @update:model-value="
+                                updateFormValue(item.key, $event)
+                            "
                             v-bind="item.props"
                         >
                             <template

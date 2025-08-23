@@ -10,9 +10,7 @@ const formItems: ProFormItemType[] = [
     }
 ]
 
-const form = ref({
-    name: '张三'
-})
+const form = ref({})
 </script>
 
 <template>
