@@ -26,6 +26,9 @@ importers:
       '@rollup/plugin-node-resolve':
         specifier: ^16.0.1
         version: 16.0.1(rollup@4.46.4)
+      '@types/fs-extra':
+        specifier: 9.0.13
+        version: 9.0.13
       '@types/gulp':
         specifier: ^4.0.17
         version: 4.0.17
@@ -1614,6 +1617,9 @@ packages:
 
   '@types/expect@1.20.4':
     resolution: {integrity: sha512-Q5Vn3yjTDyCMV50TB6VRIbQNxSE4OmZR86VSbGaNpfUolm0iePBB4KdEEHmxoY5sT2+2DIvXW0rvMDP2nHZ4Mg==}
+
+  '@types/fs-extra@9.0.13':
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
 
   '@types/glob-stream@8.0.3':
     resolution: {integrity: sha512-vctgrT9AH/GK3TRaIbRUU0TZn12GBU4kzelZdPyJp1Sc8L/6Wrq21UrtN4+x4saqTg6COUIUtFV6JSYcVln/EQ==}
@@ -7507,6 +7513,10 @@ snapshots:
   '@types/estree@1.0.8': {}
 
   '@types/expect@1.20.4': {}
+
+  '@types/fs-extra@9.0.13':
+    dependencies:
+      '@types/node': 24.3.0
 
   '@types/glob-stream@8.0.3':
     dependencies:
