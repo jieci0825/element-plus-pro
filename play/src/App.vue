@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import { ProForm } from '@jc/element-plus-pro-components'
+import { ProForm, ProFormItemType } from '@jc/element-plus-pro-components'
+import { ref } from 'vue'
+
+const formItems: ProFormItemType[] = [
+    {
+        label: '姓名',
+        key: 'name',
+        type: 'input'
+    }
+]
+
+const form = ref({
+    name: '张三'
+})
 </script>
 
 <template>
-    <ProForm message="测试" />
+    <ProForm :form-items="formItems" v-model="form" />
 </template>
 
 <style scoped>
