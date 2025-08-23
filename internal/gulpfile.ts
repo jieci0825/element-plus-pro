@@ -36,10 +36,9 @@ export default series(
         // 构建模块
         runTask('buildModules'),
         runTask('generateTypesDefinitions')
-        // todo 生成类型定义...
     )
 
-    // todo 并行复制文件（类型 package.json...）
+    // 并行复制文件（类型 package.json...）
 )
 
 export * from './src'
