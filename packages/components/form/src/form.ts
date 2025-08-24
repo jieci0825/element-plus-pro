@@ -29,8 +29,9 @@ export enum EProFormItemType {
     /**@description 上传 */
     UPLOAD = 'upload',
     /**@description 级联选择 */
-    CASCADER = 'cascader'
-    // TODO 颜色选择器
+    CASCADER = 'cascader',
+    /**@description 颜色选择器 */
+    COLOR = 'color'
 }
 
 export type ProFormItemTypeKeys =
@@ -48,6 +49,7 @@ export type ProFormItemTypeKeys =
     | 'datetime'
     | 'upload'
     | 'cascader'
+    | 'color'
 
 export interface ProFormItemType {
     /**
