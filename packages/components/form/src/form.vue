@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import { useTemplateRef, computed, toRef } from 'vue'
-import {
-    EProFormItemType,
-    proFormEmits,
-    ProFormItemType,
-    proFormProps
-} from './form'
+import { proFormEmits, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
-import { ElInput, ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
-import { isString, isUndefined } from '@jc/element-plus-pro-utils'
+import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
+import { createFormItemCompMap } from './comp-map'
 
 defineOptions({
     name: 'ProForm'
@@ -23,6 +18,7 @@ const formData = toRef(props, 'modelValue')
 
 // 个处理表单项值更新
 function updateFormValue(key: string, value: any) {
+    console.log('updateFormValue', key, value)
     const newFormData = { ...formData.value, [key]: value }
     emit(UPDATE_MODEL_EVENT, newFormData)
 }
@@ -30,26 +26,9 @@ function updateFormValue(key: string, value: any) {
 // 计算表单项配置项列表
 const items = computed(() => processFormItems(props))
 
-// 组件映射
-const FormItemCompMap = {
-    [EProFormItemType.INPUT]: ElInput
-}
-
-function isValidComponentKey(key: string): key is keyof typeof FormItemCompMap {
-    return key in FormItemCompMap
-}
-
-// 获取表单项组件
-function getFormItemComp(item: ProFormItemType) {
-    const { type } = item
-    if (isUndefined(type)) {
-        return ElInput
-    }
-    if (isString(type) && isValidComponentKey(type)) {
-        return FormItemCompMap[type]
-    }
-    return type
-}
+const [getComp] = createFormItemCompMap(formData, {
+    onUpdateModelValue: updateFormValue
+})
 
 defineExpose({
     a: 1
@@ -69,24 +48,7 @@ defineExpose({
                         <slot :name="item.key"></slot>
                     </template>
                     <template v-else>
-                        <Component
-                            :is="getFormItemComp(item)"
-                            :model-value="formData[item.key]"
-                            @update:model-value="
-                                updateFormValue(item.key, $event)
-                            "
-                            v-bind="item.props"
-                        >
-                            <template
-                                v-for="(_, slotName) in item.elSlots!"
-                                #[slotName]
-                            >
-                                <Component
-                                    :item="item"
-                                    :is="item.elSlots![slotName]"
-                                />
-                            </template>
-                        </Component>
+                        <Component :is="getComp(item)" />
                     </template>
                 </el-form-item>
             </el-col>

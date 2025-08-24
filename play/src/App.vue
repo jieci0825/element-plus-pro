@@ -4,21 +4,31 @@ import { ref } from 'vue'
 import { FormRules } from 'element-plus'
 
 const formItems: ProFormItemType[] = [
+    // {
+    //     label: '姓名',
+    //     key: 'name',
+    //     type: 'input',
+    //     placeholder: '请输入姓名',
+    //     elSlots: {
+    //         // prepend: () => 'Http://'
+    //         // - or 如果是字符串则可以直接书写
+    //         prepend: 'Http://'
+    //     }
+    // },
+    // {
+    //     label: '自定义',
+    //     key: 'custom',
+    //     customSlot: true
+    // },
     {
-        label: '姓名',
-        key: 'name',
-        type: 'input',
-        placeholder: '请输入姓名',
-        elSlots: {
-            // prepend: () => 'Http://'
-            // - or 如果是字符串则可以直接书写
-            prepend: 'Http://'
-        }
-    },
-    {
-        label: '自定义',
-        key: 'custom',
-        customSlot: true
+        label: '性别',
+        key: 'gender',
+        type: 'select',
+        placeholder: '请选择性别',
+        options: [
+            { label: '男', value: 'man' },
+            { label: '女', value: 'woman' }
+        ]
     }
 ]
 

@@ -4,10 +4,16 @@ import type { ExtractPropTypes, PropType } from 'vue'
 export enum EProFormItemType {
     /**@description 单行文本框 */
     INPUT = 'input',
+    /**@description 单行文本框 */
+    PASSWORD = 'password',
+    /**@description 计数器 */
+    INPUT_NUMBER = 'input_number',
     /**@description 多行文本框 */
     TEXTAREA = 'textarea',
     /**@description 下拉选择 */
     SELECT = 'select',
+    /**@description 分组下拉选择 */
+    GROUP_SELECT = 'group_select',
     /**@description 单选 */
     RADIO = 'radio',
     /**@description 多选 */
@@ -24,12 +30,16 @@ export enum EProFormItemType {
     UPLOAD = 'upload',
     /**@description 级联选择 */
     CASCADER = 'cascader'
+    // TODO 颜色选择器
 }
 
-type ProFormItemTypeKeys =
+export type ProFormItemTypeKeys =
     | 'input'
+    | 'password'
+    | 'input_number'
     | 'textarea'
     | 'select'
+    | 'group_select'
     | 'radio'
     | 'checkbox'
     | 'switch'
