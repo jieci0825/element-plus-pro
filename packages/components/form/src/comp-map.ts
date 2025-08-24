@@ -15,10 +15,6 @@ const CompMap: Record<string, Component> = {
     [EProFormItemType.GROUP_SELECT]: JcGroupSelect
 }
 
-function generateCompName(type: string) {
-    return `ProForm${type.charAt(0).toUpperCase()}${type.slice(1)}`
-}
-
 function createComp(
     formData: Ref<any>,
     formItem: ProFormItemType,
@@ -43,14 +39,15 @@ function createComp(
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
     function getComp(item: ProFormItemType) {
         const { type } = item
+        console.log('type', type)
         if (!type) return
         if (CompMap[type]) {
             return createComp(formData, item, options)
         }
         return h(
-            generateCompName(type),
-            {},
-            () => `暂不支持该 "${type}" 组件类型`
+            'div',
+            { style: { color: 'red', fontWeight: 'bold' } },
+            `暂不支持该 "${type}" 组件类型`
         )
     }
 
