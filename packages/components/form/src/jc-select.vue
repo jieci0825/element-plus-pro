@@ -5,7 +5,7 @@ import { useAttrs } from 'vue'
 const attrs: any = useAttrs()
 const slots = defineSlots()
 
-const getElOptionDefaultSlot = (elSlot: any) => {
+const getElDefaultSlot = (elSlot: any) => {
     if (!elSlot) return undefined
     if (isObject(elSlot)) {
         return (elSlot as any).default || elSlot
@@ -27,7 +27,7 @@ const getElOptionDefaultSlot = (elSlot: any) => {
             v-bind="omit(item, ['elSlots'])"
         >
             <template #default>
-                <Component :is="getElOptionDefaultSlot(item.elSlots)" />
+                <Component :is="getElDefaultSlot(item.elSlots)" />
             </template>
         </el-option>
     </el-select>

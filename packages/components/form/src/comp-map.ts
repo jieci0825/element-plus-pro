@@ -1,16 +1,18 @@
 import JcSelect from './jc-select.vue'
+import JcGroupSelect from './jc-group-select.vue'
+import { h } from 'vue'
 import { ElInput, ElInputNumber } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
-import { h } from 'vue'
-import type { Component, Ref } from 'vue'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
+import type { Component, Ref } from 'vue'
 
 const CompMap: Record<string, Component> = {
     [EProFormItemType.INPUT]: ElInput,
     [EProFormItemType.PASSWORD]: ElInput,
     [EProFormItemType.INPUT_NUMBER]: ElInputNumber,
     [EProFormItemType.TEXTAREA]: ElInput,
-    [EProFormItemType.SELECT]: JcSelect
+    [EProFormItemType.SELECT]: JcSelect,
+    [EProFormItemType.GROUP_SELECT]: JcGroupSelect
 }
 
 function generateCompName(type: string) {
