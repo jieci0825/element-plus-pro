@@ -39,7 +39,6 @@ function createComp(
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
     function getComp(item: ProFormItemType) {
         const { type } = item
-        console.log('type', type)
         if (!type) return
         if (CompMap[type]) {
             return createComp(formData, item, options)
