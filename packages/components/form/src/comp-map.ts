@@ -1,14 +1,16 @@
+import JcSelect from './jc-select.vue'
 import { ElInput, ElInputNumber } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
 import { h } from 'vue'
 import type { Component, Ref } from 'vue'
+import { isEmptyObj } from '@jc/element-plus-pro-utils'
 
 const CompMap: Record<string, Component> = {
     [EProFormItemType.INPUT]: ElInput,
     [EProFormItemType.PASSWORD]: ElInput,
     [EProFormItemType.INPUT_NUMBER]: ElInputNumber,
     [EProFormItemType.TEXTAREA]: ElInput,
-    [EProFormItemType.SELECT]: () => '开发中...'
+    [EProFormItemType.SELECT]: JcSelect
 }
 
 function generateCompName(type: string) {
@@ -20,18 +22,19 @@ function createComp(
     formItem: ProFormItemType,
     options: any = {}
 ) {
-    console.log('formItem', formItem)
     return h(
         CompMap[formItem.type!],
         {
             ...formItem.props,
+            formItemRaw: formItem,
             modelValue: formData.value[formItem.key],
+            elSlots: null,
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&
                     options.onUpdateModelValue(formItem.key, value)
             }
         },
-        formItem.elSlots
+        isEmptyObj(formItem.elSlots) ? undefined : formItem.elSlots
     )
 }
 
@@ -52,8 +55,3 @@ export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
 
     return [getComp]
 }
-
-/**
- * 1. 先判断是否是简单组件，如果是简单组件，直接处理
- * 2. 如果是复杂组件，则需要额外处理其子组件插槽和属性的绑定
- */

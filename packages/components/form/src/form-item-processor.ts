@@ -4,7 +4,7 @@ import {
     type ProFormProps
 } from './form'
 import {
-    isArray,
+    EMPTY_OBJ,
     isFunction,
     isObject,
     isString,
@@ -15,12 +15,6 @@ import {
  * 处理单个表单项-el插槽
  */
 function processFormItemElSlots(item: ProFormItemType): void {
-    // 如果是 undefined 或 数组，则是错误配置，直接重置为空对象
-    if (!item.elSlots || isArray(item.elSlots)) {
-        item.elSlots = {}
-        return
-    }
-
     if (isFunction(item.elSlots)) {
         // 如果 elSlots 是一个函数，则将其转换为默认插槽
         item.elSlots = {
@@ -36,7 +30,11 @@ function processFormItemElSlots(item: ProFormItemType): void {
                 item.elSlots[key] = () => value
             }
         }
+        return
     }
+
+    // 如果不是上面两种情况，都为无效配置，则将其设置为空对象
+    item.elSlots = EMPTY_OBJ
 }
 
 /**

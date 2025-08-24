@@ -8,6 +8,10 @@ export const isFunction = (val: any): val is Function =>
 export const isObject = (val: any): val is object =>
     val !== null && typeof val === 'object'
 export const isArray = Array.isArray
+export const EMPTY_OBJ = {}
+export const isEmptyObj = (val: any): boolean => {
+    return val === EMPTY_OBJ
+}
 
 export const isEmpty = (val: unknown) =>
     (!val && val !== 0) ||
