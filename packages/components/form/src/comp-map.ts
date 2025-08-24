@@ -28,7 +28,6 @@ function createComp(
             ...formItem.props,
             formItemRaw: formItem,
             modelValue: formData.value[formItem.key],
-            elSlots: null,
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&
                     options.onUpdateModelValue(formItem.key, value)
