@@ -8,7 +8,8 @@ import {
     isFunction,
     isObject,
     isString,
-    isUndefined
+    isUndefined,
+    omit
 } from '@jc/element-plus-pro-utils'
 
 /**
@@ -114,20 +115,4 @@ export function processFormItems(formProps: ProFormProps): ProFormItemType[] {
     return formItems
         .map((item) => processFormItem(item, formProps))
         .filter((item) => !item.hidden)
-}
-
-function omit(obj: Object, keys: string[]) {
-    if (obj == null) return {}
-    if (!keys || keys.length === 0) return { ...obj }
-
-    const keysSet = new Set(keys)
-    const result: any = {}
-
-    for (const [key, value] of Object.entries(obj)) {
-        if (!keysSet.has(key)) {
-            result[key] = value
-        }
-    }
-
-    return result
 }

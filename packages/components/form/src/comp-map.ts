@@ -26,7 +26,7 @@ function createComp(
         CompMap[formItem.type!],
         {
             ...formItem.props,
-            formItemRaw: formItem,
+            // formItemRaw: formItem,
             modelValue: formData.value[formItem.key],
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&

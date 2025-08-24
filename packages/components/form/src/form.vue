@@ -18,7 +18,6 @@ const formData = toRef(props, 'modelValue')
 
 // 个处理表单项值更新
 function updateFormValue(key: string, value: any) {
-    console.log('updateFormValue', key, value)
     const newFormData = { ...formData.value, [key]: value }
     emit(UPDATE_MODEL_EVENT, newFormData)
 }
