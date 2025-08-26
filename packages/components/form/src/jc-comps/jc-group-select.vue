@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { getElDefaultSlot, omit } from '@jc/element-plus-pro-utils'
+import {
+    getElDefaultSlot,
+    getElDefaultSlotAndToComponent,
+    omit
+} from '@jc/element-plus-pro-utils'
 import { useAttrs } from 'vue'
 
 const attrs: any = useAttrs()
@@ -25,9 +29,7 @@ const slots = defineSlots()
                     v-for="item in group.options"
                     v-bind="omit(item, ['elSlots'])"
                 >
-                    <template #default>
-                        <Component :is="getElDefaultSlot(item.elSlots)" />
-                    </template>
+                    <Component :is="getElDefaultSlotAndToComponent(item)" />
                 </el-option>
             </template>
         </el-option-group>
