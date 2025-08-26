@@ -2,7 +2,7 @@ import { h } from 'vue'
 import { ElInput, ElInputNumber } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
-import { JcGroupSelect, JcRadio, JcSelect } from './jc-comps'
+import { JcGroupSelect, JcRadio, JcRadioButton, JcSelect } from './jc-comps'
 import type { Component, Ref } from 'vue'
 
 const CompMap: Record<string, Component> = {
@@ -12,7 +12,8 @@ const CompMap: Record<string, Component> = {
     [EProFormItemType.TEXTAREA]: ElInput,
     [EProFormItemType.SELECT]: JcSelect,
     [EProFormItemType.GROUP_SELECT]: JcGroupSelect,
-    [EProFormItemType.RADIO]: JcRadio
+    [EProFormItemType.RADIO]: JcRadio,
+    [EProFormItemType.RADIO_BUTTON]: JcRadioButton
 }
 
 function createComp(

@@ -16,8 +16,12 @@ export enum EProFormItemType {
     GROUP_SELECT = 'group_select',
     /**@description 单选 */
     RADIO = 'radio',
+    /**@description 单选按钮 */
+    RADIO_BUTTON = 'radio_button',
     /**@description 多选 */
     CHECKBOX = 'checkbox',
+    /**@description 多选按钮 */
+    CHECKBOX_BUTTON = 'checkbox_button',
     /**@description 开关 */
     SWITCH = 'switch',
     /**@description 日期 */
@@ -42,7 +46,9 @@ export type ProFormItemTypeKeys =
     | 'select'
     | 'group_select'
     | 'radio'
+    | 'radio_button'
     | 'checkbox'
+    | 'checkbox_button'
     | 'switch'
     | 'date'
     | 'time'
