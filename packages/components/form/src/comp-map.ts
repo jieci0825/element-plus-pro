@@ -52,13 +52,15 @@ const DatePickTypes: DatePickType[] = [
     'yearrange'
 ]
 
-const useSelfTypes: ProFormItemTypeKeys[] = [
+// 需要自定义 props 的类型
+const typesWithCustomProps: ProFormItemTypeKeys[] = [
     ...DatePickTypes,
     'password',
     'textarea'
 ]
 
-function _getRenderComponent(
+// 根据类型获取组件
+function getComponentByType(
     type: ProFormItemTypeKeys | undefined
 ): Component | undefined {
     if (!type) return undefined
@@ -77,7 +79,7 @@ function _getRenderComponentType(
     type: ProFormItemTypeKeys | undefined
 ): ProFormItemTypeKeys | undefined {
     if (!type) return undefined
-    if (useSelfTypes.includes(type)) {
+    if (typesWithCustomProps.includes(type)) {
         return type
     }
 }
@@ -107,7 +109,7 @@ function createComp(
 // 创建组件映射
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
     function getComp(item: ProFormItemType) {
-        const renderComponent = _getRenderComponent(item.type)
+        const renderComponent = getComponentByType(item.type)
         if (!renderComponent) return EmptyComp({ type: item.type! })
         return createComp(renderComponent, formData, item, options)
     }
