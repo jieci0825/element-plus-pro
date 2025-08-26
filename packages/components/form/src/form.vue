@@ -3,7 +3,9 @@ import { useTemplateRef, computed, toRef } from 'vue'
 import { proFormEmits, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
 import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
+import { useComponentProxy } from '@jc/element-plus-pro-hooks'
 import { createFormItemCompMap } from './comp-map'
 
 defineOptions({
@@ -12,7 +14,7 @@ defineOptions({
 
 const props = defineProps(proFormProps)
 const emit = defineEmits(proFormEmits)
-const elFormInstance = useTemplateRef('elFormRef')
+const elFormInstance = useTemplateRef<FormInstance>('elFormRef')
 
 const formData = toRef(props, 'modelValue')
 
@@ -28,10 +30,7 @@ const items = computed(() => processFormItems(props))
 const [getComp] = createFormItemCompMap(formData, {
     onUpdateModelValue: updateFormValue
 })
-
-defineExpose({
-    a: 1
-})
+defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
 <template>
