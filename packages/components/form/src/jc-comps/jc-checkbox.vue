@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { getElDefaultSlot, omit } from '@jc/element-plus-pro-utils'
+import {
+    getElDefaultSlotAndToComponent,
+    omit
+} from '@jc/element-plus-pro-utils'
 import { useAttrs } from 'vue'
 
 const attrs: any = useAttrs()
-console.log(attrs.options[0], 'attrs')
 </script>
 
 <template>
@@ -13,9 +15,7 @@ console.log(attrs.options[0], 'attrs')
             :key="item.value"
             v-bind="omit(item, ['elSlots'])"
         >
-            <template #default>
-                <Component :is="getElDefaultSlot(item.elSlots)" />
-            </template>
+            <Component :is="getElDefaultSlotAndToComponent(item)" />
         </el-checkbox>
     </el-checkbox-group>
 </template>

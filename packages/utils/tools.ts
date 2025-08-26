@@ -1,5 +1,3 @@
-import { isFunction, isObject } from './types'
-
 /**
  * 获取枚举值的联合类型
  * 支持字符串枚举和数字枚举
@@ -25,14 +23,4 @@ export function omit(obj: Object, keys: string[]) {
     }
 
     return result
-}
-
-export const getElDefaultSlot = (elSlots: any) => {
-    if (!elSlots) return undefined
-    if (isObject(elSlots)) {
-        return (elSlots as any).default || elSlots
-    }
-    if (isFunction(elSlots)) {
-        return elSlots
-    }
 }
