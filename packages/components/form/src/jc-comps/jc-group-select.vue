@@ -1,19 +1,9 @@
 <script setup lang="ts">
-import { isFunction, isObject, omit } from '@jc/element-plus-pro-utils'
+import { getElDefaultSlot, omit } from '@jc/element-plus-pro-utils'
 import { useAttrs } from 'vue'
 
 const attrs: any = useAttrs()
 const slots = defineSlots()
-
-const getElDefaultSlot = (elSlots: any) => {
-    if (!elSlots) return undefined
-    if (isObject(elSlots)) {
-        return (elSlots as any).default || elSlots
-    }
-    if (isFunction(elSlots)) {
-        return elSlots
-    }
-}
 </script>
 
 <template>
