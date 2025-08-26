@@ -1,5 +1,5 @@
 import { h } from 'vue'
-import { ElInput, ElInputNumber } from 'element-plus'
+import { ElInput, ElInputNumber, ElSwitch } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
 import {
@@ -13,10 +13,13 @@ import {
 import type { Component, Ref } from 'vue'
 
 const CompMap: Record<string, Component> = {
+    // 单组件
     [EProFormItemType.INPUT]: ElInput,
     [EProFormItemType.PASSWORD]: ElInput,
     [EProFormItemType.INPUT_NUMBER]: ElInputNumber,
     [EProFormItemType.TEXTAREA]: ElInput,
+    [EProFormItemType.SWITCH]: ElSwitch,
+    // 多组件
     [EProFormItemType.SELECT]: JcSelect,
     [EProFormItemType.GROUP_SELECT]: JcGroupSelect,
     [EProFormItemType.RADIO]: JcRadio,
@@ -30,11 +33,16 @@ function createComp(
     formItem: ProFormItemType,
     options: any = {}
 ) {
+    const withTypeMap: Record<string, string> = {
+        [EProFormItemType.PASSWORD]: 'password',
+        [EProFormItemType.TEXTAREA]: 'textarea'
+    }
     return h(
         CompMap[formItem.type!],
         {
             ...formItem.props,
-            // formItemRaw: formItem,
+            // formItemRaw: formItem
+            type: withTypeMap[formItem.type!],
             modelValue: formData.value[formItem.key],
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&
