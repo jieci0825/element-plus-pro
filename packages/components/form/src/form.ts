@@ -1,44 +1,8 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType } from 'vue'
+import type { DatePickType } from 'element-plus'
 
-export enum EProFormItemType {
-    /**@description 单行文本框 */
-    INPUT = 'input',
-    /**@description 单行文本框 */
-    PASSWORD = 'password',
-    /**@description 计数器 */
-    INPUT_NUMBER = 'input_number',
-    /**@description 多行文本框 */
-    TEXTAREA = 'textarea',
-    /**@description 下拉选择 */
-    SELECT = 'select',
-    /**@description 分组下拉选择 */
-    GROUP_SELECT = 'group_select',
-    /**@description 单选 */
-    RADIO = 'radio',
-    /**@description 单选按钮 */
-    RADIO_BUTTON = 'radio_button',
-    /**@description 多选 */
-    CHECKBOX = 'checkbox',
-    /**@description 多选按钮 */
-    CHECKBOX_BUTTON = 'checkbox_button',
-    /**@description 开关 */
-    SWITCH = 'switch',
-    /**@description 日期 */
-    DATE = 'date',
-    /**@description 时间 */
-    TIME = 'time',
-    /**@description 日期时间 */
-    DATETIME = 'datetime',
-    /**@description 上传 */
-    UPLOAD = 'upload',
-    /**@description 级联选择 */
-    CASCADER = 'cascader',
-    /**@description 颜色选择器 */
-    COLOR = 'color'
-}
-
-export type ProFormItemTypeKeys =
+export type MyFormItemType =
     | 'input'
     | 'password'
     | 'input_number'
@@ -50,12 +14,11 @@ export type ProFormItemTypeKeys =
     | 'checkbox'
     | 'checkbox_button'
     | 'switch'
-    | 'date'
-    | 'time'
-    | 'datetime'
     | 'upload'
     | 'cascader'
     | 'color'
+
+export type ProFormItemTypeKeys = MyFormItemType | DatePickType
 
 export interface ProFormItemType {
     /**

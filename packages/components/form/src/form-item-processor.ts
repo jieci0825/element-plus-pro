@@ -1,8 +1,4 @@
-import {
-    EProFormItemType,
-    type ProFormItemType,
-    type ProFormProps
-} from './form'
+import { type ProFormItemType, type ProFormProps } from './form'
 import {
     EMPTY_OBJ,
     isFunction,
@@ -50,7 +46,7 @@ function processFormItemDefaultValue(
         customSlot: false,
         hidden: false,
         span: formProps.span || 24,
-        type: EProFormItemType.INPUT
+        type: 'input'
     }
 
     // 批量设置默认值

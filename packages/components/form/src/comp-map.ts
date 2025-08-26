@@ -1,6 +1,12 @@
-import { h } from 'vue'
-import { ElInput, ElInputNumber, ElSwitch } from 'element-plus'
-import { EProFormItemType, ProFormItemType } from './form'
+import { h, Comment } from 'vue'
+import {
+    DatePickType,
+    ElDatePicker,
+    ElInput,
+    ElInputNumber,
+    ElSwitch
+} from 'element-plus'
+import { ProFormItemType, ProFormItemTypeKeys } from './form'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
 import {
     JcCheckbox,
@@ -12,37 +18,82 @@ import {
 } from './jc-comps'
 import type { Component, Ref } from 'vue'
 
+const EmptyComp = ({ type }: { type: string }) =>
+    h(Comment, `暂不支持该 ${type} 类型的组件`)
+
 const CompMap: Record<string, Component> = {
     // 单组件
-    [EProFormItemType.INPUT]: ElInput,
-    [EProFormItemType.PASSWORD]: ElInput,
-    [EProFormItemType.INPUT_NUMBER]: ElInputNumber,
-    [EProFormItemType.TEXTAREA]: ElInput,
-    [EProFormItemType.SWITCH]: ElSwitch,
+    input: ElInput,
+    password: ElInput,
+    input_number: ElInputNumber,
+    textarea: ElInput,
+    switch: ElSwitch,
     // 多组件
-    [EProFormItemType.SELECT]: JcSelect,
-    [EProFormItemType.GROUP_SELECT]: JcGroupSelect,
-    [EProFormItemType.RADIO]: JcRadio,
-    [EProFormItemType.RADIO_BUTTON]: JcRadioButton,
-    [EProFormItemType.CHECKBOX]: JcCheckbox,
-    [EProFormItemType.CHECKBOX_BUTTON]: JcCheckboxButton
+    select: JcSelect,
+    group_select: JcGroupSelect,
+    radio: JcRadio,
+    radio_button: JcRadioButton,
+    checkbox: JcCheckbox,
+    checkbox_button: JcCheckboxButton
+}
+
+const DatePickTypes: DatePickType[] = [
+    'year',
+    'years',
+    'month',
+    'months',
+    'date',
+    'dates',
+    'datetime',
+    'week',
+    'datetimerange',
+    'daterange',
+    'monthrange',
+    'yearrange'
+]
+
+const useSelfTypes: ProFormItemTypeKeys[] = [
+    ...DatePickTypes,
+    'password',
+    'textarea'
+]
+
+function _getRenderComponent(
+    type: ProFormItemTypeKeys | undefined
+): Component | undefined {
+    if (!type) return undefined
+    // 如果可以从映射表中找到，则直接返回
+    if (CompMap[type]) {
+        return CompMap[type]
+    }
+    // 找不到则从判断是否是日期选择器
+    if (DatePickTypes.includes(type as DatePickType)) {
+        return ElDatePicker
+    }
+    return undefined
+}
+
+function _getRenderComponentType(
+    type: ProFormItemTypeKeys | undefined
+): ProFormItemTypeKeys | undefined {
+    if (!type) return undefined
+    if (useSelfTypes.includes(type)) {
+        return type
+    }
 }
 
 function createComp(
+    component: Component,
     formData: Ref<any>,
     formItem: ProFormItemType,
     options: any = {}
 ) {
-    const withTypeMap: Record<string, string> = {
-        [EProFormItemType.PASSWORD]: 'password',
-        [EProFormItemType.TEXTAREA]: 'textarea'
-    }
     return h(
-        CompMap[formItem.type!],
+        component,
         {
             ...formItem.props,
             // formItemRaw: formItem
-            type: withTypeMap[formItem.type!],
+            type: _getRenderComponentType(formItem.type),
             modelValue: formData.value[formItem.key],
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&
@@ -56,16 +107,9 @@ function createComp(
 // 创建组件映射
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
     function getComp(item: ProFormItemType) {
-        const { type } = item
-        if (!type) return
-        if (CompMap[type]) {
-            return createComp(formData, item, options)
-        }
-        return h(
-            'div',
-            { style: { color: 'red', fontWeight: 'bold' } },
-            `暂不支持该 "${type}" 组件类型`
-        )
+        const renderComponent = _getRenderComponent(item.type)
+        if (!renderComponent) return EmptyComp({ type: item.type! })
+        return createComp(renderComponent, formData, item, options)
     }
 
     return [getComp]
