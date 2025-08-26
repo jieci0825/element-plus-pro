@@ -18,6 +18,7 @@ import {
 } from './jc-comps'
 import type { Component, Ref } from 'vue'
 
+// 空组件
 const EmptyComp = ({ type }: { type: string }) =>
     h(Comment, `暂不支持该 ${type} 类型的组件`)
 
@@ -59,7 +60,9 @@ const typesWithCustomProps: ProFormItemTypeKeys[] = [
     'textarea'
 ]
 
-// 根据类型获取组件
+/**
+ * 根据类型获取组件
+ */
 function getComponentByType(
     type: ProFormItemTypeKeys | undefined
 ): Component | undefined {
@@ -75,7 +78,9 @@ function getComponentByType(
     return undefined
 }
 
-// 获取有效的类型
+/**
+ * 获取有效的类型
+ */
 function getEffectiveType(
     type: ProFormItemTypeKeys | undefined
 ): ProFormItemTypeKeys | undefined {
@@ -85,6 +90,9 @@ function getEffectiveType(
     }
 }
 
+/**
+ * 创建组件
+ */
 function createComp(
     component: Component,
     formData: Ref<any>,
@@ -107,7 +115,9 @@ function createComp(
     )
 }
 
-// 创建组件映射
+/**
+ * 创建组件映射
+ */
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
     function getComp(item: ProFormItemType) {
         const renderComponent = getComponentByType(item.type)
