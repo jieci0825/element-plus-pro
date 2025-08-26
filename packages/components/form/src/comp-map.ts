@@ -75,7 +75,8 @@ function getComponentByType(
     return undefined
 }
 
-function _getRenderComponentType(
+// 获取有效的类型
+function getEffectiveType(
     type: ProFormItemTypeKeys | undefined
 ): ProFormItemTypeKeys | undefined {
     if (!type) return undefined
@@ -95,7 +96,7 @@ function createComp(
         {
             ...formItem.props,
             // formItemRaw: formItem
-            type: _getRenderComponentType(formItem.type),
+            type: getEffectiveType(formItem.type),
             modelValue: formData.value[formItem.key],
             'onUpdate:modelValue': (value: any) => {
                 options.onUpdateModelValue &&
