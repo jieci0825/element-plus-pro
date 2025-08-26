@@ -23,6 +23,7 @@ const slots = defineSlots()
             <template v-else>
                 <el-option
                     v-for="item in group.options"
+                    :key="item.value"
                     v-bind="omit(item, ['elSlots'])"
                 >
                     <template #default>

@@ -14,6 +14,7 @@ const slots = defineSlots()
         </template>
         <el-option
             v-for="item in attrs.options"
+            :key="item.value"
             v-bind="omit(item, ['elSlots'])"
         >
             <template #default>

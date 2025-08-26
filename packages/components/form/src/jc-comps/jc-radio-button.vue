@@ -9,6 +9,7 @@ const attrs: any = useAttrs()
     <el-radio-group v-bind="attrs">
         <el-radio-button
             v-for="item in attrs.options"
+            :key="item.value"
             v-bind="omit(item, ['elSlots'])"
         >
             <template #default>
