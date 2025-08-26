@@ -1,9 +1,8 @@
-import JcSelect from './jc-comps/jc-select.vue'
-import JcGroupSelect from './jc-comps/jc-group-select.vue'
 import { h } from 'vue'
 import { ElInput, ElInputNumber } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
+import { JcGroupSelect, JcSelect } from './jc-comps'
 import type { Component, Ref } from 'vue'
 
 const CompMap: Record<string, Component> = {
