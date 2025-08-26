@@ -16,7 +16,7 @@ export const getElDefaultSlot = (elSlots: any) => {
 }
 
 /**
- * 获取默认插槽并转换为组件，避免响应式警告
+ * 获取默认插槽并转换为组件
  * @param option
  * @returns component
  */
