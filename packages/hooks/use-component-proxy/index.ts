@@ -16,10 +16,9 @@ export const useComponentProxy = <T extends object>(
                 : false
         },
         set(target, key: string | symbol, value: any) {
-            if (componentInstance.value) {
-                ;(componentInstance.value as any)[key] = value
-                return true
-            }
+            console.warn(
+                `[useComponentProxy] You cannot make any changes to the instance.`
+            )
             return false
         }
     })
