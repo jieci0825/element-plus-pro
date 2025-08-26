@@ -1,5 +1,5 @@
-import JcSelect from './jc-select.vue'
-import JcGroupSelect from './jc-group-select.vue'
+import JcSelect from './jc-comps/jc-select.vue'
+import JcGroupSelect from './jc-comps/jc-group-select.vue'
 import { h } from 'vue'
 import { ElInput, ElInputNumber } from 'element-plus'
 import { EProFormItemType, ProFormItemType } from './form'
