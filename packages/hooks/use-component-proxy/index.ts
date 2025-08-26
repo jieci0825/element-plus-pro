@@ -4,7 +4,7 @@ import type { Ref } from 'vue'
  * 代理组件实例
  */
 export const useComponentProxy = <T extends object>(
-    componentInstance: Ref<T | undefined>
+    componentInstance: Ref<T | null>
 ): T => {
     const proxy = new Proxy({} as T, {
         get(target, key: string | symbol) {
