@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ProForm, ProFormItemType } from '@jc/element-plus-pro-components'
-import { h, ref } from 'vue'
+import { h, ref, useTemplateRef } from 'vue'
 import { FormRules } from 'element-plus'
 
 const formItems: ProFormItemType[] = [
@@ -8,7 +8,15 @@ const formItems: ProFormItemType[] = [
         label: '姓名',
         key: 'name',
         type: 'input',
-        placeholder: '请输入姓名',
+        placeholder: '请输入姓名'
+    },
+    {
+        label: '个人主页',
+        key: 'homepage',
+        type: 'input',
+        props: {
+            placholder: 'www.me.com'
+        },
         elSlots: {
             // prepend: () => 'Http://'
             // - or 如果是字符串则可以直接书写
@@ -116,10 +124,16 @@ interface RuleForm {
 }
 
 const rules: FormRules<RuleForm> = {
-    name: [{ required: true, message: '必填项', trigger: 'blur' }]
+    name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]
 }
 
 const form = ref({})
+const formInstance = useTemplateRef('formRef')
+const handleValidate = () => {
+    // 具体使用同 element-plus
+    //  - https://element-plus.org/zh-CN/component/form.html#表单校验
+    formInstance.value.validate()
+}
 </script>
 
 <template>
@@ -128,12 +142,14 @@ const form = ref({})
             <el-button type="primary" @click="() => console.log(form)"
                 >获取值</el-button
             >
+            <el-button type="warning" @click="handleValidate">校验</el-button>
         </div>
         <ProForm
             label-width="100px"
             :rules="rules"
             :form-items="formItems"
             v-model="form"
+            ref="formRef"
         >
             <template #custom>
                 <i>自定义slot</i>
