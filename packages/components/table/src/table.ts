@@ -1,4 +1,5 @@
-import type { ExtractPropTypes, VNode, Component } from 'vue'
+import type { ExtractPropTypes, VNode, Component, PropType } from 'vue'
+import type { CellConfig } from './table-cell.type'
 
 export interface HeaderRenderConfig {
     /**
@@ -20,12 +21,24 @@ export interface ProTableColumnType {
     /**
      * @description 列名-表头显示的名称
      */
-    label: HeaderConfig
+    label?: HeaderConfig
 
     /**
      * @description 字段名-对应数据中的字段名
      */
     prop: string
+
+    /**
+     * @description 单元格配置-默认为 txt
+     */
+    cell?: CellConfig
+
+    /**
+     * @description 是否隐藏该列
+     */
+    hidden?: boolean
+
+    // 其余与 ElTableColumn 相同的属性
 }
 
 export const proTableProps = {
@@ -36,11 +49,12 @@ export const proTableProps = {
         type: Array,
         default: () => []
     },
+
     /**
      * @description 表格列配置
      */
     tableColumns: {
-        type: Array,
+        type: Array as PropType<ProTableColumnType[]>,
         default: () => []
     }
 } as const
