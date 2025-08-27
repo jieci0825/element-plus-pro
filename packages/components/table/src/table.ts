@@ -1,5 +1,5 @@
 import type { ExtractPropTypes, VNode, Component, PropType } from 'vue'
-import type { CellConfig } from './table-cell.type'
+import type { CellConfig, SizeType } from './table-cell.type'
 
 export interface HeaderRenderConfig {
     /**
@@ -12,10 +12,42 @@ export interface HeaderRenderConfig {
     slot?: string
 }
 
-/**
- * @description 表头配置类型 - 支持字符串或渲染配置
- */
+// 表头配置类型 - 支持字符串或渲染配置
 export type HeaderConfig = string | HeaderRenderConfig
+
+type BooleanOrUndefined = boolean | undefined
+type StringOrUndefined = string | undefined
+type ComponentOrUndefined = Component | undefined
+// 操作列配置
+//  - 所有的元组传递，如果只想改变其中一个，其他的想使用默认的可以传递 undefined
+export interface OperationColumnConfig {
+    size?: SizeType
+    isFixed?: boolean
+    // 是否以文本按钮的样式展示
+    isTextBtn?: boolean
+    // 是否需要icon
+    isNeedIcon?: boolean
+    // 按钮展示模式：icon-text:图标+文本；icon-only:图标；text-only:文本
+    displayMode?: 'icon-text' | 'icon-only' | 'text-only'
+    // 是否隐藏按钮-数组形式，分别对应查看、编辑、删除
+    hideBtns?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
+    // 是否禁用按钮-数组形式，分别对应查看、编辑、删除
+    disabledBtns?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
+    // 是否取消按钮点击事件的前置默认行为-数组形式，分别对应查看、编辑、删除
+    cancelDefault?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
+    // 替换按钮展示文本-数组形式，分别对应查看、编辑、删除
+    btnTexts?: [StringOrUndefined, StringOrUndefined, StringOrUndefined]
+    // 替换按钮图标-数组形式，分别对应查看、编辑、删除
+    btnIcons?: [
+        StringOrUndefined | ComponentOrUndefined,
+        StringOrUndefined | ComponentOrUndefined,
+        StringOrUndefined | ComponentOrUndefined
+    ]
+    editClick?: (row: any) => void
+    viewClick?: (row: any) => void
+    deleteClick?: (row: any) => void
+    handleClick?: (row: any, btnType: 'edit' | 'view' | 'delete') => void
+}
 
 export interface ProTableColumnType {
     /**
@@ -56,6 +88,14 @@ export const proTableProps = {
     tableColumns: {
         type: Array as PropType<ProTableColumnType[]>,
         default: () => []
+    },
+
+    /**
+     * @description 是否启用操作列-即在表格末尾添加一列，用于存放操作按钮，如果需要配置，可以传递配置对象
+     */
+    enableOperationColumn: {
+        type: [Boolean, Object] as PropType<OperationColumnConfig | Boolean>,
+        default: true
     }
 } as const
 

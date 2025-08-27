@@ -8,7 +8,7 @@ import type {
 } from 'element-plus'
 import type { Component, VNode } from 'vue'
 
-type SizeType = 'large' | 'default' | 'small'
+export type SizeType = 'large' | 'default' | 'small'
 
 /**
  * @description 预设单元格类型
@@ -18,7 +18,6 @@ export type PresetCellType =
     | 'tag'
     | 'image'
     | 'switch'
-    | 'btns'
     | 'input'
     | 'input_number'
     | 'select'
@@ -41,25 +40,6 @@ export interface ImageCellTypeProps extends ImageProps {
     width?: number
     height?: number
     isCircle?: boolean
-}
-
-// 按钮单元格类型-编辑、查看、删除
-export interface BtnsCellTypeProps {
-    cellType: 'btns'
-    // 是否以文本按钮的样式展示
-    isTextBtn?: boolean
-    // 是否需要icon
-    isNeedIcon?: boolean
-    // 按钮展示模式：icon-text:图标+文本；icon-only:图标；text-only:文本
-    displayMode?: 'icon-text' | 'icon-only' | 'text-only'
-    hideEdit?: boolean
-    hideView?: boolean
-    hideDelete?: boolean
-    disabledEdit?: boolean
-    disabledView?: boolean
-    disabledDelete?: boolean
-    size?: SizeType
-    onClick?: (row: any, column: any) => void
 }
 
 // 输入框单元格类型
@@ -95,8 +75,9 @@ export type PresetCellTypeProps =
     | TxtCellTypeProps
     | TagCellTypeProps
     | ImageCellTypeProps
-    | BtnsCellTypeProps
     | InputCellTypeProps
+    | InputNumberCellTypeProps
+    | SelectCellTypeProps
 
 export interface CellRenderConfig {
     /**
