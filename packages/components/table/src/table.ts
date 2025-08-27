@@ -31,13 +31,9 @@ export interface OperationColumnConfig {
     displayMode?: 'icon-text' | 'icon-only' | 'text-only'
     // 是否隐藏按钮-数组形式，分别对应查看、编辑、删除
     hideBtns?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
-    // 是否禁用按钮-数组形式，分别对应查看、编辑、删除
     disabledBtns?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
-    // 是否取消按钮点击事件的前置默认行为-数组形式，分别对应查看、编辑、删除
     cancelDefault?: [BooleanOrUndefined, BooleanOrUndefined, BooleanOrUndefined]
-    // 替换按钮展示文本-数组形式，分别对应查看、编辑、删除
     btnTexts?: [StringOrUndefined, StringOrUndefined, StringOrUndefined]
-    // 替换按钮图标-数组形式，分别对应查看、编辑、删除
     btnIcons?: [
         StringOrUndefined | ComponentOrUndefined,
         StringOrUndefined | ComponentOrUndefined,
