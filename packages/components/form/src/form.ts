@@ -24,7 +24,7 @@ export interface ProFormItemType {
     /**
      * @description 表单名称
      */
-    label: string
+    label: string | Component
 
     /**
      * @description 表单key
@@ -32,9 +32,14 @@ export interface ProFormItemType {
     key: string
 
     /**
-     * @description 提示信息
+     * @description 隐藏label
      */
-    toolTip?: string | Component
+    hideLabel?: boolean
+
+    /**
+     * @description 提示信息-仅label为文本时有效
+     */
+    tooltip?: string
 
     /**
      * @description 表单项类型

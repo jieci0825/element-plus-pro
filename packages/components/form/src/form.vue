@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { useTemplateRef, computed, toRef } from 'vue'
-import { proFormEmits, proFormProps } from './form'
+import { proFormEmits, type ProFormItemType, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
 import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
 import type { FormInstance } from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import { useComponentProxy } from '@jc/element-plus-pro-hooks'
 import { createFormItemCompMap } from './comp-map'
+import { isFunction, isString } from '@jc/element-plus-pro-utils'
+import { h } from 'vue'
+import { JcLabelTooltip } from './jc-comps'
 
 defineOptions({
     name: 'ProForm'
@@ -30,6 +33,22 @@ const items = computed(() => processFormItems(props))
 const [getComp] = createFormItemCompMap(formData, {
     onUpdateModelValue: updateFormValue
 })
+
+const getFormItemLabelComp = (item: ProFormItemType) => {
+    if (isString(item.label)) {
+        if (item.tooltip && isString(item.tooltip)) {
+            return h(JcLabelTooltip, {
+                label: item.label,
+                tooltip: item.tooltip
+            })
+        }
+        return undefined
+    }
+    if (isFunction(item.label)) {
+        return item.label
+    }
+}
+
 defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
@@ -41,7 +60,14 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                 :key="item.key"
                 :span="item.span || props.span"
             >
-                <el-form-item :label="item.label" :prop="item.key">
+                <el-form-item
+                    v-if="!item.hideLabel"
+                    :label="isString(item.label) ? item.label : undefined"
+                    :prop="item.key"
+                >
+                    <template v-if="getFormItemLabelComp(item)" #label>
+                        <Component :is="getFormItemLabelComp(item)" />
+                    </template>
                     <template v-if="item.customSlot">
                         <slot :name="item.key"></slot>
                     </template>
@@ -49,6 +75,14 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                         <Component :is="getComp(item)" />
                     </template>
                 </el-form-item>
+                <template v-else :prop="item.key">
+                    <template v-if="item.customSlot">
+                        <slot :name="item.key"></slot>
+                    </template>
+                    <template v-else>
+                        <Component :is="getComp(item)" />
+                    </template>
+                </template>
             </el-col>
         </el-row>
     </el-form>

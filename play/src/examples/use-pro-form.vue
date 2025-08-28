@@ -8,7 +8,8 @@ const formItems: ProFormItemType[] = [
         label: '姓名',
         key: 'name',
         type: 'input',
-        placeholder: '请输入姓名'
+        placeholder: '请输入姓名',
+        tooltip: '可以是网名'
     },
     {
         label: '个人主页',
