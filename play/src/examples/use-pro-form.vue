@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { ProForm, ProFormItemType } from '@jc/element-plus-pro-components'
+import {
+    ProForm,
+    ProFormFooterConfig,
+    ProFormItemType
+} from '@jc/element-plus-pro-components'
 import { h, ref, useTemplateRef } from 'vue'
 import { FormRules } from 'element-plus'
 
@@ -120,20 +124,30 @@ const formItems: ProFormItemType[] = [
     }
 ]
 
+const footerConfig: ProFormFooterConfig = {}
+
 interface RuleForm {
     name: string
+    gender: string
 }
 
 const rules: FormRules<RuleForm> = {
-    name: [{ required: true, message: '请输入姓名', trigger: 'blur' }]
+    name: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
+    gender: [{ required: true, message: '请选择性别', trigger: 'change' }]
 }
 
-const form = ref({})
+const form = ref({
+    name: '张三'
+})
 const formInstance = useTemplateRef('formRef')
 const handleValidate = () => {
     // 具体使用同 element-plus
     //  - https://element-plus.org/zh-CN/component/form.html#表单校验
     formInstance.value.validate()
+}
+
+const handleSubmit = (value, errInfo) => {
+    console.log(value, errInfo)
 }
 </script>
 
@@ -149,8 +163,10 @@ const handleValidate = () => {
             label-width="100px"
             :rules="rules"
             :form-items="formItems"
+            :footer-config="footerConfig"
             v-model="form"
             ref="formRef"
+            @submit="handleSubmit"
         >
             <template #custom>
                 <i>自定义slot</i>
