@@ -53,6 +53,7 @@ export type SearchConfig = Omit<ProFormProps, 'modelValue'> & {
     afterSearch?: (data: Record<string, any>) => void
     beforeReset?: (data: Record<string, any>) => void
     afterReset?: (data: Record<string, any>) => void
+    // 重置、搜索
     hideBtns?: [boolean, boolean]
     btnTexts?: [StringOrUndefined, StringOrUndefined]
     btnIcons?: [
