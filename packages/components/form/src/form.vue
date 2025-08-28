@@ -10,6 +10,7 @@ import { createFormItemCompMap } from './comp-map'
 import { isFunction, isString } from '@jc/element-plus-pro-utils'
 import { h } from 'vue'
 import { JcLabelTooltip } from './jc-comps'
+import { formFooterProcess } from './form-footer-process'
 
 defineOptions({
     name: 'ProForm'
@@ -49,6 +50,36 @@ const getFormItemLabelComp = (item: ProFormItemType) => {
     }
 }
 
+const { hideFooter, submitText, resetText, hideResetBtn, hideSubmitBtn } =
+    formFooterProcess(props.footerConfig, elFormInstance)
+
+const handleSubmit = async () => {
+    const onSubmit = props.footerConfig?.onSubmit
+    if (onSubmit && isFunction(onSubmit)) {
+        onSubmit()
+        return
+    }
+
+    let errInfo: any = null
+
+    await elFormInstance.value.validate((valid, fields) => {
+        if (!valid) {
+            errInfo = fields
+        }
+    })
+    emit('submit', formData.value, errInfo)
+}
+
+const handleReset = () => {
+    const onReset = props.footerConfig?.onReset
+    if (onReset && isFunction(onReset)) {
+        onReset()
+        return
+    }
+    elFormInstance.value.resetFields()
+    emit('reset')
+}
+
 defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
@@ -84,6 +115,36 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                     </template>
                 </template>
             </el-col>
+            <el-col
+                v-if="!hideFooter"
+                :span="props.span || props.footerConfig.span || 24"
+            >
+                <el-form-item>
+                    <slot name="footer">
+                        <div class="footer">
+                            <el-button
+                                v-if="!hideResetBtn"
+                                @click="handleReset"
+                                >{{ resetText }}</el-button
+                            >
+                            <el-button
+                                v-if="!hideSubmitBtn"
+                                @click="handleSubmit"
+                                type="primary"
+                                >{{ submitText }}</el-button
+                            >
+                        </div>
+                    </slot>
+                </el-form-item>
+            </el-col>
         </el-row>
     </el-form>
 </template>
+
+<style lang="scss" scoped>
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+</style>

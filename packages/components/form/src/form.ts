@@ -77,6 +77,18 @@ export interface ProFormItemType {
     [key: string]: any
 }
 
+export type StringOrUndefined = string | undefined
+export type ComponentOrUndefined = Component | undefined
+export type ProFormFooterConfig = {
+    // 重置、搜索
+    hideBtns?: [boolean, boolean]
+    btnTexts?: [StringOrUndefined, StringOrUndefined]
+    align?: 'left' | 'center' | 'right'
+    onSubmit?: Function
+    onReset?: Function
+    span?: number
+}
+
 export const proFormProps = {
     /**
      * @description 表单数据
@@ -108,6 +120,14 @@ export const proFormProps = {
     span: {
         type: Number as PropType<number>,
         default: 24
+    },
+
+    /**
+     * @description 页脚配置
+     */
+    footerConfig: {
+        type: [Object, null] as PropType<ProFormFooterConfig | null>,
+        default: () => ({})
     }
 
     // 其他属性则会直接透传给 el-form
@@ -116,6 +136,8 @@ export const proFormProps = {
 export type ProFormProps = ExtractPropTypes<typeof proFormProps>
 
 export const proFormEmits = {
-    [UPDATE_MODEL_EVENT]: (value: any) => true
+    [UPDATE_MODEL_EVENT]: (value: any) => true,
+    submit: (value: any, errInfo: any) => true,
+    reset: () => true
 }
 export type ProFormEmits = typeof proFormEmits
