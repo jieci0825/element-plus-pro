@@ -1,5 +1,5 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, Component } from 'vue'
 import type { DatePickType } from 'element-plus'
 
 export type MyFormItemType =
@@ -30,6 +30,11 @@ export interface ProFormItemType {
      * @description 表单key
      */
     key: string
+
+    /**
+     * @description 提示信息
+     */
+    toolTip?: string | Component
 
     /**
      * @description 表单项类型
