@@ -121,7 +121,12 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
             >
                 <el-form-item>
                     <slot name="footer">
-                        <div class="footer">
+                        <div
+                            :class="[
+                                'footer',
+                                `footer--${props.footerConfig.align || 'right'}`
+                            ]"
+                        >
                             <el-button
                                 v-if="!hideResetBtn"
                                 @click="handleReset"
@@ -146,5 +151,11 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
     width: 100%;
     display: flex;
     justify-content: flex-end;
+}
+.footer--left {
+    justify-content: flex-start;
+}
+.footer--center {
+    justify-content: center;
 }
 </style>
