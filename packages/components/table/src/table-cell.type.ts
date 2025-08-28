@@ -20,11 +20,14 @@ export type PresetCellType =
     | 'input'
     | 'input_number'
     | 'select'
+    | 'dot_tag' // 类似这种表现形式（● 正常）
+    | 'progress'
 
 // 文本单元格类型
 export interface TxtCellTypeProps {
     cellType: 'txt'
     formatValue?: (value: any) => string
+    isCopy?: boolean // 开启后文本右侧会有一个复制图标
 }
 
 // 标签单元格类型
