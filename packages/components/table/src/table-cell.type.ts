@@ -4,11 +4,10 @@ import type {
     InputProps,
     InputEmits,
     InputNumberProps,
-    InputNumberEmits
+    InputNumberEmits,
+    ComponentSize
 } from 'element-plus'
 import type { Component, VNode } from 'vue'
-
-export type SizeType = 'large' | 'default' | 'small'
 
 /**
  * @description 预设单元格类型
@@ -31,7 +30,7 @@ export interface TxtCellTypeProps {
 // 标签单元格类型
 export interface TagCellTypeProps extends TagProps {
     cellType: 'tag'
-    size?: SizeType
+    size?: ComponentSize
 }
 
 // 图片单元格类型
@@ -45,7 +44,7 @@ export interface ImageCellTypeProps extends ImageProps {
 // 输入框单元格类型
 export interface InputCellTypeProps extends InputProps, InputEmits {
     cellType: 'input'
-    size?: SizeType
+    size?: ComponentSize
 }
 
 // 计数器单元格类型
@@ -53,7 +52,7 @@ export interface InputNumberCellTypeProps
     extends InputNumberProps,
         InputNumberEmits {
     cellType: 'input_number'
-    size?: SizeType
+    size?: ComponentSize
 }
 
 type SelectCellOptions = {
@@ -66,7 +65,7 @@ export interface SelectCellTypeProps {
     cellType: 'select'
     options: SelectCellOptions[]
     multiple?: boolean
-    size?: SizeType
+    size?: ComponentSize
     onChange?: (value: any) => void
 }
 

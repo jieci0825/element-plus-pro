@@ -1,5 +1,6 @@
 import type { ExtractPropTypes, VNode, Component, PropType } from 'vue'
-import type { CellConfig, SizeType } from './table-cell.type'
+import type { CellConfig } from './table-cell.type'
+import type { ComponentSize } from 'element-plus'
 
 export interface HeaderRenderConfig {
     /**
@@ -21,7 +22,7 @@ type ComponentOrUndefined = Component | undefined
 // 操作列配置
 //  - 所有的元组传递，如果只想改变其中一个，其他的想使用默认的可以传递 undefined
 export interface OperationColumnConfig {
-    size?: SizeType
+    size?: ComponentSize
     isFixed?: boolean
     // 是否以文本按钮的样式展示
     isTextBtn?: boolean
@@ -42,6 +43,7 @@ export interface OperationColumnConfig {
     editClick?: (row: any) => void
     viewClick?: (row: any) => void
     deleteClick?: (row: any) => void
+    // 当你不想给每一个按钮都单独配置点击事件，希望统一配置点击事件时，可以传递这个，当存在单独click事件配置时，优先使用单独的
     handleClick?: (row: any, btnType: 'edit' | 'view' | 'delete') => void
 }
 
