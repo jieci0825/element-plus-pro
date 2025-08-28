@@ -13,6 +13,10 @@ catalogs:
 importers:
 
   .:
+    dependencies:
+      '@element-plus/icons-vue':
+        specifier: ^2.3.2
+        version: 2.3.2(vue@3.5.19(typescript@5.9.2))
     devDependencies:
       '@jc/element-plus-pro-components':
         specifier: workspace:*
