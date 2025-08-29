@@ -1,81 +1,7 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType, Component } from 'vue'
-import type { DatePickType, FormItemProps, FormInstance } from 'element-plus'
-
-export type MyFormItemType =
-    | 'input'
-    | 'password'
-    | 'input_number'
-    | 'textarea'
-    | 'select'
-    | 'group_select'
-    | 'radio'
-    | 'radio_button'
-    | 'checkbox'
-    | 'checkbox_button'
-    | 'switch'
-    | 'upload'
-    | 'cascader'
-    | 'color'
-
-export type ProFormItemTypeKeys = MyFormItemType | DatePickType
-
-export interface ProFormItemType extends Partial<Omit<FormItemProps, 'label'>> {
-    /**
-     * @description 表单名称
-     */
-    label: string | Component
-
-    /**
-     * @description 表单key
-     */
-    key: string
-
-    /**
-     * @description 隐藏label
-     */
-    hideLabel?: boolean
-
-    /**
-     * @description 提示信息-仅label为文本时有效
-     */
-    tooltip?: string
-
-    /**
-     * @description 表单项类型
-     */
-    type?: ProFormItemTypeKeys
-
-    /**
-     * @description 隐藏表单项
-     */
-    hidden?: boolean
-
-    /**
-     * @description 传递给原 ElementPlus 表单项的插槽
-     */
-    elSlots?: Record<string, Function | string>
-
-    /**
-     * @description 启用自定义插槽，插槽名默认取用当前表单项的 key，则不会渲染默认的表单项，需要自行实现表单项
-     */
-    customSlot?: boolean
-
-    /**
-     * @description 表单项所占栅格数-优先级高于form的span
-     */
-    span?: number
-
-    /**
-     * @description 传递给原 ElementPlus 表单项的属性
-     */
-    props?: Record<string, any>
-
-    /**
-     * @description 允许添加任意其他属性
-     */
-    [key: string]: any
-}
+import type { ProFormItemType } from './form-item.type'
+import type { FormInstance } from 'element-plus'
 
 export type StringOrUndefined = string | undefined
 export type ComponentOrUndefined = Component | undefined
@@ -133,9 +59,8 @@ export const proFormProps = {
     // 其他属性则会直接透传给 el-form
 } as const
 
-export type ProFormProps =
-    | ExtractPropTypes<typeof proFormProps>
-    | Omit<FormInstance['$props'], 'modelValue'>
+export type ProFormProps = ExtractPropTypes<typeof proFormProps> &
+    Omit<FormInstance['$props'], 'modelValue'>
 
 export const proFormEmits = {
     [UPDATE_MODEL_EVENT]: (value: any) => true,

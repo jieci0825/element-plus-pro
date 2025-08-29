@@ -7,7 +7,7 @@ import {
     ElInputNumber,
     ElSwitch
 } from 'element-plus'
-import { ProFormItemType, ProFormItemTypeKeys } from './form'
+import type { ProFormItemType, ProFormItemTypeKeys } from './form-item.type'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
 import {
     JcCheckbox,

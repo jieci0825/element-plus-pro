@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTemplateRef, computed, toRef } from 'vue'
-import { proFormEmits, type ProFormItemType, proFormProps } from './form'
+import { proFormEmits, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
 import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
 import type { FormInstance } from 'element-plus'
@@ -11,6 +11,7 @@ import { isFunction, isString } from '@jc/element-plus-pro-utils'
 import { h } from 'vue'
 import { JcLabelTooltip } from './jc-comps'
 import { formFooterProcess } from './form-footer-process'
+import { ProFormItemType } from './form-item.type'
 
 defineOptions({
     name: 'ProForm'

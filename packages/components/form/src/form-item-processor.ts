@@ -1,4 +1,4 @@
-import { type ProFormItemType, type ProFormProps } from './form'
+import type { ProFormProps } from './form'
 import {
     EMPTY_OBJ,
     isFunction,
@@ -7,6 +7,7 @@ import {
     isUndefined,
     omit
 } from '@jc/element-plus-pro-utils'
+import type { ProFormItemType } from './form-item.type'
 
 /**
  * 处理单个表单项-el插槽
