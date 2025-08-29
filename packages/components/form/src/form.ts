@@ -1,6 +1,6 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType, Component } from 'vue'
-import type { DatePickType, FormItemProps } from 'element-plus'
+import type { DatePickType, FormItemProps, FormInstance } from 'element-plus'
 
 export type MyFormItemType =
     | 'input'
@@ -133,7 +133,9 @@ export const proFormProps = {
     // 其他属性则会直接透传给 el-form
 } as const
 
-export type ProFormProps = ExtractPropTypes<typeof proFormProps>
+export type ProFormProps =
+    | ExtractPropTypes<typeof proFormProps>
+    | Omit<FormInstance['$props'], 'modelValue'>
 
 export const proFormEmits = {
     [UPDATE_MODEL_EVENT]: (value: any) => true,
