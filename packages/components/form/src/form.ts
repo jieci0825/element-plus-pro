@@ -1,6 +1,6 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType, Component } from 'vue'
-import type { DatePickType } from 'element-plus'
+import type { DatePickType, FormItemProps } from 'element-plus'
 
 export type MyFormItemType =
     | 'input'
@@ -20,7 +20,7 @@ export type MyFormItemType =
 
 export type ProFormItemTypeKeys = MyFormItemType | DatePickType
 
-export interface ProFormItemType {
+export interface ProFormItemType extends Partial<Omit<FormItemProps, 'label'>> {
     /**
      * @description 表单名称
      */
