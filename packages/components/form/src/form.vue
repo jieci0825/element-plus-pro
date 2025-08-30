@@ -51,11 +51,17 @@ const getFormItemLabelComp = (item: ProFormItemType) => {
     }
 }
 
-const { hideFooter, submitText, resetText, hideResetBtn, hideSubmitBtn } =
-    formFooterProcess(props.footerConfig, elFormInstance)
+const {
+    showFooter,
+    submitText,
+    resetText,
+    hideResetBtn,
+    hideSubmitBtn,
+    fullFooterConfig
+} = formFooterProcess(props.footerConfig)
 
 const handleSubmit = async () => {
-    const onSubmit = props.footerConfig?.onSubmit
+    const onSubmit = fullFooterConfig?.onSubmit
     if (onSubmit && isFunction(onSubmit)) {
         onSubmit()
         return
@@ -63,7 +69,7 @@ const handleSubmit = async () => {
 
     let errInfo: any = null
 
-    await elFormInstance.value.validate((valid, fields) => {
+    await elFormInstance.value?.validate((valid, fields) => {
         if (!valid) {
             errInfo = fields
         }
@@ -72,12 +78,12 @@ const handleSubmit = async () => {
 }
 
 const handleReset = () => {
-    const onReset = props.footerConfig?.onReset
+    const onReset = fullFooterConfig?.onReset
     if (onReset && isFunction(onReset)) {
         onReset()
         return
     }
-    elFormInstance.value.resetFields()
+    elFormInstance.value?.resetFields()
     emit('reset')
 }
 
@@ -117,15 +123,15 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                 </template>
             </el-col>
             <el-col
-                v-if="!hideFooter"
-                :span="props.span || props.footerConfig.span || 24"
+                v-if="showFooter"
+                :span="props.span || fullFooterConfig?.span || 24"
             >
                 <el-form-item>
                     <slot name="footer">
                         <div
                             :class="[
                                 'footer',
-                                `footer--${props.footerConfig.align || 'right'}`
+                                `footer--${fullFooterConfig?.align || 'right'}`
                             ]"
                         >
                             <el-button

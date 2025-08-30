@@ -1,21 +1,37 @@
 import { computed } from 'vue'
 import type { ProFormFooterConfig } from './form'
-import type { FormInstance } from 'element-plus'
-import type { Ref } from 'vue'
+import { isObject } from '@jc/element-plus-pro-utils'
 
-export function formFooterProcess(
-    footerConfig: ProFormFooterConfig,
-    elFormInstance: Ref<FormInstance>
-) {
-    const hideFooter = computed(() => {
-        if (footerConfig === null) {
+export function formFooterProcess(footerConfig: ProFormFooterConfig | null) {
+    const showFooter = computed(() => {
+        if (footerConfig === undefined || isObject(footerConfig)) {
             return true
         }
         return false
     })
 
+    const defaultFooterConfig: ProFormFooterConfig = {
+        hideBtns: [false, false],
+        btnTexts: ['重置', '确认'],
+        align: 'right',
+        onSubmit: undefined,
+        onReset: undefined,
+        span: 24
+    }
+
+    // 合并默认配置
+    if (isObject(footerConfig)) {
+        footerConfig = {
+            ...defaultFooterConfig,
+            ...footerConfig
+        }
+    } else {
+        footerConfig = defaultFooterConfig
+    }
+
     const resetText = computed(() => {
         let text = '重置'
+        if (!footerConfig) return
         if (footerConfig.btnTexts && footerConfig.btnTexts[0]) {
             text = footerConfig.btnTexts[0]
         }
@@ -47,10 +63,11 @@ export function formFooterProcess(
     })
 
     return {
-        hideFooter,
+        showFooter,
         resetText,
         submitText,
         hideResetBtn,
-        hideSubmitBtn
+        hideSubmitBtn,
+        fullFooterConfig: footerConfig
     }
 }
