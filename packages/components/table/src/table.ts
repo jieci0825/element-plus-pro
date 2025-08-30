@@ -1,28 +1,20 @@
-import type { ExtractPropTypes, VNode, Component, PropType } from 'vue'
+import type { ExtractPropTypes, Component, PropType } from 'vue'
 import type { CellConfig } from './table-cell.type'
+import type { OperationColumnConfig } from './operateion-columb.type'
+import type {
+    PaginationEmits,
+    PaginationProps,
+    TableColumnInstance
+} from 'element-plus'
+import type { ProFormProps } from 'packages/element-plus-pro'
 import type {
     ComponentOrUndefined,
-    OperationColumnConfig,
+    HeaderConfig,
     StringOrUndefined
-} from './operateion-columb.type'
-import type { PaginationEmits, PaginationProps } from 'element-plus'
-import { ProFormProps } from 'packages/element-plus-pro'
+} from './common.type'
 
-export interface HeaderRenderConfig {
-    /**
-     * @description 渲染函数-优先级大于 slot 配置
-     */
-    render?: () => VNode | Component
-    /**
-     * @description 插槽名称
-     */
-    slot?: string
-}
-
-// 表头配置类型 - 支持字符串或渲染配置
-export type HeaderConfig = string | HeaderRenderConfig
-
-export interface ProTableColumnType {
+export interface ProTableColumnType
+    extends Omit<TableColumnInstance['$props'], 'label' | 'prop'> {
     /**
      * @description 列名-表头显示的名称
      */
@@ -42,6 +34,13 @@ export interface ProTableColumnType {
      * @description 是否隐藏该列
      */
     hidden?: boolean
+
+    /**
+     * @description 对齐方式
+     */
+    align?: 'left' | 'center' | 'right'
+
+    [key: string]: any
 
     // 其余与 ElTableColumn 相同的属性
 }
@@ -69,6 +68,13 @@ export type HeaderToolbarConfig = {
     hideRightBtns?: [boolean, boolean, boolean]
     leftSlot: string | Component
     rightSlot: string | Component
+}
+
+export type RequestApiConfig = {
+    get: (params: Record<string, any>) => Promise<any>
+    del?: (params: Record<string, any>) => Promise<any>
+    edit?: (params: Record<string, any>) => Promise<any>
+    add?: (params: Record<string, any>) => Promise<any>
 }
 
 export const proTableProps = {
@@ -134,7 +140,23 @@ export const proTableProps = {
     headerToolbarConfig: {
         type: [null, Object] as PropType<HeaderToolbarConfig | null>,
         default: () => ({})
+    },
+
+    /**
+     * @description 对齐方式
+     */
+    align: {
+        type: String as PropType<'left' | 'center' | 'right'>,
+        default: 'center'
+    },
+
+    /**
+     * @description 请求接口配置
+     */
+    requestApiConfig: {
+        type: Object as PropType<RequestApiConfig>,
+        default: () => ({})
     }
 } as const
 
-export type ProTable = ExtractPropTypes<typeof proTableProps>
+export type ProTableProps = ExtractPropTypes<typeof proTableProps>

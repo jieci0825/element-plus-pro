@@ -7,7 +7,7 @@ import type {
     InputNumberEmits,
     ComponentSize
 } from 'element-plus'
-import type { Component, VNode } from 'vue'
+import type { Component } from 'vue'
 
 /**
  * @description 预设单元格类型
@@ -23,6 +23,31 @@ export type PresetCellType =
     | 'dot_tag' // 类似这种表现形式（● 正常）
     | 'progress'
 
+export const presetCellTypeKeys = [
+    'txt',
+    'tag',
+    'image',
+    'switch',
+    'input',
+    'input_number',
+    'select',
+    'dot_tag',
+    'progress'
+] as const
+export const isPresetCellType = (type: any): type is PresetCellType =>
+    presetCellTypeKeys.includes(type)
+
+export const isPresetCellTypeProps = (
+    props: any
+): props is PresetCellTypeProps => {
+    return (
+        props &&
+        typeof props === 'object' &&
+        'cellType' in props &&
+        isPresetCellType(props.cellType)
+    )
+}
+
 // 文本单元格类型
 export interface TxtCellTypeProps {
     cellType: 'txt'
@@ -31,13 +56,13 @@ export interface TxtCellTypeProps {
 }
 
 // 标签单元格类型
-export interface TagCellTypeProps extends TagProps {
+export interface TagCellTypeProps extends Partial<TagProps> {
     cellType: 'tag'
     size?: ComponentSize
 }
 
 // 图片单元格类型
-export interface ImageCellTypeProps extends ImageProps {
+export interface ImageCellTypeProps extends Partial<ImageProps> {
     cellType: 'image'
     width?: number
     height?: number
@@ -85,7 +110,7 @@ export interface CellRenderConfig {
     /**
      * @description 渲染函数-优先级大于 slot 配置
      */
-    render?: () => VNode | Component
+    render?: (raw: any) => Component
     /**
      * @description 插槽名称
      */
