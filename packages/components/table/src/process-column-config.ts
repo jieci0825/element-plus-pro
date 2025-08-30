@@ -90,17 +90,31 @@ export function generateOperationColumnConfig(
         return null
     }
 
+    function getWidth(): number {
+        const hideBtns = config?.btnProps?.hideBtns
+        const btnCount =
+            hideBtns === undefined
+                ? 2
+                : hideBtns.filter((item) => item === false).length
+        const isTextBtn =
+            config?.btnProps?.isTextBtn === undefined
+                ? true
+                : config?.btnProps?.isTextBtn
+        const baseWidth = isTextBtn ? 65 : 80
+        return baseWidth * btnCount
+    }
+
     const defaultConfig: OperationColumnConfig = {
-        isFixed: true,
+        fixed: 'right',
         align: config.align || tableConfig.align || 'center',
         label: '操作',
-        width: 120,
+        width: getWidth(),
         btnProps: {
-            size: 'default',
             isTextBtn: true,
+            size: 'small',
             isNeedIcon: true,
             displayMode: 'icon-text',
-            hideBtns: [true, false, false],
+            hideBtns: [false, false, false],
             disabledBtns: [false, false, false],
             cancelDefault: [false, false, false],
             btnTexts: ['查看', '编辑', '删除'],

@@ -33,7 +33,7 @@ type OperationColumnConfigBtnOption = {
 //  - 所有的元组传递，如果只想改变其中一个，其他的想使用默认的可以传递 undefined
 export interface OperationColumnConfig
     extends Partial<Pick<TableColumnInstance, 'width' | 'minWidth' | 'align'>> {
-    isFixed?: boolean
+    fixed?: 'left' | 'right' | null
     label?: HeaderConfig
     btnProps?: OperationColumnConfigBtnOption
 }

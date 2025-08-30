@@ -4,7 +4,7 @@ import type { PropType } from 'vue'
 import { useAttrs, h } from 'vue'
 import { TxtCellTypeProps } from '../table-cell.type'
 import { ElTooltip } from 'element-plus'
-import { isBoolean } from '@jc/element-plus-pro-utils'
+import { isBoolean, isObject } from '@jc/element-plus-pro-utils'
 
 const props = defineProps({
     scoped: {
@@ -22,54 +22,24 @@ const props = defineProps({
 })
 const attrs: any = useAttrs()
 
-const value = computed(() => {
+const cellData = computed(() => {
     return props.scoped.row[props.prop]
 })
 
 const className = computed(() => {
-    const isTooltip =
-        attrs.showOverflowTooltip === undefined
-            ? true
-            : !!attrs.showOverflowTooltip
-    return ['txt-cell', isTooltip ? 'txt-cell-tooltip' : '']
+    return ['txt-cell']
 })
 </script>
 
 <template>
-    <div :class="className">
-        <template v-if="attrs.showOverflowTooltip">
-            <el-tooltip
-                :content="value"
-                :placement="attrs.showOverflowTooltip.placement || 'top'"
-                v-bind="
-                    isBoolean(attrs.showOverflowTooltip)
-                        ? {}
-                        : attrs.showOverflowTooltip
-                "
-            >
-                <span>{{ value }}</span>
-            </el-tooltip>
-        </template>
-        <span v-else>{{ value }}</span>
-    </div>
+    <span :class="className">
+        {{ cellData }}
+    </span>
 </template>
 
 <style scoped lang="scss">
 .txt-cell {
     width: 100%;
     height: 100%;
-
-    &-tooltip {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-
-        span {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
 }
 </style>
