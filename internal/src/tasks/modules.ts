@@ -14,6 +14,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import esbuild from 'rollup-plugin-esbuild'
+import postcss from 'rollup-plugin-postcss'
 import { buildConfigEntries, target } from '../build-info'
 import type { OutputOptions, Plugin } from 'rollup'
 import { rollup } from 'rollup'
@@ -38,10 +39,16 @@ const plugins: Plugin[] = [
     }) as unknown as Plugin,
     // Node 模块解析-处理引用
     nodeResolve({
-        extensions: ['.mjs', '.js', '.json', '.ts']
+        extensions: ['.mjs', '.js', '.json', '.ts', '.vue']
     }),
     // CommonJS 模块转换
     commonjs(),
+    // 处理 CSS/SCSS 文件
+    postcss({
+        extract: false, // 不提取 CSS 到单独文件
+        inject: false, // 不注入样式到 head
+        minimize: true // 压缩 CSS
+    }),
     // 快速编译和压缩
     esbuild({
         sourceMap: true,
