@@ -6,3 +6,4 @@ export const ProTable: SFCWithInstall<typeof Table> = withInstall(Table)
 export default ProTable
 
 export * from './src/table'
+export * from './src/operation-column.type'

@@ -7,7 +7,7 @@ import type {
     CellConfig,
     CellRenderConfig
 } from './table-cell.type'
-import type { OperationColumnConfig } from './operateion-columb.type'
+import type { OperationColumnConfig } from './operation-column.type'
 import { View, Delete, Edit } from '@element-plus/icons-vue'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
@@ -83,12 +83,8 @@ function normalizePresetCell(
  */
 export function generateOperationColumnConfig(
     tableConfig: ProTableProps
-): OperationColumnConfig | null {
+): OperationColumnConfig {
     const config = tableConfig.operationColumn
-
-    if (!config === undefined || config === null) {
-        return null
-    }
 
     function getWidth(): number {
         const hideBtns = config?.btnProps?.hideBtns
@@ -106,7 +102,7 @@ export function generateOperationColumnConfig(
 
     const defaultConfig: OperationColumnConfig = {
         fixed: 'right',
-        align: config.align || tableConfig.align || 'center',
+        align: config?.align || tableConfig.align || 'center',
         label: '操作',
         width: getWidth(),
         btnProps: {
