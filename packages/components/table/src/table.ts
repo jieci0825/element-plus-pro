@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, Component, PropType } from 'vue'
 import type { CellConfig } from './table-cell.type'
-import type { OperationColumnConfig } from './operateion-columb.type'
+import type { OperationColumnConfig } from './operation-column.type'
 import type {
     PaginationEmits,
     PaginationProps,

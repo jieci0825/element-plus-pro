@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PropType } from 'vue'
-import { useAttrs, h } from 'vue'
 import { TxtCellTypeProps } from '../table-cell.type'
-import { ElTooltip } from 'element-plus'
-import { isBoolean, isObject } from '@jc/element-plus-pro-utils'
+import { DocumentCopy } from '@element-plus/icons-vue'
 
 const props = defineProps({
     scoped: {
-        type: null as PropType<any>,
+        type: null as unknown as PropType<any>,
         default: undefined
     },
     prop: {
@@ -20,19 +18,22 @@ const props = defineProps({
         required: true
     }
 })
-const attrs: any = useAttrs()
 
 const cellData = computed(() => {
     return props.scoped.row[props.prop]
 })
 
 const className = computed(() => {
-    return ['txt-cell']
+    return ['txt-cell', props.cellOpt.isCopy ? 'is--copy' : '']
 })
 </script>
 
 <template>
     <span :class="className">
+        <el-icon v-if="cellOpt.isCopy">
+            <DocumentCopy />
+        </el-icon>
+        {{ cellOpt.isCopy ? '&nbsp;&nbsp;&nbsp;' : '' }}
         {{ cellData }}
     </span>
 </template>
@@ -41,5 +42,15 @@ const className = computed(() => {
 .txt-cell {
     width: 100%;
     height: 100%;
+    font-size: inherit;
+    vertical-align: middle;
+    position: relative;
+
+    .el-icon {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
 }
 </style>

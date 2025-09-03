@@ -1,36 +1,44 @@
 <script setup lang="ts">
 import type { PropType, Component } from 'vue'
-import type { OperationColumnConfig } from './operateion-columb.type'
+import type { OperationColumnConfig } from './operation-column.type'
 import { computed, h } from 'vue'
 import { ElLink, ElButton } from 'element-plus'
+import { assertRequired } from '@jc/element-plus-pro-utils'
 
 const props = defineProps({
     config: {
         type: Object as PropType<OperationColumnConfig>,
         required: true
+    },
+    scoped: {
+        type: Object as PropType<any>,
+        required: true
     }
 })
 
-const size = computed(() => props.config.btnProps.size)
+// 使用工具函数断言已处理的配置
+const btnProps = assertRequired(props.config.btnProps)
+
+const size = computed(() => btnProps.size)
 
 const getIcon = (index: number) => {
-    return props.config.btnProps.btnIcons[index]
+    return assertRequired(btnProps.btnIcons)[index]
 }
 
 const getBtnText = (index: number) => {
-    return props.config.btnProps.btnTexts[index]
+    return assertRequired(btnProps.btnTexts)[index]
 }
 
 const getBtnDisabled = (index: number) => {
-    return props.config.btnProps.disabledBtns[index]
+    return assertRequired(btnProps.disabledBtns)[index]
 }
 
 const getBtnIsHide = (index: number) => {
-    return props.config.btnProps.hideBtns[index]
+    return assertRequired(btnProps.hideBtns)[index]
 }
 
 const getBtnComp = (index: number) => {
-    const isTextBtn = props.config.btnProps.isTextBtn
+    const isTextBtn = btnProps.isTextBtn
 
     const _props: any = {
         size: size.value,

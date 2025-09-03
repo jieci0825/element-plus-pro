@@ -48,7 +48,7 @@ const getElTableColumnProps = (item: ProTableColumnType) => {
     return omit(item, omitKeys)
 }
 
-const getCellComp = (cell: CellConfig) => {
+const getCellComp = (cell: CellConfig | undefined) => {
     if (isPresetCellTypeProps(cell)) {
         return cellCompMap[cell.cellType]
     }
@@ -77,15 +77,15 @@ const getCellComp = (cell: CellConfig) => {
                     >
                         <template v-if="!isString(item.label)" #header>
                             <slot
-                                v-if="item.label.slot"
+                                v-if="item.label?.slot"
                                 :name="item.label.slot"
                             ></slot>
-                            <Component v-else :is="item.label.render" />
+                            <Component v-else :is="item.label?.render" />
                         </template>
                         <template #default="scoped">
                             <Component
                                 v-bind="omit(item, ['prop', 'cell'])"
-                                :is="getCellComp(item.cell)"
+                                :is="getCellComp(item?.cell)"
                                 :scoped="scoped"
                                 :prop="item.prop"
                                 :cellOpt="item.cell"
@@ -94,7 +94,7 @@ const getCellComp = (cell: CellConfig) => {
                     </el-table-column>
                     <!-- 操作列 -->
                     <el-table-column
-                        v-if="!!operationColumnConfig"
+                        v-if="!!props.operationColumn"
                         v-bind="
                             omit(operationColumnConfig, ['label', 'btnProps'])
                         "
@@ -109,16 +109,19 @@ const getCellComp = (cell: CellConfig) => {
                             #header
                         >
                             <slot
-                                v-if="operationColumnConfig.label.slot"
+                                v-if="operationColumnConfig?.label?.slot"
                                 :name="operationColumnConfig.label.slot"
                             ></slot>
                             <Component
                                 v-else
-                                :is="operationColumnConfig.label.render"
+                                :is="operationColumnConfig?.label?.render"
                             />
                         </template>
                         <template #default="scoped">
-                            <OperationColumn :config="operationColumnConfig" />
+                            <OperationColumn
+                                :scoped="scoped"
+                                :config="operationColumnConfig"
+                            />
                         </template>
                     </el-table-column>
                     <!-- 承接元 el-table 拥有的插槽 -->
