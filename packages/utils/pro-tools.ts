@@ -16,6 +16,14 @@ export const getElDefaultSlot = (elSlots: any) => {
 }
 
 /**
+ * 通用类型断言函数 - 将可选类型断言为必需类型
+ * 用于处理经过处理函数后，原本可选的属性变为必需的情况
+ */
+export function assertRequired<T>(value: T): NonNullable<T> {
+    return value as NonNullable<T>
+}
+
+/**
  * 获取默认插槽并转换为组件
  * @param option
  * @returns component
