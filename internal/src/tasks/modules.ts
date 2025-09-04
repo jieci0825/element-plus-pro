@@ -93,7 +93,8 @@ async function buildModulesComponents() {
                 // 暂时不打包 cjs 格式，所以这里设置为 undefined
                 // exports: module === 'cjs' ? 'named' : undefined,
                 preserveModules: true,
-                preserveModulesRoot: eppRoot,
+                // 设置打包根目录
+                preserveModulesRoot: pkgRoot,
                 sourcemap: true,
                 entryFileNames: `[name].${config.ext}`
             }
