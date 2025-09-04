@@ -3,6 +3,8 @@ import { computed } from 'vue'
 import type { PropType } from 'vue'
 import { TxtCellTypeProps } from '../table-cell.type'
 import { DocumentCopy } from '@element-plus/icons-vue'
+import { useClipboard } from '@vueuse/core'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps({
     scoped: {
@@ -26,11 +28,20 @@ const cellData = computed(() => {
 const className = computed(() => {
     return ['txt-cell', props.cellOpt.isCopy ? 'is--copy' : '']
 })
+
+const { copy } = useClipboard({ legacy: true })
+
+const handleCopy = async () => {
+    await copy(cellData.value).catch((e) => {
+        ElMessage.error('复制失败')
+    })
+    ElMessage.success('复制成功')
+}
 </script>
 
 <template>
     <span :class="className">
-        <el-icon v-if="cellOpt.isCopy">
+        <el-icon @click="handleCopy" v-if="cellOpt.isCopy">
             <DocumentCopy />
         </el-icon>
         {{ cellOpt.isCopy ? '&nbsp;&nbsp;&nbsp;' : '' }}
