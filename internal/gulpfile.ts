@@ -31,10 +31,21 @@ export const copyTypesDefinitions: TaskFunction = (done) => {
         withTaskName(`copyTypes:${module}`, () => {
             // console.log('copy--origin', src)
             // console.log('copy--target', buildConfig[module].output.path)
-            return copy(src, buildConfig[module].output.path, {
-                // @ts-ignore
-                recursive: true
-            })
+            return Promise.all([
+                copy(
+                    src,
+                    resolve(buildConfig[module].output.path, 'packages'),
+                    {
+                        // @ts-ignore
+                        recursive: true
+                    }
+                ),
+                // !临时解决方案
+                copy(
+                    resolve(eppOutput, 'index.d.ts'),
+                    resolve(buildConfig.esm.output.path, 'index.d.ts')
+                )
+            ])
         })
 
     return parallel(copyTypes('esm'))(done)

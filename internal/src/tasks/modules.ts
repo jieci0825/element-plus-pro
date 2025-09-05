@@ -94,7 +94,7 @@ async function buildModulesComponents() {
                 // exports: module === 'cjs' ? 'named' : undefined,
                 preserveModules: true,
                 // 设置打包根目录
-                preserveModulesRoot: pkgRoot,
+                preserveModulesRoot: eppRoot,
                 sourcemap: true,
                 entryFileNames: `[name].${config.ext}`
             }
@@ -104,5 +104,4 @@ async function buildModulesComponents() {
 
 export const buildModules = series(
     withTaskName('buildModulesComponents', buildModulesComponents)
-    // 可扩展
 )
