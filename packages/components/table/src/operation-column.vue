@@ -4,6 +4,8 @@ import type { OperationColumnConfig } from './operation-column.type'
 import { computed, h } from 'vue'
 import { ElLink, ElButton } from 'element-plus'
 import { assertRequired } from '@jc/element-plus-pro-utils'
+// 导入样式文件
+import './operation-column.scss'
 
 const props = defineProps({
     config: {
@@ -48,7 +50,7 @@ const getBtnComp = (index: number) => {
     }
 
     if (isTextBtn) {
-        _props.underline = true
+        _props.underline = 'hover'
     } else {
         _props.plain = true
     }
@@ -70,16 +72,3 @@ const getBtnComp = (index: number) => {
         </template>
     </div>
 </template>
-
-<style scoped lang="scss">
-.operation-column {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-
-    :deep(.el-link) {
-        display: flex;
-        gap: 3px;
-    }
-}
-</style>

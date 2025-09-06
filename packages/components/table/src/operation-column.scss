@@ -1,0 +1,10 @@
+.operation-column {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    :deep(.el-link) {
+        display: flex;
+        gap: 3px;
+    }
+}

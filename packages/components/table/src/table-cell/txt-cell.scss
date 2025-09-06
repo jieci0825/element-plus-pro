@@ -1,0 +1,14 @@
+.txt-cell {
+    width: 100%;
+    height: 100%;
+    font-size: inherit;
+    vertical-align: middle;
+    position: relative;
+
+    .el-icon {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+    }
+}

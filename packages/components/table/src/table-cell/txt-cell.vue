@@ -5,6 +5,8 @@ import { TxtCellTypeProps } from '../table-cell.type'
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { useClipboard } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
+// 导入样式文件
+import './txt-cell.scss'
 
 const props = defineProps({
     scoped: {
@@ -48,20 +50,3 @@ const handleCopy = async () => {
         {{ cellData }}
     </span>
 </template>
-
-<style scoped lang="scss">
-.txt-cell {
-    width: 100%;
-    height: 100%;
-    font-size: inherit;
-    vertical-align: middle;
-    position: relative;
-
-    .el-icon {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-    }
-}
-</style>
