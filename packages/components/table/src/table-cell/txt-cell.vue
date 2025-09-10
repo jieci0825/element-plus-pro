@@ -5,7 +5,6 @@ import { TxtCellTypeProps } from '../table-cell.type'
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { useClipboard } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
-// 导入样式文件
 import './txt-cell.scss'
 
 const props = defineProps({

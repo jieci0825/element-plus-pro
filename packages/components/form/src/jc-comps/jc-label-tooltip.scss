@@ -1,6 +1,7 @@
 .jc-label-tooltip {
     display: flex;
     align-items: center;
+
     .tooltip {
         margin-left: 5px;
         width: 14px;
@@ -14,6 +15,7 @@
         align-items: center;
         font-size: 12px;
         font-weight: bold;
+
         & > span {
             transform: scale(0.9);
         }

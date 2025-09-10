@@ -4,7 +4,6 @@ import type { OperationColumnConfig } from './operation-column.type'
 import { computed, h } from 'vue'
 import { ElLink, ElButton } from 'element-plus'
 import { assertRequired } from '@jc/element-plus-pro-utils'
-// 导入样式文件
 import './operation-column.scss'
 
 const props = defineProps({
