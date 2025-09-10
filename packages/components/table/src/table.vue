@@ -13,6 +13,7 @@ import type { Component } from 'vue'
 import { TxtCell } from './table-cell'
 import { useAttrs } from 'vue'
 import OperationColumn from './operation-column.vue'
+import './table.scss'
 
 defineOptions({
     name: 'ProTable'
@@ -59,10 +60,10 @@ const getCellComp = (cell: CellConfig | undefined) => {
 
 <template>
     <div class="pro-table">
-        <div class="search-wrapper"></div>
-        <div class="content-wrapper">
-            <div class="tool-bar-wrapper"></div>
-            <div class="table-wrapper">
+        <div class="pro-table__search"></div>
+        <div class="pro-table__content">
+            <div class="pro-table__toolbar"></div>
+            <div class="pro-table__data">
                 <el-table :data="props.tableData" v-bind="elTableProps">
                     <el-table-column
                         v-for="item in props.tableColumns"
@@ -130,62 +131,6 @@ const getCellComp = (cell: CellConfig | undefined) => {
                 </el-table>
             </div>
         </div>
-        <div class="pagination-wrapper"></div>
+        <div class="pro-table__pagination"></div>
     </div>
 </template>
-
-<style lang="scss" scoped>
-$gap: 15px;
-
-.pro-table {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: $gap;
-    overflow: hidden;
-
-    .search-wrapper {
-        width: 100%;
-        height: 100px;
-        background-color: skyblue;
-    }
-
-    .content-wrapper {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: $gap;
-        padding: 0 $gap;
-        overflow: hidden;
-
-        .tool-bar-wrapper {
-            width: 100%;
-            height: 50px;
-            background-color: pink;
-            overflow: hidden;
-        }
-
-        .table-wrapper {
-            flex: 1;
-            background-color: lightblue;
-            overflow: hidden;
-
-            :deep(.el-table) {
-                width: 100%;
-                height: 100%;
-
-                th.el-table__cell {
-                    background-color: var(--el-fill-color-light);
-                }
-            }
-        }
-    }
-
-    .pagination-wrapper {
-        width: 100%;
-        height: 50px;
-        background-color: lightgreen;
-    }
-}
-</style>
