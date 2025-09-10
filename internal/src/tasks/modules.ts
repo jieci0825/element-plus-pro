@@ -43,11 +43,14 @@ const plugins: Plugin[] = [
     }),
     // CommonJS 模块转换
     commonjs(),
-    // 处理 CSS/SCSS 文件
+    // 处理 CSS/SCSS 文件 - 关键配置
     postcss({
-        extract: false, // 不提取 CSS 到单独文件
-        inject: false, // 不注入样式到 head
-        minimize: true // 压缩 CSS
+        extract: false, // 不提取到单独的 CSS 文件
+        inject: true, // 注入到 JavaScript 中
+        minimize: true, // 压缩样式
+        use: ['sass'], // 支持 SASS/SCSS
+        // 只处理样式相关的虚拟模块，不处理完整的 .vue 文件
+        include: /\.(css|scss|sass)$|vue&type=style/
     }),
     // 快速编译和压缩
     esbuild({
@@ -66,11 +69,14 @@ async function buildModulesComponents() {
     // 过滤文件-获得所有需要打包的组件源代码文件路径数组，即排除 test node_modules等目录下的文件
     //  - 这样可以将每一个文件都作为一个入口文件，进行单独打包
     const input = excludeFiles(
-        await glob(['**/*.{js,ts,vue}', '!**/style/(index|css).{js,ts,vue}'], {
-            cwd: pkgRoot,
-            absolute: true, // 返回绝对路径
-            onlyFiles: true // 只返回文件，不包括目录
-        })
+        await glob(
+            ['**/*.{js,ts,vue,scss,css}', '!**/style/(index|css).{js,ts,vue}'],
+            {
+                cwd: pkgRoot,
+                absolute: true, // 返回绝对路径
+                onlyFiles: true // 只返回文件，不包括目录
+            }
+        )
     )
 
     const bundle = await rollup({
@@ -79,9 +85,11 @@ async function buildModulesComponents() {
         // 标记外部依赖，这些依赖不会被打包进最终文件
         //  - 设置为 false 表示是模块构建，不会将引入的依赖打包进来。
         //  - 这里其实就是所有的模块都不会引入
-        external: await generateExternal({ full: false }),
+        external: await generateExternal({ full: false })
         // 表示模块没有副作用，可以安全地进行 tree shaking
-        treeshake: { moduleSideEffects: false }
+        //  - 这里不开启，因为组件存在 import 'xxx.scss' 这种导入
+        //  - 或者单独开启配置 moduleSideEffects: (id) => /\.s?css(\?.*)?$/.test(id)
+        // treeshake: { moduleSideEffects: false }
     })
 
     await writeBundles(
