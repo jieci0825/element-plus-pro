@@ -12,7 +12,7 @@ import { isPresetCellTypeProps } from './table-cell.type'
 import type { Component } from 'vue'
 import { TxtCell } from './table-cell'
 import { useAttrs } from 'vue'
-import OperationColumn from './operation-column.vue'
+import OperationColumn from './operation-column/operation-column.vue'
 import './table.scss'
 
 defineOptions({

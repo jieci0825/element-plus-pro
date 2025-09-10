@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PropType } from 'vue'
-import { TxtCellTypeProps } from '../table-cell.type'
+import { TxtCellTypeProps } from '../../table-cell.type'
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { useClipboard } from '@vueuse/core'
 import { ElMessage } from 'element-plus'

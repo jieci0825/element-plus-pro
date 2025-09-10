@@ -7,7 +7,7 @@ import type {
     CellConfig,
     CellRenderConfig
 } from './table-cell.type'
-import type { OperationColumnConfig } from './operation-column.type'
+import type { OperationColumnConfig } from './operation-column/operation-column.type'
 import { View, Delete, Edit } from '@element-plus/icons-vue'
 
 export function processColumnConfig(tableConfig: ProTableProps) {

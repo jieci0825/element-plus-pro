@@ -1,1 +1,1 @@
-export { default as TxtCell } from './txt-cell.vue'
+export { default as TxtCell } from './txt-cell/txt-cell.vue'

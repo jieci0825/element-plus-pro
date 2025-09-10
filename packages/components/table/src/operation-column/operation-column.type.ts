@@ -3,7 +3,7 @@ import type {
     ComponentOrUndefined,
     HeaderConfig,
     StringOrUndefined
-} from './common.type'
+} from '../common.type'
 
 type OperationColumnConfigBtnOption = {
     size?: ComponentSize
