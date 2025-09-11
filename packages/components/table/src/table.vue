@@ -45,7 +45,6 @@ const elTableProps = computed(() => {
 
 const getElTableColumnProps = (item: ProTableColumnType) => {
     const omitKeys = ['label', 'cell', 'hidden']
-
     return omit(item, omitKeys)
 }
 
@@ -83,7 +82,7 @@ const getCellComp = (cell: CellConfig | undefined) => {
                             ></slot>
                             <Component v-else :is="item.label?.render" />
                         </template>
-                        <template #default="scoped">
+                        <template v-if="item.cell" #default="scoped">
                             <Component
                                 v-bind="omit(item, ['prop', 'cell'])"
                                 :is="getCellComp(item?.cell)"

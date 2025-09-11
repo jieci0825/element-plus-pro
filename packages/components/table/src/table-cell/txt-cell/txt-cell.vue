@@ -22,7 +22,17 @@ const props = defineProps({
     }
 })
 
+function test() {
+    if (props.prop === 'address') {
+        console.log(props.cellOpt)
+    }
+}
+test()
+
 const cellData = computed(() => {
+    if (props.cellOpt.formatValue) {
+        return
+    }
     return props.scoped.row[props.prop]
 })
 

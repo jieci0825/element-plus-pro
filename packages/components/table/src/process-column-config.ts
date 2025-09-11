@@ -50,7 +50,7 @@ const presetCellTypeDefaultOptMap: {
  */
 function normalizePresetCell(
     cell: CellConfig | undefined
-): PresetCellTypeProps | CellRenderConfig {
+): PresetCellTypeProps | CellRenderConfig | undefined {
     // 1. 如果cell是字符串类型，且这个字符串类型是预设类型字符串，就返回一个默认的预设配置
     if (isString(cell) && isPresetCellType(cell)) {
         const defaultOpt = presetCellTypeDefaultOptMap[cell]()
@@ -74,8 +74,8 @@ function normalizePresetCell(
         }
     }
 
-    // 3. 如果都不是，则作为文本处理
-    return presetCellTypeDefaultOptMap.txt()
+    // 其余情况返回 undefined-使用el组件库的默认行为
+    return undefined
 }
 
 /**
