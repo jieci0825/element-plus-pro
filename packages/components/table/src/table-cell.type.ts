@@ -1,5 +1,4 @@
 import type {
-    TagProps,
     ImageProps,
     InputProps,
     InputEmits,
@@ -14,7 +13,6 @@ import type { Component } from 'vue'
  */
 export type PresetCellType =
     | 'txt'
-    | 'tag'
     | 'image'
     | 'switch'
     | 'input'
@@ -25,7 +23,6 @@ export type PresetCellType =
 
 export const presetCellTypeKeys = [
     'txt',
-    'tag',
     'image',
     'switch',
     'input',
@@ -53,12 +50,6 @@ export interface TxtCellTypeProps {
     cellType: 'txt'
     formatValue?: (value: any, row: any) => string
     isCopy?: boolean // 开启后文本右侧会有一个复制图标
-}
-
-// 标签单元格类型
-export interface TagCellTypeProps extends Partial<TagProps> {
-    cellType: 'tag'
-    size?: ComponentSize
 }
 
 // 图片单元格类型
@@ -100,7 +91,6 @@ export interface SelectCellTypeProps {
 // 预设单元格类型为配置对象是的属性
 export type PresetCellTypeProps =
     | TxtCellTypeProps
-    | TagCellTypeProps
     | ImageCellTypeProps
     | InputCellTypeProps
     | InputNumberCellTypeProps
