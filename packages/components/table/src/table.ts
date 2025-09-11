@@ -26,7 +26,7 @@ export interface ProTableColumnType
     prop: string
 
     /**
-     * @description 单元格配置-默认为 txt
+     * @description 单元格配置-不传递默认为 EP 的默认行为
      */
     cell?: CellConfig
 
@@ -114,32 +114,28 @@ export const proTableProps = {
      * @description 操作列-即在表格末尾添加一列，用于存放操作按钮，如果需要配置，可以传递配置对象
      */
     operationColumn: {
-        type: [null, Object] as PropType<OperationColumnConfig | null>,
-        default: () => ({})
+        type: Object as PropType<OperationColumnConfig>
     },
 
     /**
      * @description 分页配置
      */
     paginationConfig: {
-        type: [null, Object] as PropType<PaginationConfig | null>,
-        default: () => ({})
+        type: Object as PropType<PaginationConfig>
     },
 
     /**
      * @description 搜索配置
      */
     serachConfig: {
-        type: [null, Object] as PropType<SearchConfig | null>,
-        default: () => ({})
+        type: Object as PropType<SearchConfig>
     },
 
     /**
      * @description 表头工具栏配置
      */
     headerToolbarConfig: {
-        type: [null, Object] as PropType<HeaderToolbarConfig | null>,
-        default: () => ({})
+        type: Object as PropType<HeaderToolbarConfig>
     },
 
     /**
@@ -155,7 +151,7 @@ export const proTableProps = {
      */
     requestApiConfig: {
         type: Object as PropType<RequestApiConfig>,
-        default: () => ({})
+        required: true
     }
 } as const
 
