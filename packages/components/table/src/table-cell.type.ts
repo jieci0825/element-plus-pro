@@ -58,6 +58,7 @@ export interface ImageCellTypeProps extends Partial<ImageProps> {
     width?: number
     height?: number
     isCircle?: boolean
+    errorSlot?: Component
 }
 
 // 输入框单元格类型

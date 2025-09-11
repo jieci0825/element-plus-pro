@@ -32,16 +32,14 @@ const presetCellTypeDefaultOptMap: {
     dot_tag: () => ({}) as PresetCellTypeProps,
     image: () => ({
         cellType: 'image',
-        isCircle: true
+        isCircle: true,
+        width: 80,
+        height: 80
     }),
     input: () => ({}) as PresetCellTypeProps,
     switch: () => ({}) as PresetCellTypeProps,
     progress: () => ({}) as PresetCellTypeProps,
     input_number: () => ({}) as PresetCellTypeProps,
-    tag: () => ({
-        cellType: 'tag',
-        size: 'small'
-    }),
     select: () => ({}) as PresetCellTypeProps
 }
 
