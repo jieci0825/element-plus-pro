@@ -20,7 +20,7 @@ const props = defineProps({
 })
 
 const url = computed(() => {
-    return props.scoped.row[props.prop] + '1aaaa'
+    return props.scoped.row[props.prop]
 })
 
 const styles = computed(() => {
