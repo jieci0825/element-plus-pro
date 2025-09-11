@@ -22,18 +22,12 @@ const props = defineProps({
     }
 })
 
-function test() {
-    if (props.prop === 'address') {
-        console.log(props.cellOpt)
-    }
-}
-test()
-
 const cellData = computed(() => {
+    const value = props.scoped.row[props.prop]
     if (props.cellOpt.formatValue) {
-        return
+        return props.cellOpt.formatValue(value, props.scoped.row)
     }
-    return props.scoped.row[props.prop]
+    return value
 })
 
 const className = computed(() => {

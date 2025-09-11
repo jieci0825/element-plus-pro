@@ -51,7 +51,7 @@ export const isPresetCellTypeProps = (
 // 文本单元格类型
 export interface TxtCellTypeProps {
     cellType: 'txt'
-    formatValue?: (value: any, raw: any) => string
+    formatValue?: (value: any, row: any) => string
     isCopy?: boolean // 开启后文本右侧会有一个复制图标
 }
 
