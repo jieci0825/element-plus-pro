@@ -117,7 +117,11 @@ const getLabel = (label: any) => {
             </template>
         </el-table-column>
         <!-- 承接原 el-table 拥有的插槽 -->
-        <slot name="empty"></slot>
-        <slot name="append"></slot>
+        <template #empty>
+            <slot name="empty"></slot>
+        </template>
+        <template #append>
+            <slot name="append"></slot>
+        </template>
     </el-table>
 </template>

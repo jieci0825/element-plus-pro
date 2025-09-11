@@ -35,8 +35,12 @@ const operationColumnConfig = computed(() => {
                     :operation-column-config="operationColumnConfig"
                     :table-columns="props.tableColumns"
                 >
-                    <slot name="empty"></slot>
-                    <slot name="append"></slot>
+                    <template #empty>
+                        <slot name="empty"></slot>
+                    </template>
+                    <template #append>
+                        <slot name="append"></slot>
+                    </template>
                 </TableData>
             </div>
         </div>
