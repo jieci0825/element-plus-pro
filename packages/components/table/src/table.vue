@@ -35,11 +35,8 @@ const operationColumnConfig = computed(() => {
                     :operation-column-config="operationColumnConfig"
                     :table-columns="props.tableColumns"
                 >
-                    <template #empty>
-                        <slot name="empty"></slot>
-                    </template>
-                    <template #append>
-                        <slot name="append"></slot>
+                    <template v-for="(_, slotName) in $slots" #[slotName]>
+                        <slot :name="slotName"></slot>
                     </template>
                 </TableData>
             </div>
