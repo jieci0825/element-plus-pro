@@ -83,26 +83,33 @@ function normalizePresetCell(
  */
 export function generateOperationColumnConfig(
     tableConfig: ProTableProps
-): OperationColumnConfig {
+): OperationColumnConfig | null {
     const config = tableConfig.operationColumn
 
     function getWidth(): number {
-        const hideBtns = config?.btnProps?.hideBtns
-        const btnCount =
-            hideBtns === undefined
-                ? 2
-                : hideBtns.filter((item) => item === false).length
-        const isTextBtn =
-            config?.btnProps?.isTextBtn === undefined
-                ? true
-                : config?.btnProps?.isTextBtn
-        const baseWidth = isTextBtn ? 65 : 80
-        return baseWidth * btnCount
+        // 是对象则表示配置对象
+        if (isObject(config)) {
+            const hideBtns = config?.btnProps?.hideBtns
+            const btnCount =
+                hideBtns === undefined
+                    ? 2
+                    : hideBtns.filter((item) => item === false).length
+            const isTextBtn =
+                config?.btnProps?.isTextBtn === undefined
+                    ? true
+                    : config?.btnProps?.isTextBtn
+            const baseWidth = isTextBtn ? 65 : 80
+            return baseWidth * btnCount
+        } else {
+            // 非对象则直接返回默认值
+            const baseWidth = 65
+            return baseWidth * 2
+        }
     }
 
     const defaultConfig: OperationColumnConfig = {
         fixed: 'right',
-        align: config?.align || tableConfig.align || 'center',
+        align: tableConfig.align || 'center',
         label: '操作',
         width: getWidth(),
         btnProps: {
@@ -122,16 +129,14 @@ export function generateOperationColumnConfig(
         }
     }
 
-    if (config === null) {
-        return defaultConfig
-    }
-
-    if (config.btnProps) {
+    if (isObject(config) && config.btnProps) {
         config.btnProps = {
             ...defaultConfig.btnProps,
             ...config.btnProps
         }
+        return { ...defaultConfig, ...config }
+    } else {
+        // 如果不为 true 或者对象，则返回 null 表示不开启操作列
+        return null
     }
-
-    return { ...defaultConfig, ...config }
 }
