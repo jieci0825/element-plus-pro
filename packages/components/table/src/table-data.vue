@@ -12,7 +12,8 @@ import {
     ImageCell,
     SwitchCell,
     InputCell,
-    InputNumberCell
+    InputNumberCell,
+    SelectCell
 } from './table-cell'
 import type { ProTableColumnType } from './table'
 import type { PropType, Component } from 'vue'
@@ -42,13 +43,12 @@ const elTableProps = computed(() => {
 
 const cellCompMap: { [key in PresetCellType]: Component } = {
     txt: TxtCell,
-    dot_tag: TxtCell,
     image: ImageCell,
     input: InputCell,
     switch: SwitchCell,
     progress: TxtCell,
     input_number: InputNumberCell,
-    select: TxtCell
+    select: SelectCell
 }
 
 const getElTableColumnProps = (item: ProTableColumnType) => {

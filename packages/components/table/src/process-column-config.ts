@@ -57,9 +57,17 @@ const presetCellTypeDefaultOptMap: {
             min: 0,
             max: 100,
             step: 1,
-            disabled: false
+            disabled: false,
+            size: 'default'
         }) as PresetCellTypeProps,
-    select: () => ({}) as PresetCellTypeProps
+    select: () =>
+        ({
+            cellType: 'select',
+            options: [],
+            multiple: false,
+            size: 'default',
+            disabled: false
+        }) as PresetCellTypeProps
 }
 
 /**
