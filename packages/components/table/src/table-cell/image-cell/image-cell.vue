@@ -2,7 +2,9 @@
 import { computed, PropType } from 'vue'
 import { ImageCellTypeProps } from '../../table-cell.type'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
+import { inject } from 'vue'
 import './image-cell.scss'
+import { tableContextKey } from '../../constants'
 
 const props = defineProps({
     scoped: {
@@ -18,6 +20,8 @@ const props = defineProps({
         required: true
     }
 })
+
+const tabelContextInject = inject(tableContextKey)
 
 const url = computed(() => {
     return props.scoped.row[props.prop]
@@ -38,10 +42,23 @@ const isCircle = computed(() => {
 const showErrorSlot = computed(() => {
     return !!props.cellOpt.errorSlot
 })
+
+const selfAlign = computed(() => {
+    const align = tabelContextInject?.tableColumns.find(
+        (item) => item.prop === props.prop
+    )?.align
+    return align
+})
 </script>
 
 <template>
-    <div :class="['image-cell', isCircle && 'image-cell--circle']">
+    <div
+        :class="[
+            'image-cell',
+            isCircle && 'image-cell--circle',
+            selfAlign && `image-cell--${selfAlign}`
+        ]"
+    >
         <el-image
             :style="styles"
             :src="url"
