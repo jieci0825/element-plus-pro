@@ -22,7 +22,9 @@ const operationColumnConfig = computed(() => {
     return generateOperationColumnConfig(props)
 })
 
-provide(tableContextKey, reactive({}))
+provide(tableContextKey, {
+    tableColumns: props.tableColumns
+})
 </script>
 
 <template>

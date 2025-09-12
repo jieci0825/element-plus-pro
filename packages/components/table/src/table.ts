@@ -157,4 +157,6 @@ export const proTableProps = {
 
 export type ProTableProps = ExtractPropTypes<typeof proTableProps>
 
-export interface ProTableContext {}
+export interface ProTableContext {
+    tableColumns: ProTableColumnType[]
+}
