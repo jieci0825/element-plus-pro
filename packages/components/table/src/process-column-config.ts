@@ -33,7 +33,6 @@ const presetCellTypeDefaultOptMap: {
         formatValue: undefined,
         isCopy: false
     }),
-    dot_tag: () => ({}) as PresetCellTypeProps,
     image: () => ({
         cellType: 'image',
         isCircle: true,

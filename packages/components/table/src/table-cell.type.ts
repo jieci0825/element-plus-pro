@@ -11,7 +11,6 @@ export type PresetCellType =
     | 'input'
     | 'input_number'
     | 'select'
-    | 'dot_tag' // 类似这种表现形式（● 正常）
     | 'progress'
 
 export const presetCellTypeKeys = [
@@ -21,7 +20,6 @@ export const presetCellTypeKeys = [
     'input',
     'input_number',
     'select',
-    'dot_tag',
     'progress'
 ] as const
 export const isPresetCellType = (type: any): type is PresetCellType =>
