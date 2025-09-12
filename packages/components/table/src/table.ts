@@ -156,3 +156,5 @@ export const proTableProps = {
 } as const
 
 export type ProTableProps = ExtractPropTypes<typeof proTableProps>
+
+export interface ProTableContext {}

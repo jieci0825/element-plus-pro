@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
-import { ProTableProps, proTableProps } from './table'
-import { computed } from 'vue'
+import { proTableProps } from './table'
+import { computed, reactive, provide, useAttrs } from 'vue'
 import {
     generateOperationColumnConfig,
     processColumnConfig
 } from './process-column-config'
-import { useAttrs } from 'vue'
 import './table.scss'
+import { tableContextKey } from './constants'
 
 defineOptions({
     name: 'ProTable'
@@ -21,6 +21,8 @@ processColumnConfig(props)
 const operationColumnConfig = computed(() => {
     return generateOperationColumnConfig(props)
 })
+
+provide(tableContextKey, reactive({}))
 </script>
 
 <template>
