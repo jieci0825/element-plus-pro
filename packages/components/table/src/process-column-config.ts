@@ -57,7 +57,8 @@ const presetCellTypeDefaultOptMap: {
             cellType: 'input_number',
             min: 0,
             max: 100,
-            step: 1
+            step: 1,
+            disabled: false
         }) as PresetCellTypeProps,
     select: () => ({}) as PresetCellTypeProps
 }

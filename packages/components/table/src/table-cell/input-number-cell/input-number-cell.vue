@@ -43,6 +43,7 @@ const onChange = () => {
             :min="cellOpt.min"
             :max="cellOpt.max"
             :step="cellOpt.step"
+            :disabled="cellOpt.disabled"
             @change="onChange"
         />
     </div>

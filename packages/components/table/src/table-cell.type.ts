@@ -79,6 +79,7 @@ export interface InputNumberCellTypeProps {
     min: number
     max: number
     step: number
+    disabled?: boolean
 }
 
 type SelectCellOptions = {
