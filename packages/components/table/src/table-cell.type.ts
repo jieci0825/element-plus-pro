@@ -92,7 +92,6 @@ export interface SelectCellTypeProps {
     options: SelectCellOptions[]
     multiple?: boolean
     size?: ComponentSize
-    onChange?: (value: any) => void
 }
 
 // 预设单元格类型为配置对象是的属性
