@@ -9,8 +9,10 @@ import type {
 } from './table-cell.type'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
 import { View, Delete, Edit } from '@element-plus/icons-vue'
+import { cloneDeep } from 'lodash-es'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
+    const raw = cloneDeep(tableConfig.tableColumns)
     for (const item of tableConfig.tableColumns) {
         // 处理对齐方式
         if (item.align === undefined) {
@@ -19,6 +21,8 @@ export function processColumnConfig(tableConfig: ProTableProps) {
 
         item.cell = normalizePresetCell(item.cell)
     }
+
+    return [raw]
 }
 
 const presetCellTypeDefaultOptMap: {
@@ -37,7 +41,10 @@ const presetCellTypeDefaultOptMap: {
         height: 80
     }),
     input: () => ({}) as PresetCellTypeProps,
-    switch: () => ({}) as PresetCellTypeProps,
+    switch: () =>
+        ({
+            cellType: 'switch'
+        }) as PresetCellTypeProps,
     progress: () => ({}) as PresetCellTypeProps,
     input_number: () => ({}) as PresetCellTypeProps,
     select: () => ({}) as PresetCellTypeProps
