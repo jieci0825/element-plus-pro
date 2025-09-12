@@ -22,16 +22,16 @@ const props = defineProps({
 
 const tabelContextInject = inject(tableContextKey)
 
-const data = ref(!!props.scoped.row[props.prop])
+const model = ref(!!props.scoped.row[props.prop])
 watch(
     () => props.scoped.row[props.prop],
     (newValue) => {
-        data.value = !!newValue
+        model.value = !!newValue
     }
 )
 
 const onChange = () => {
-    tabelContextInject?.cellChange(props.scoped.row, props.prop, data.value)
+    tabelContextInject?.cellChange(props.scoped.row, props.prop, model.value)
 }
 
 const selfAlign = computed(() => {
@@ -45,7 +45,7 @@ const selfAlign = computed(() => {
 <template>
     <div :class="['switch-cell', selfAlign && `switch-cell--${selfAlign}`]">
         <el-switch
-            v-model="data"
+            v-model="model"
             :size="cellOpt.size"
             :inactive-color="cellOpt.inactiveColor"
             :active-color="cellOpt.activeColor"
