@@ -20,6 +20,9 @@ importers:
       '@vueuse/core':
         specifier: ^13.9.0
         version: 13.9.0(vue@3.5.19(typescript@5.9.2))
+      lodash-es:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@jc/element-plus-pro-components':
         specifier: workspace:*
