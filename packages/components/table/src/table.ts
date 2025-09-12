@@ -157,6 +157,20 @@ export const proTableProps = {
 
 export type ProTableProps = ExtractPropTypes<typeof proTableProps>
 
+export const proTableEmits = {
+    cellChange: (
+        row: Record<string, any>,
+        column: ProTableColumnType,
+        newValue: any
+    ) => true
+}
+export type ProTableEmits = typeof proTableEmits
+
 export interface ProTableContext {
     tableColumns: ProTableColumnType[]
+    cellChange: (
+        row: Record<string, any>,
+        prop: string | number,
+        newValue: any
+    ) => void
 }

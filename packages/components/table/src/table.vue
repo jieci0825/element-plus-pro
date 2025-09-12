@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
-import { proTableProps } from './table'
+import { ProTableColumnType, proTableEmits, proTableProps } from './table'
 import { computed, reactive, provide, useAttrs } from 'vue'
 import {
     generateOperationColumnConfig,
@@ -15,15 +15,26 @@ defineOptions({
 
 const attrs = useAttrs()
 const props = defineProps(proTableProps)
+const emit = defineEmits(proTableEmits)
 
-processColumnConfig(props)
+const [originTableColumnConfig] = processColumnConfig(props)
 
 const operationColumnConfig = computed(() => {
     return generateOperationColumnConfig(props)
 })
 
+const onCellChange = (
+    row: Record<string, any>,
+    prop: string,
+    newValue: any
+) => {
+    const column = originTableColumnConfig.find((item) => item.prop === prop)
+    emit('cellChange', row, column, newValue)
+}
+
 provide(tableContextKey, {
-    tableColumns: props.tableColumns
+    tableColumns: props.tableColumns,
+    cellChange: onCellChange
 })
 </script>
 

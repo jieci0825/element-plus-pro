@@ -7,7 +7,7 @@ import {
     isPresetCellTypeProps,
     PresetCellType
 } from './table-cell.type'
-import { TxtCell, ImageCell } from './table-cell'
+import { TxtCell, ImageCell, SwitchCell } from './table-cell'
 import type { ProTableColumnType } from './table'
 import type { PropType, Component } from 'vue'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
@@ -39,7 +39,7 @@ const cellCompMap: { [key in PresetCellType]: Component } = {
     dot_tag: TxtCell,
     image: ImageCell,
     input: TxtCell,
-    switch: TxtCell,
+    switch: SwitchCell,
     progress: TxtCell,
     input_number: TxtCell,
     select: TxtCell

@@ -1,11 +1,4 @@
-import type {
-    ImageProps,
-    InputProps,
-    InputEmits,
-    InputNumberProps,
-    InputNumberEmits,
-    ComponentSize
-} from 'element-plus'
+import type { ComponentSize } from 'element-plus'
 import type { Component } from 'vue'
 
 /**
@@ -53,7 +46,7 @@ export interface TxtCellTypeProps {
 }
 
 // 图片单元格类型
-export interface ImageCellTypeProps extends Partial<ImageProps> {
+export interface ImageCellTypeProps {
     cellType: 'image'
     width?: number
     height?: number
@@ -61,16 +54,24 @@ export interface ImageCellTypeProps extends Partial<ImageProps> {
     errorSlot?: Component
 }
 
+// 开关单元格类型
+export interface SwitchCellTypeProps {
+    cellType: 'switch'
+    size?: ComponentSize
+    inactiveColor?: string
+    activeColor?: string
+    activeText?: string
+    inactiveText?: string
+}
+
 // 输入框单元格类型
-export interface InputCellTypeProps extends InputProps, InputEmits {
+export interface InputCellTypeProps {
     cellType: 'input'
     size?: ComponentSize
 }
 
 // 计数器单元格类型
-export interface InputNumberCellTypeProps
-    extends InputNumberProps,
-        InputNumberEmits {
+export interface InputNumberCellTypeProps {
     cellType: 'input_number'
     size?: ComponentSize
 }
@@ -80,7 +81,7 @@ type SelectCellOptions = {
     value: any
     disabled?: boolean
 }
-// 下拉选择单元格类型-这是一个复杂的组件，所以并不全民支持原 Elementplus 的 Select 组件配置，仅做了一些简单的配置
+
 export interface SelectCellTypeProps {
     cellType: 'select'
     options: SelectCellOptions[]
@@ -93,6 +94,7 @@ export interface SelectCellTypeProps {
 export type PresetCellTypeProps =
     | TxtCellTypeProps
     | ImageCellTypeProps
+    | SwitchCellTypeProps
     | InputCellTypeProps
     | InputNumberCellTypeProps
     | SelectCellTypeProps
