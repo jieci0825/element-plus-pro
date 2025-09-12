@@ -40,7 +40,13 @@ const presetCellTypeDefaultOptMap: {
         width: 80,
         height: 80
     }),
-    input: () => ({}) as PresetCellTypeProps,
+    input: () =>
+        ({
+            cellType: 'input',
+            placeholder: '请输入',
+            size: 'default',
+            disabled: false
+        }) as PresetCellTypeProps,
     switch: () =>
         ({
             cellType: 'switch'

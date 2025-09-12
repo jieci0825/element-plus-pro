@@ -68,12 +68,17 @@ export interface SwitchCellTypeProps {
 export interface InputCellTypeProps {
     cellType: 'input'
     size?: ComponentSize
+    placeholder?: string
+    disabled?: boolean
 }
 
 // 计数器单元格类型
 export interface InputNumberCellTypeProps {
     cellType: 'input_number'
     size?: ComponentSize
+    min: number
+    max: number
+    step: number
 }
 
 type SelectCellOptions = {
