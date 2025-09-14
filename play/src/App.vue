@@ -5,6 +5,6 @@ import UseProTable from './examples/use-pro-table.vue'
 
 <template>
     <!-- <h1>hello，欢迎使用 element-plus-pro</h1> -->
-    <UseProForm />
-    <!-- <UseProTable /> -->
+    <!-- <UseProForm /> -->
+    <UseProTable />
 </template>

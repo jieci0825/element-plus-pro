@@ -20,12 +20,20 @@ const formItems: ProFormItemType[] = [
         key: 'homepage',
         type: 'input',
         props: {
-            placholder: 'www.me.com'
+            placeholder: 'www.me.com'
         },
         elSlots: {
             // prepend: () => 'Http://'
             // - or 如果是字符串则可以直接书写
             prepend: 'Http://'
+        }
+    },
+    {
+        label: '年龄',
+        key: 'password',
+        type: 'password',
+        props: {
+            showPassword: true
         }
     },
     {
@@ -92,16 +100,11 @@ const formItems: ProFormItemType[] = [
         ]
     },
     {
-        label: '密码',
-        type: 'password',
-        key: 'password',
-        placeholder: '请输入密码'
-    },
-    {
         label: '个性签名',
         key: 'signature',
         type: 'textarea',
-        placeholder: '请输入个性签名'
+        placeholder: '请输入个性签名',
+        props: {}
     },
     {
         label: '隐私空间',
@@ -124,7 +127,9 @@ const formItems: ProFormItemType[] = [
     }
 ]
 
-const footerConfig: ProFormFooterConfig = {}
+const footerConfig: ProFormFooterConfig = {
+    align: 'center'
+}
 
 interface RuleForm {
     name: string
