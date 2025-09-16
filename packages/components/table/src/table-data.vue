@@ -73,7 +73,7 @@ const getLabel = (label: any) => {
 }
 
 const isUsePresetCell = (cell: any) => {
-    return isPresetCellTypeProps(cell.cellType)
+    return isPresetCellTypeProps(cell)
 }
 </script>
 
