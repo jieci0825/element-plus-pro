@@ -115,7 +115,7 @@ export interface CellRenderConfig {
     /**
      * @description 渲染函数-优先级大于 slot 配置
      */
-    render?: (raw: any) => Component
+    render?: (row: any) => Component
     /**
      * @description 插槽名称
      */

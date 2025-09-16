@@ -95,9 +95,9 @@ function normalizePresetCell(
             return { ...defaultOpt, ...cell } as PresetCellTypeProps
         }
 
-        // 2.2 如果对象没有 cellType 属性，但是传递了 formatValue、render 等属性
+        // 2.2 如果对象没有 cellType 属性，但是传递了 render 等属性
         // 这种情况认为是自定义渲染配置
-        if ('formatValue' in cell || 'render' in cell || 'slot' in cell) {
+        if ('render' in cell || 'slot' in cell) {
             return cell as CellRenderConfig
         }
     }

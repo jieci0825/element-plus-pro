@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import OperationColumn from './operation-column/operation-column.vue'
-import { isString, omit } from '@jc/element-plus-pro-utils'
+import { isObject, isString, omit } from '@jc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
 import {
     CellConfig,
@@ -71,6 +71,10 @@ const getCellComp = (cell: CellConfig | undefined) => {
 const getLabel = (label: any) => {
     return isString(label) ? label : undefined
 }
+
+const isUsePresetCell = (cell: any) => {
+    return isPresetCellTypeProps(cell.cellType)
+}
 </script>
 
 <template>
@@ -88,12 +92,17 @@ const getLabel = (label: any) => {
             <!-- 没有则不使用插槽处理单元格渲染-遵循ep的默认行为 -->
             <template v-if="item.cell" #default="scoped">
                 <Component
+                    v-if="isUsePresetCell(item.cell)"
                     v-bind="omit(item, ['prop', 'cell'])"
                     :is="getCellComp(item?.cell)"
                     :scoped="scoped"
                     :prop="item.prop"
                     :cellOpt="item.cell"
                 ></Component>
+                <Component
+                    v-else-if="(item.cell as any)?.render"
+                    :is="() => (item.cell as any)?.render(scoped.row)"
+                />
             </template>
         </el-table-column>
         <!-- 操作列 -->
