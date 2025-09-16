@@ -50,7 +50,10 @@ const presetCellTypeDefaultOptMap: {
         ({
             cellType: 'switch'
         }) as PresetCellTypeProps,
-    progress: () => ({}) as PresetCellTypeProps,
+    progress: () =>
+        ({
+            cellType: 'progress'
+        }) as PresetCellTypeProps,
     input_number: () =>
         ({
             cellType: 'input_number',

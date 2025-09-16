@@ -1,4 +1,4 @@
-import type { ComponentSize } from 'element-plus'
+import type { ComponentSize, ProgressProps } from 'element-plus'
 import type { Component } from 'vue'
 
 /**
@@ -86,12 +86,19 @@ type SelectCellOptions = {
     disabled?: boolean
 }
 
+// 下拉选择单元格类型
 export interface SelectCellTypeProps {
     cellType: 'select'
     options: SelectCellOptions[]
     multiple?: boolean
     size?: ComponentSize
     disabled?: boolean
+}
+
+// 进度条单元格类型
+export interface ProgressCellTypeProps
+    extends Partial<Omit<ProgressProps, 'percentage'>> {
+    cellType: 'progress'
 }
 
 // 预设单元格类型为配置对象是的属性
@@ -102,6 +109,7 @@ export type PresetCellTypeProps =
     | InputCellTypeProps
     | InputNumberCellTypeProps
     | SelectCellTypeProps
+    | ProgressCellTypeProps
 
 export interface CellRenderConfig {
     /**
@@ -112,10 +120,6 @@ export interface CellRenderConfig {
      * @description 插槽名称
      */
     slot?: string
-    /**
-     * @description 格式化函数-在 txt 的类型下，你对要展示的值进行格式化时使用
-     */
-    formatValue?: (value: any) => string
 }
 
 export type CellConfig = PresetCellType | CellRenderConfig | PresetCellTypeProps

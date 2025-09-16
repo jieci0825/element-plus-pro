@@ -13,7 +13,8 @@ import {
     SwitchCell,
     InputCell,
     InputNumberCell,
-    SelectCell
+    SelectCell,
+    ProgressCell
 } from './table-cell'
 import type { ProTableColumnType } from './table'
 import type { PropType, Component } from 'vue'
@@ -46,7 +47,7 @@ const cellCompMap: { [key in PresetCellType]: Component } = {
     image: ImageCell,
     input: InputCell,
     switch: SwitchCell,
-    progress: TxtCell,
+    progress: ProgressCell,
     input_number: InputNumberCell,
     select: SelectCell
 }
