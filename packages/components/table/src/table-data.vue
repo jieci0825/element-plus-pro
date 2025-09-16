@@ -103,6 +103,12 @@ const isUsePresetCell = (cell: any) => {
                     v-else-if="(item.cell as any)?.render"
                     :is="() => (item.cell as any)?.render(scoped.row)"
                 />
+                <div v-else-if="(item.cell as any)?.slot">
+                    <slot
+                        :name="(item.cell as any).slot"
+                        :row="scoped.row"
+                    ></slot>
+                </div>
             </template>
         </el-table-column>
         <!-- 操作列 -->

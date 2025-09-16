@@ -50,8 +50,14 @@ provide(tableContextKey, {
                     :operation-column-config="operationColumnConfig"
                     :table-columns="props.tableColumns"
                 >
-                    <template v-for="(_, slotName) in $slots" #[slotName]>
-                        <slot :name="slotName"></slot>
+                    <template
+                        v-for="(_, slotName) in $slots"
+                        #[slotName]="slotProps"
+                    >
+                        <slot
+                            :name="slotName"
+                            :slotProps="{ ...slotProps }"
+                        ></slot>
                     </template>
                 </TableData>
             </div>
