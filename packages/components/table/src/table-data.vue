@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import OperationColumn from './operation-column/operation-column.vue'
-import { isObject, isString, omit } from '@jc/element-plus-pro-utils'
+import { isString, omit } from '@jc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
 import {
     CellConfig,
@@ -14,7 +14,8 @@ import {
     InputCell,
     InputNumberCell,
     SelectCell,
-    ProgressCell
+    ProgressCell,
+    EnumCell
 } from './table-cell'
 import type { ProTableColumnType } from './table'
 import type { PropType, Component } from 'vue'
@@ -49,7 +50,8 @@ const cellCompMap: { [key in PresetCellType]: Component } = {
     switch: SwitchCell,
     progress: ProgressCell,
     input_number: InputNumberCell,
-    select: SelectCell
+    select: SelectCell,
+    enum: EnumCell
 }
 
 const getElTableColumnProps = (item: ProTableColumnType) => {

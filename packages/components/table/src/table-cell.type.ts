@@ -1,4 +1,4 @@
-import type { ComponentSize, ProgressProps } from 'element-plus'
+import type { ComponentSize, ProgressProps, TagProps } from 'element-plus'
 import type { Component } from 'vue'
 
 /**
@@ -12,6 +12,7 @@ export type PresetCellType =
     | 'input_number'
     | 'select'
     | 'progress'
+    | 'enum'
 
 export const presetCellTypeKeys = [
     'txt',
@@ -20,7 +21,8 @@ export const presetCellTypeKeys = [
     'input',
     'input_number',
     'select',
-    'progress'
+    'progress',
+    'enum'
 ] as const
 export const isPresetCellType = (type: any): type is PresetCellType =>
     presetCellTypeKeys.includes(type)
@@ -101,6 +103,21 @@ export interface ProgressCellTypeProps
     cellType: 'progress'
 }
 
+// 枚举默认是以tag的方式展示
+interface ValueEnumInTag extends Partial<Omit<TagProps, 'closable'>> {
+    text: string | number
+}
+export interface ValueEnum {
+    [key: string]: string | number | ValueEnumInTag
+}
+// 枚举单元格类型
+export interface EnumCellTypeProps {
+    cellType: 'enum'
+    valueEnum: ValueEnum
+    // 如果传递了 render，则会优先使用 render 渲染，而非 el-tag
+    render?: (row: any) => Component
+}
+
 // 预设单元格类型为配置对象是的属性
 export type PresetCellTypeProps =
     | TxtCellTypeProps
@@ -110,6 +127,7 @@ export type PresetCellTypeProps =
     | InputNumberCellTypeProps
     | SelectCellTypeProps
     | ProgressCellTypeProps
+    | EnumCellTypeProps
 
 export interface CellRenderConfig {
     /**

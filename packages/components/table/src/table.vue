@@ -54,10 +54,7 @@ provide(tableContextKey, {
                         v-for="(_, slotName) in $slots"
                         #[slotName]="slotProps"
                     >
-                        <slot
-                            :name="slotName"
-                            :slotProps="{ ...slotProps }"
-                        ></slot>
+                        <slot :name="slotName" :slotProps="slotProps"></slot>
                     </template>
                 </TableData>
             </div>

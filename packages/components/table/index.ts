@@ -7,3 +7,5 @@ export default ProTable
 
 export * from './src/table'
 export * from './src/operation-column/operation-column.type'
+export * from './src/common.type'
+export * from './src/table-cell.type'

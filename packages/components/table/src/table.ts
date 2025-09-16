@@ -40,6 +40,10 @@ export interface ProTableColumnType
      */
     align?: 'left' | 'center' | 'right'
 
+    /**
+     * @description 枚举值
+     */
+
     [key: string]: any
 
     // 其余与 ElTableColumn 相同的属性
@@ -47,11 +51,9 @@ export interface ProTableColumnType
 
 export type PaginationConfig = PaginationProps & PaginationEmits
 
+export type Request = Function
+
 export type SearchConfig = Omit<ProFormProps, 'modelValue'> & {
-    beforeSearch?: (data: Record<string, any>) => void
-    afterSearch?: (data: Record<string, any>) => void
-    beforeReset?: (data: Record<string, any>) => void
-    afterReset?: (data: Record<string, any>) => void
     // 重置、搜索
     hideBtns?: [boolean, boolean]
     btnTexts?: [StringOrUndefined, StringOrUndefined]
@@ -84,14 +86,6 @@ export const proTableProps = {
     tableData: {
         type: Array,
         default: () => []
-    },
-
-    /**
-     * @description 搜索表单数据
-     */
-    searchFormData: {
-        type: Object as PropType<Record<string, any>>,
-        default: () => ({})
     },
 
     /**

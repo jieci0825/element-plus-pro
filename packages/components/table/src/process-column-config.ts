@@ -70,6 +70,10 @@ const presetCellTypeDefaultOptMap: {
             multiple: false,
             size: 'default',
             disabled: false
+        }) as PresetCellTypeProps,
+    enum: () =>
+        ({
+            cellType: 'enum'
         }) as PresetCellTypeProps
 }
 
