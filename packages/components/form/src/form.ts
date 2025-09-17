@@ -1,10 +1,9 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
-import type { ExtractPropTypes, PropType, Component } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import type { ProFormItemType } from './form-item.type'
 import type { FormInstance } from 'element-plus'
 
-export type StringOrUndefined = string | undefined
-export type ComponentOrUndefined = Component | undefined
+type StringOrUndefined = string | undefined
 export type ProFormFooterConfig = {
     // 重置、搜索
     hideBtns?: [boolean, boolean]

@@ -10,7 +10,7 @@ import { isObject, omit } from '@jc/element-plus-pro-utils'
 const props = defineProps({
     scoped: {
         type: null as unknown as PropType<any>,
-        default: undefined
+        required: true
     },
     prop: {
         type: [String, Number],
@@ -52,14 +52,6 @@ const data = computed(() => {
     return value
 })
 
-const type = computed(() => {
-    const value = getEnumValue(props.scoped.row[props.prop])
-    if (isObject(value)) {
-        return value.type
-    }
-    return 'primary'
-})
-
 const getElTagProps = () => {
     const defaultProps = {
         type: 'primary'
@@ -78,8 +70,8 @@ const getElTagProps = () => {
 <template>
     <div :class="['enum-cell', selfAlign && `enum-cell--${selfAlign}`]">
         <Component
-            :is="() => props.cellOpt.render(props.scoped.row)"
-            v-if="!!props.cellOpt.render"
+            :is="() => props.cellOpt?.render?.(props.scoped.row)"
+            v-if="!!props.cellOpt?.render"
         />
         <el-tag v-bind="getElTagProps()" v-else>{{ data }}</el-tag>
     </div>

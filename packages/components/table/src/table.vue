@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
-import { ProTableColumnType, proTableEmits, proTableProps } from './table'
-import { computed, reactive, provide, useAttrs } from 'vue'
+import { proTableEmits, proTableProps } from './table'
+import { computed, provide, useAttrs } from 'vue'
 import {
     generateOperationColumnConfig,
     processColumnConfig
@@ -25,11 +25,11 @@ const operationColumnConfig = computed(() => {
 
 const onCellChange = (
     row: Record<string, any>,
-    prop: string,
+    prop: string | number,
     newValue: any
 ) => {
     const column = originTableColumnConfig.find((item) => item.prop === prop)
-    emit('cellChange', row, column, newValue)
+    emit('cellChange', row, column!, newValue)
 }
 
 provide(tableContextKey, {
