@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// 导入样式文件
 import './jc-label-tooltip.scss'
 
 const props = defineProps({
