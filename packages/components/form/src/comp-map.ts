@@ -15,7 +15,8 @@ import {
     JcGroupSelect,
     JcRadio,
     JcRadioButton,
-    JcSelect
+    JcSelect,
+    JcUpload
 } from './jc-comps'
 import type { Component, Ref } from 'vue'
 
@@ -31,6 +32,7 @@ const CompMap: Record<string, Component> = {
     textarea: ElInput,
     switch: ElSwitch,
     color: ElColorPicker,
+    upload: JcUpload,
     // 多组件
     select: JcSelect,
     group_select: JcGroupSelect,

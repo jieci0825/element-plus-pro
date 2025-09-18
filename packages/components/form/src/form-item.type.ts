@@ -166,10 +166,19 @@ export type MyFormItemPropsBySwitchWithTopLevel = {
 } & MyFormItemPropsBySwitch &
     Partial<Omit<SwitchProps, 'modelValue'>>
 
-// TODO: upload
+export type MyFormItemUploadMode = 'drag' | 'thumb'
 export type MyFormItemPropsByUpload = {
     type?: 'upload'
     props?: any
+    mode: MyFormItemUploadMode
+    accept?: string
+    // 文件大小限制
+    size?: number
+    // 文件数量限制
+    limit?: number
+    multiple?: boolean
+    // 文件选取之后数量超出的回调
+    onExceed?: (currentFiles: File[], files: File[]) => void
 }
 export type MyFormItemPropsByUploadWithTopLevel = {
     type?: 'upload'
