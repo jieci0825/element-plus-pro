@@ -1,6 +1,7 @@
 .jc-upload-thumb {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
 
     .jc-upload-list__item-wrapper {
         flex-shrink: 0;
@@ -32,7 +33,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
             opacity: 0;
             transition: opacity 0.3s;
 
