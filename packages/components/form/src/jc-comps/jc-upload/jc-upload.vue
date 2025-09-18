@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { useAttrs, computed, ref } from 'vue'
 import { MyFormItemUploadMode } from '../../form-item.type'
-import { ElMessage, type ImageInstance } from 'element-plus'
+import { ElMessage, ElImageViewer } from 'element-plus'
 import type { Component } from 'vue'
 import type { FileItem } from './jc-upload.type'
 import Thumb from './thumb.vue'
 
 const attrs: any = useAttrs()
+
 const defaultConfig = {
     accept: 'image/*',
     limit: 1,
@@ -34,7 +35,6 @@ const compMap: CompMap = {
 }
 
 const inputFileRef = ref(null)
-const imageRef = ref<ImageInstance>()
 const showPreview = ref(false)
 const fileList = ref<FileItem[]>([])
 const prevewList = ref<string[]>([])
@@ -67,6 +67,8 @@ const fileChange = (e: Event) => {
             fileList.value.push(node)
         }
     }
+
+    attrs['onUpdate:modelValue'] && attrs['onUpdate:modelValue'](fileList.value)
 }
 
 // 校验文件大小
