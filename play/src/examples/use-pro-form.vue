@@ -37,6 +37,13 @@ const formItems: ProFormItemType[] = [
         }
     },
     {
+        label: '头像',
+        type: 'upload',
+        mode: 'drag',
+        key: 'avatar',
+        accept: '*'
+    },
+    {
         label: '自定义',
         key: 'custom',
         customSlot: true

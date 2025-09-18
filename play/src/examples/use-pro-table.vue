@@ -3,12 +3,28 @@ import {
     ProTable,
     type ProTableColumnType
 } from '@jc/element-plus-pro-components'
-import { h } from 'vue'
 import { ElButton, ElMessage } from 'element-plus'
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 import type { OperationColumnConfig } from '@jc/element-plus-pro-components'
 
 const tableColumns: ProTableColumnType[] = [
+    {
+        label: '风格',
+        prop: 'style',
+        width: 100,
+
+        cell: {
+            cellType: 'enum',
+            // 枚举值
+            // valueEnum: {
+            //     dew: { text: '清新', type: 'danger', size: 'small' }
+            // },
+            // 自定义组件
+            render: (row) => {
+                return h('span', { style: { color: 'red' } }, row.username)
+            }
+        }
+    },
     {
         label: {
             render: () =>
@@ -47,11 +63,13 @@ const tableColumns: ProTableColumnType[] = [
             max: 100,
             step: 1,
             size: 'small'
+            // slot: 'ageCell'
         }
     },
     {
         label: '地址',
         prop: 'address',
+        width: 120,
         // formatter(row) {
         //     console.log(row)
         //     return 'formatter'
@@ -64,6 +82,17 @@ const tableColumns: ProTableColumnType[] = [
                 { label: '西南', value: '西南' },
                 { label: '东北', value: '东北' }
             ]
+        }
+    },
+    {
+        label: 'HP',
+        prop: 'hp',
+        // cell: { cellType: 'progress' },
+        width: 200,
+        cell: {
+            render: (row) => {
+                return h('span', { style: { color: 'red' } }, 'HP')
+            }
         }
     },
     { label: '状态', prop: 'status', cell: 'switch' },
@@ -96,6 +125,8 @@ const tableData = ref([
         job: '高级基础设施助理',
         email: 'mzitue35@sina.com',
         status: true,
+        hp: 50,
+        style: 'dew',
         birthday: '1968-01-10 02:35:13',
         avatar: 'https://avatars.githubusercontent.com/u/66599180'
     },
@@ -430,10 +461,6 @@ const handleAgeHeader = () => {
 const handleCellChange = (row: any, column: any, newValue: any) => {
     console.log('newValue', newValue)
 }
-
-setTimeout(() => {
-    console.log('设置')
-}, 3000)
 </script>
 
 <template>
@@ -454,6 +481,11 @@ setTimeout(() => {
                     <el-tag type="success" @click="handleAgeHeader"
                         >年龄</el-tag
                     >
+                </template>
+                <template #ageCell="{ slotProps }">
+                    <span style="color: orange; font-weight: bold">{{
+                        slotProps.row.age
+                    }}</span>
                 </template>
             </ProTable>
         </div>
