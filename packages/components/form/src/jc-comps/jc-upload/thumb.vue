@@ -3,7 +3,7 @@ import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
 import './thumb.scss'
 
 const props = defineProps(['fileList', 'limit'])
-const emit = defineEmits(['remove', 'click', 'preview'])
+const emit = defineEmits(['remove', 'select', 'preview'])
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const emit = defineEmits(['remove', 'click', 'preview'])
         <div
             class="jc-upload-list__item-wrapper"
             v-if="fileList.length < props.limit"
-            @click="emit('click')"
+            @click="emit('select')"
         >
             <el-icon size="30" color="#c0c4cc"><Plus /></el-icon>
         </div>

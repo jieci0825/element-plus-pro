@@ -5,15 +5,17 @@ import { ElMessage, ElImageViewer } from 'element-plus'
 import type { Component } from 'vue'
 import type { FileItem } from './jc-upload.type'
 import Thumb from './thumb.vue'
+import Drag from './drag.vue'
+import './jc-upload.scss'
 
 const attrs: any = useAttrs()
 
 const defaultConfig = {
     accept: 'image/*',
-    limit: 1,
+    limit: 10,
     size: 1024 * 1024 * 5, // 5M
     mode: 'thumb',
-    multiple: false,
+    multiple: true,
     onExceed: () => {
         ElMessage.warning('超出文件数量限制，最大数量为：' + config.value.limit)
     }
@@ -30,7 +32,7 @@ type CompMap = {
     [key in MyFormItemUploadMode]: Component
 }
 const compMap: CompMap = {
-    drag: () => '',
+    drag: Drag,
     thumb: Thumb
 }
 
@@ -68,6 +70,10 @@ const fileChange = (e: Event) => {
         }
     }
 
+    updateValue()
+}
+
+function updateValue() {
     attrs['onUpdate:modelValue'] && attrs['onUpdate:modelValue'](fileList.value)
 }
 
@@ -84,6 +90,7 @@ function isImageFile(file: File) {
 // 删除文件
 const removeFile = (index: number) => {
     fileList.value.splice(index, 1)
+    updateValue()
 }
 
 // 预览文件
@@ -99,13 +106,13 @@ const previewFile = (index: number) => {
 </script>
 
 <template>
-    <div class="jc-upload">
+    <div class="jc-upload" @click.stop="1">
         <Component
             v-bind="config"
             v-if="compMap[config.mode]"
             :is="compMap[config.mode]"
             :file-list="fileList"
-            @click="inputFileRef.click()"
+            @select="inputFileRef.click()"
             @remove="removeFile"
             @preview="previewFile"
         ></Component>

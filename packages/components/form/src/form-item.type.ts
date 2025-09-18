@@ -179,6 +179,8 @@ export type MyFormItemPropsByUpload = {
     multiple?: boolean
     // 文件选取之后数量超出的回调
     onExceed?: (currentFiles: File[], files: File[]) => void
+    // 提示文本，在 drag 模式下生效
+    tip?: string
 }
 export type MyFormItemPropsByUploadWithTopLevel = {
     type?: 'upload'
