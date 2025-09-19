@@ -36,11 +36,10 @@ const handleExceed = () => {
     <div style="width: 100%">
         <el-upload
             v-bind="omit(props, ['tip'])"
-            class="upload-demo"
+            v-model:file-list="fileList"
             drag
             action="#"
             show-file-list
-            v-model:file-list="fileList"
             :auto-upload="false"
             :on-change="handleChange"
             :on-remove="handleRemove"
