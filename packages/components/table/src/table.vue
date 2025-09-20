@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
 import { ProTableSearch } from './search'
+import { ProTableToolbar } from './toolbar'
 import { proTableEmits, proTableProps } from './table'
 import { computed, provide, useAttrs } from 'vue'
 import {
@@ -52,7 +53,9 @@ provide(tableContextKey, {
             <ProTableSearch></ProTableSearch>
         </div>
         <div class="pro-table__content">
-            <div class="pro-table__toolbar"></div>
+            <div class="pro-table__toolbar">
+                <ProTableToolbar></ProTableToolbar>
+            </div>
             <div class="pro-table__data">
                 <TableData
                     v-bind="attrs"
