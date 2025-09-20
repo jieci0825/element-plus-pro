@@ -8,7 +8,7 @@ import type {
     CellRenderConfig
 } from './table-cell.type'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
-import { View, Delete, Edit } from '@element-plus/icons-vue'
+import { View, Delete, EditPen } from '@element-plus/icons-vue'
 import { cloneDeep } from 'lodash-es'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
@@ -153,7 +153,7 @@ export function generateOperationColumnConfig(
             disabledBtns: [false, false, false],
             cancelDefault: [false, false, false],
             btnTexts: ['查看', '编辑', '删除'],
-            btnIcons: [View, Edit, Delete],
+            btnIcons: [View, EditPen, Delete],
             editClick: undefined,
             deleteClick: undefined,
             viewClick: undefined,
