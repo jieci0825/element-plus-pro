@@ -1,17 +1,9 @@
 import type { ExtractPropTypes, Component, PropType } from 'vue'
 import type { CellConfig } from './table-cell.type'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
-import type {
-    PaginationEmits,
-    PaginationProps,
-    TableColumnInstance
-} from 'element-plus'
-import type { ProFormProps } from 'packages/element-plus-pro'
-import type {
-    ComponentOrUndefined,
-    HeaderConfig,
-    StringOrUndefined
-} from './common.type'
+import type { TableColumnInstance } from 'element-plus'
+import type { HeaderConfig } from './common.type'
+import type { SearchType } from './search'
 
 export interface ProTableColumnType
     extends Omit<TableColumnInstance['$props'], 'label' | 'prop'> {
@@ -41,6 +33,11 @@ export interface ProTableColumnType
     align?: 'left' | 'center' | 'right'
 
     /**
+     * @description 搜索配置
+     */
+    search?: SearchType
+
+    /**
      * @description 枚举值
      */
 
@@ -49,19 +46,7 @@ export interface ProTableColumnType
     // 其余与 ElTableColumn 相同的属性
 }
 
-export type PaginationConfig = PaginationProps & PaginationEmits
-
 export type Request = Function
-
-export type SearchConfig = Omit<ProFormProps, 'modelValue'> & {
-    // 重置、搜索
-    hideBtns?: [boolean, boolean]
-    btnTexts?: [StringOrUndefined, StringOrUndefined]
-    btnIcons?: [
-        StringOrUndefined | ComponentOrUndefined,
-        StringOrUndefined | ComponentOrUndefined
-    ]
-}
 
 export type HeaderToolbarConfig = {
     // 新增、删除所选
@@ -74,9 +59,9 @@ export type HeaderToolbarConfig = {
 
 export type RequestApiConfig = {
     get: (params: Record<string, any>) => Promise<any>
-    del?: (params: Record<string, any>) => Promise<any>
-    edit?: (params: Record<string, any>) => Promise<any>
-    add?: (params: Record<string, any>) => Promise<any>
+    create?: (params: Record<string, any>) => Promise<any>
+    update?: (params: Record<string, any>) => Promise<any>
+    remove?: (params: Record<string, any>) => Promise<any>
 }
 
 export const proTableProps = {
@@ -112,20 +97,6 @@ export const proTableProps = {
     },
 
     /**
-     * @description 分页配置
-     */
-    paginationConfig: {
-        type: Object as PropType<PaginationConfig>
-    },
-
-    /**
-     * @description 搜索配置
-     */
-    serachConfig: {
-        type: Object as PropType<SearchConfig>
-    },
-
-    /**
      * @description 表头工具栏配置
      */
     headerToolbarConfig: {
@@ -146,6 +117,14 @@ export const proTableProps = {
     requestApiConfig: {
         type: Object as PropType<RequestApiConfig>,
         required: true
+    },
+
+    /**
+     * @description 组件风格
+     */
+    componentStyle: {
+        type: String as PropType<'' | 'card'>,
+        default: ''
     }
 } as const
 

@@ -7,6 +7,16 @@ $gap: 15px;
     flex-direction: column;
     gap: $gap;
     overflow: hidden;
+    background-color: transparent;
+
+    &.is-card {
+        .pro-table__search,
+        .pro-table__content {
+            background-color: var(--el-bg-color, #fff);
+            border: 1px solid var(--el-border-color-light, #e4e7ed);
+            border-radius: 6px;
+        }
+    }
 
     &__search {
         width: 100%;

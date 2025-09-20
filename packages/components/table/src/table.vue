@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
+import { ProTableSearch } from './search'
 import { proTableEmits, proTableProps } from './table'
 import { computed, provide, useAttrs } from 'vue'
 import {
@@ -32,6 +33,13 @@ const onCellChange = (
     emit('cellChange', row, column!, newValue)
 }
 
+const componentStyleClass = computed(() => {
+    if (props.componentStyle === 'card') {
+        return 'is-card'
+    }
+    return ''
+})
+
 provide(tableContextKey, {
     tableColumns: props.tableColumns,
     cellChange: onCellChange
@@ -39,8 +47,10 @@ provide(tableContextKey, {
 </script>
 
 <template>
-    <div class="pro-table">
-        <div class="pro-table__search"></div>
+    <div :class="['pro-table', componentStyleClass]">
+        <div class="pro-table__search">
+            <ProTableSearch></ProTableSearch>
+        </div>
         <div class="pro-table__content">
             <div class="pro-table__toolbar"></div>
             <div class="pro-table__data">
@@ -58,7 +68,7 @@ provide(tableContextKey, {
                     </template>
                 </TableData>
             </div>
+            <div class="pro-table__pagination"></div>
         </div>
-        <div class="pro-table__pagination"></div>
     </div>
 </template>
