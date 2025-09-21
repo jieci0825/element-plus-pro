@@ -8,7 +8,7 @@ import type {
     SelectProps,
     CheckboxGroupProps,
     SwitchProps,
-    CascaderProps,
+    CascaderInstance,
     ColorPickerProps,
     RadioGroupProps
 } from 'element-plus'
@@ -188,12 +188,12 @@ export type MyFormItemPropsByUploadWithTopLevel = {
 
 export type MyFormItemPropsByCascader = {
     type?: 'cascader'
-    props?: Partial<Omit<CascaderProps, 'modelValue'>>
+    props?: Partial<Omit<CascaderInstance['$props'], 'modelValue'>>
 }
 export type MyFormItemPropsByCascaderWithTopLevel = {
     type?: 'cascader'
 } & MyFormItemPropsByCascader &
-    Partial<Omit<CascaderProps, 'modelValue'>>
+    Partial<Omit<CascaderInstance['$props'], 'modelValue'>>
 
 export type MyFormItemPropsByColor = {
     type?: 'color'
