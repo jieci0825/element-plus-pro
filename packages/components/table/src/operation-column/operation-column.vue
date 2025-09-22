@@ -55,69 +55,46 @@ const defaultBtnConfig = {
 }
 
 function getBtnConfig(type: 'view' | 'edit' | 'delete') {
-    if (
-        type === 'view' &&
-        isBoolean(props.config?.btnConfig?.viewBtn) &&
-        !props.config?.btnConfig?.viewBtn
-    ) {
-        return undefined
-    } else if (
-        type === 'edit' &&
-        isBoolean(props.config?.btnConfig?.editBtn) &&
-        !props.config?.btnConfig?.editBtn
-    ) {
-        return undefined
-    } else if (
-        type === 'delete' &&
-        isBoolean(props.config?.btnConfig?.deleteBtn) &&
-        !props.config?.btnConfig?.deleteBtn
-    ) {
-        return undefined
-    }
-
-    let _btnConfig: any = defaultBtnConfig[type]
-
-    const removeKeys = []
-    if (textOrIcon.value.text === true && textOrIcon.value.icon === false) {
-        removeKeys.push('icon')
-    } else if (
-        textOrIcon.value.text === false &&
-        textOrIcon.value.icon === true
-    ) {
-        removeKeys.push('text')
-    }
-
-    // 因为后面要进行移除，所以提前拿出来存储
-    const originHandle = props.config?.btnConfig?.[type]?.onClick
-
-    if (originHandle) {
-        _btnConfig.onClick = originHandle
-    }
-
     const key = `${type}Btn`
+    const option: any = (props.config?.btnConfig as any)?.[key]
 
-    _btnConfig = omit(
+    if (isBoolean(option) && option === false) {
+        return undefined
+    }
+
+    const mode = textOrIcon.value
+    const removeKeys: string[] = []
+    if (mode?.text !== mode?.icon) {
+        removeKeys.push(mode?.text ? 'icon' : 'text')
+    }
+
+    const merged = omit(
         {
-            ..._btnConfig,
-            ...(props.config?.btnConfig?.[key] || {})
+            ...defaultBtnConfig[type],
+            ...(isBoolean(option) ? {} : option || {})
         },
         removeKeys
     )
 
-    return _btnConfig
+    return merged
 }
 
 function isShowTextOrIcon(
     displayMode: OperationColumnConfigBtnOption['displayMode'] | undefined
 ) {
-    displayMode = displayMode || 'icon-text'
-    if (displayMode === 'icon-only') {
-        return { text: false, icon: true }
-    } else if (displayMode === 'icon-text') {
-        return { text: true, icon: true }
-    } else if (displayMode === 'text-only') {
-        return { text: true, icon: false }
+    const mode = (displayMode ?? 'icon-text') as
+        | 'icon-only'
+        | 'icon-text'
+        | 'text-only'
+    const map: Record<
+        'icon-only' | 'icon-text' | 'text-only',
+        { text: boolean; icon: boolean }
+    > = {
+        'icon-only': { text: false, icon: true },
+        'icon-text': { text: true, icon: true },
+        'text-only': { text: true, icon: false }
     }
+    return map[mode]
 }
 
 const renderPropsList = [
