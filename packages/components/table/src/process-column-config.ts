@@ -1,15 +1,14 @@
 import { isObject, isString } from '@jc/element-plus-pro-utils'
-import type { ProTableProps } from './table'
 import { isPresetCellType, isPresetCellTypeProps } from './table-cell.type'
+import { cloneDeep } from 'lodash-es'
 import type {
     PresetCellType,
     PresetCellTypeProps,
     CellConfig,
     CellRenderConfig
 } from './table-cell.type'
+import type { ProTableProps } from './table'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
-import { View, Delete, EditPen } from '@element-plus/icons-vue'
-import { cloneDeep } from 'lodash-es'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
     const raw = cloneDeep(tableConfig.tableColumns)
@@ -118,22 +117,31 @@ export function generateOperationColumnConfig(
 ): OperationColumnConfig | null {
     const config = tableConfig.operationColumn
 
-    function getWidth(): number {
+    function getWidth(config: OperationColumnConfig | undefined): number {
         // 是对象则表示配置对象
         if (isObject(config)) {
-            const hideBtns = config?.btnProps?.hideBtns
-            const btnCount =
-                hideBtns === undefined
-                    ? 2
-                    : hideBtns.filter((item) => item === false).length
+            const hideBtns = [
+                config?.btnConfig?.viewBtn,
+                config?.btnConfig?.editBtn,
+                config?.btnConfig?.deleteBtn
+            ]
+
+            // 如果按钮的值转化类型之后为真，则认为需要显示该按钮
+            const btnCount = hideBtns.filter((item) => {
+                // 如果是 undefined 也认为需要显示该按钮
+                if (item === undefined) {
+                    return true
+                }
+                return !!item
+            }).length
             const isTextBtn =
-                config?.btnProps?.isTextBtn === undefined
+                config?.btnConfig?.isTextBtn === undefined
                     ? true
-                    : config?.btnProps?.isTextBtn
+                    : config?.btnConfig?.isTextBtn
             const baseWidth = isTextBtn ? 65 : 80
             return baseWidth * btnCount
         } else {
-            // 非对象则直接返回默认值
+            // 非对象则直接返回默认值，默认只显示两个按钮
             const baseWidth = 65
             return baseWidth * 2
         }
@@ -143,30 +151,28 @@ export function generateOperationColumnConfig(
         fixed: 'right',
         align: tableConfig.align || 'center',
         label: '操作',
-        width: getWidth(),
-        btnProps: {
+        btnConfig: {
             isTextBtn: true,
-            size: 'small',
-            isNeedIcon: true,
-            displayMode: 'icon-text',
-            hideBtns: [false, false, false],
-            disabledBtns: [false, false, false],
-            cancelDefault: [false, false, false],
-            btnTexts: ['查看', '编辑', '删除'],
-            btnIcons: [View, EditPen, Delete],
-            editClick: undefined,
-            deleteClick: undefined,
-            viewClick: undefined,
-            handleClick: undefined
+            editBtn: true,
+            deleteBtn: true,
+            viewBtn: false,
+            displayMode: 'icon-text'
         }
     }
 
-    if (isObject(config) && config.btnProps) {
-        config.btnProps = {
-            ...defaultConfig.btnProps,
-            ...config.btnProps
+    if (isObject(config)) {
+        const totalConfig = {
+            ...defaultConfig,
+            ...config,
+            width: 0,
+            btnConfig: {
+                ...defaultConfig.btnConfig,
+                ...config.btnConfig
+            }
         }
-        return { ...defaultConfig, ...config }
+        totalConfig.width = getWidth(totalConfig)
+
+        return totalConfig
     } else {
         // 如果不为 true 或者对象，则返回 null 表示不开启操作列
         return null
