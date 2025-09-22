@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { useTemplateRef, computed, toRef, h } from 'vue'
-import { proFormEmits, proFormProps } from './form'
+import { proFormEmits, type ProFormFooterConfig, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
 import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
-import type { FormInstance } from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import { useComponentProxy } from '@jc/element-plus-pro-hooks'
 import { createFormItemCompMap } from './comp-map'
 import { isFunction, isString } from '@jc/element-plus-pro-utils'
 import { JcLabelTooltip } from './jc-comps'
 import { formFooterProcess } from './form-footer-process'
-import { ProFormItemType } from './form-item.type'
+import type { FormInstance } from 'element-plus'
+import type { ProFormItemType } from './form-item.type'
 
 defineOptions({
     name: 'ProForm'
@@ -86,6 +86,14 @@ const handleReset = () => {
     emit('reset')
 }
 
+function getColProps(item: ProFormItemType | ProFormFooterConfig) {
+    const defaultColProps = {
+        span: 24
+    }
+
+    return { ...defaultColProps, ...(props.col || {}), ...(item.col || {}) }
+}
+
 defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
@@ -95,7 +103,7 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
             <el-col
                 v-for="item in items"
                 :key="item.key"
-                :span="item.span || props.span"
+                v-bind="getColProps(item)"
             >
                 <el-form-item
                     v-if="!item.hideLabel"
@@ -121,10 +129,7 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                     </template>
                 </template>
             </el-col>
-            <el-col
-                v-if="showFooter"
-                :span="props.span || fullFooterConfig?.span || 24"
-            >
+            <el-col v-if="showFooter" v-bind="getColProps(fullFooterConfig)">
                 <el-form-item>
                     <slot name="footer">
                         <div

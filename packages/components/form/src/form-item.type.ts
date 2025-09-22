@@ -10,7 +10,8 @@ import type {
     SwitchProps,
     CascaderInstance,
     ColorPickerProps,
-    RadioGroupProps
+    RadioGroupProps,
+    ColProps
 } from 'element-plus'
 import type { Component } from 'vue'
 
@@ -274,7 +275,7 @@ export interface ProFormItemCommonType
     /**
      * @description 表单项所占栅格数-优先级高于form的span
      */
-    span?: number
+    col?: Partial<ColProps>
 }
 
 export type ProFormItemType = ProFormItemCommonType & MyFormItemPropsByTypes

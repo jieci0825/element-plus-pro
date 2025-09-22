@@ -1,7 +1,7 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType } from 'vue'
 import type { ProFormItemType } from './form-item.type'
-import type { FormInstance } from 'element-plus'
+import type { ColProps, FormInstance } from 'element-plus'
 
 type StringOrUndefined = string | undefined
 export type ProFormFooterConfig = {
@@ -11,7 +11,7 @@ export type ProFormFooterConfig = {
     align?: 'left' | 'center' | 'right'
     onSubmit?: Function
     onReset?: Function
-    span?: number
+    col?: Partial<ColProps>
 }
 
 export const proFormProps = {
@@ -42,9 +42,9 @@ export const proFormProps = {
     /**
      * @description 表单项所占栅格数
      */
-    span: {
-        type: Number as PropType<number>,
-        default: 24
+    col: {
+        type: Object as PropType<Partial<ColProps>>,
+        default: () => ({ span: 24 })
     },
 
     /**
