@@ -125,24 +125,28 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
             <el-col v-if="showFooter" v-bind="getColProps(fullFooterConfig)">
                 <el-form-item>
                     <slot name="footer">
-                        <!-- <div
+                        <div
                             :class="[
                                 'footer',
                                 `footer--${fullFooterConfig?.align || 'right'}`
                             ]"
                         >
                             <el-button
-                                v-if="!fullFooterConfig?.resetBtn?.hide"
+                                :icon="fullFooterConfig.resetBtn.icon"
+                                v-if="!fullFooterConfig.resetBtn.hide"
                                 @click="handleReset"
-                                >{{ fullFooterConfig.resetBtn?. }}</el-button
+                                >{{ fullFooterConfig.resetBtn.text }}</el-button
                             >
                             <el-button
-                                v-if="!hideSubmitBtn"
-                                @click="handleSubmit"
                                 type="primary"
-                                >{{ submitText }}</el-button
+                                :icon="fullFooterConfig.submitBtn.icon"
+                                v-if="!fullFooterConfig.submitBtn.hide"
+                                @click="handleSubmit"
+                                >{{
+                                    fullFooterConfig.submitBtn.text
+                                }}</el-button
                             >
-                        </div> -->
+                        </div>
                     </slot>
                 </el-form-item>
             </el-col>
