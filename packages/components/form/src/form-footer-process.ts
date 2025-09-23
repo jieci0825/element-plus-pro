@@ -1,73 +1,66 @@
 import { computed } from 'vue'
-import type { ProFormFooterConfig } from './form'
-import { isObject } from '@jc/element-plus-pro-utils'
+import type { FooterBtn, ProFormFooterConfig } from './form'
+import { isObject, mergeConfig } from '@jc/element-plus-pro-utils'
+import { cloneDeep } from 'lodash-es'
+
+function _customizer(objValue: any, srcValue: any) {
+    // 特殊传入的用户配置不是一个对象的时候，就需要进行特殊处理
+    if (!isObject(srcValue)) {
+        if (srcValue !== undefined && Boolean(srcValue) === false) {
+            // 如果用户传入的是false，则隐藏，即其余配置合并，但是 hide 为true
+            //  - 但是为了兼容，在 srcValue 不为 undefined 的情况下，只要强转后的 srcValue 为 false，则 hide 为 true
+            return { ...objValue, hide: true }
+        } else if (Boolean(srcValue) === true) {
+            // 为 true 的时候，则显示，即其余配置合并，但是 hide 为 false
+            return { ...objValue, hide: false }
+        }
+    }
+}
+
+interface InnerProFormFooterConfig extends Required<ProFormFooterConfig> {
+    resetBtn: FooterBtn
+    submitBtn: FooterBtn
+}
 
 export function formFooterProcess(footerConfig: ProFormFooterConfig | null) {
+    let copyFooterConfig: any = cloneDeep(footerConfig || {})
+
     const showFooter = computed(() => {
-        if (footerConfig === undefined || isObject(footerConfig)) {
+        if (copyFooterConfig === undefined || isObject(copyFooterConfig)) {
             return true
         }
         return false
     })
 
     const defaultFooterConfig: ProFormFooterConfig = {
-        hideBtns: [false, false],
-        btnTexts: ['重置', '确认'],
         align: 'right',
         onSubmit: undefined,
         onReset: undefined,
-        span: 24
+        resetBtn: {
+            text: '重置',
+            icon: undefined,
+            hide: false
+        },
+        submitBtn: {
+            text: '确认',
+            icon: undefined,
+            hide: false
+        }
     }
 
     // 合并默认配置
-    if (isObject(footerConfig)) {
-        footerConfig = {
-            ...defaultFooterConfig,
-            ...footerConfig
-        }
+    if (isObject(copyFooterConfig)) {
+        copyFooterConfig = mergeConfig(
+            defaultFooterConfig,
+            copyFooterConfig,
+            _customizer
+        )
     } else {
-        footerConfig = defaultFooterConfig
+        copyFooterConfig = defaultFooterConfig
     }
-
-    const resetText = computed(() => {
-        let text = '重置'
-        if (!footerConfig) return
-        if (footerConfig.btnTexts && footerConfig.btnTexts[0]) {
-            text = footerConfig.btnTexts[0]
-        }
-        return text
-    })
-
-    const submitText = computed(() => {
-        let text = '确认'
-        if (footerConfig.btnTexts && footerConfig.btnTexts[1]) {
-            text = footerConfig.btnTexts[1]
-        }
-        return text
-    })
-
-    const hideResetBtn = computed(() => {
-        let flag = false
-        if (footerConfig.hideBtns && footerConfig.hideBtns[0]) {
-            flag = footerConfig.hideBtns[0]
-        }
-        return flag
-    })
-
-    const hideSubmitBtn = computed(() => {
-        let flag = false
-        if (footerConfig.hideBtns && footerConfig.hideBtns[1]) {
-            flag = footerConfig.hideBtns[1]
-        }
-        return flag
-    })
 
     return {
         showFooter,
-        resetText,
-        submitText,
-        hideResetBtn,
-        hideSubmitBtn,
-        fullFooterConfig: footerConfig
+        fullFooterConfig: copyFooterConfig as InnerProFormFooterConfig
     }
 }

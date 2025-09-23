@@ -1,3 +1,5 @@
+import { mergeWith } from 'lodash-es'
+
 /**
  * 获取枚举值的联合类型
  * 支持字符串枚举和数字枚举
@@ -46,4 +48,15 @@ export function toKebabCase(str: string): [string, string] {
         .toLowerCase()
 
     return [kebabCase, str]
+}
+
+/**
+ * 合并配置
+ */
+export function mergeConfig(
+    defaultConfig: any,
+    userConfig: any,
+    customizer?: Function
+) {
+    return mergeWith({}, defaultConfig, userConfig, customizer)
 }

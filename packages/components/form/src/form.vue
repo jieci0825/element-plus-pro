@@ -50,14 +50,7 @@ const getFormItemLabelComp = (item: ProFormItemType) => {
     }
 }
 
-const {
-    showFooter,
-    submitText,
-    resetText,
-    hideResetBtn,
-    hideSubmitBtn,
-    fullFooterConfig
-} = formFooterProcess(props.footerConfig)
+const { showFooter, fullFooterConfig } = formFooterProcess(props.footerConfig)
 
 const handleSubmit = async () => {
     const onSubmit = fullFooterConfig?.onSubmit
@@ -132,16 +125,16 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
             <el-col v-if="showFooter" v-bind="getColProps(fullFooterConfig)">
                 <el-form-item>
                     <slot name="footer">
-                        <div
+                        <!-- <div
                             :class="[
                                 'footer',
                                 `footer--${fullFooterConfig?.align || 'right'}`
                             ]"
                         >
                             <el-button
-                                v-if="!hideResetBtn"
+                                v-if="!fullFooterConfig?.resetBtn?.hide"
                                 @click="handleReset"
-                                >{{ resetText }}</el-button
+                                >{{ fullFooterConfig.resetBtn?. }}</el-button
                             >
                             <el-button
                                 v-if="!hideSubmitBtn"
@@ -149,7 +142,7 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                                 type="primary"
                                 >{{ submitText }}</el-button
                             >
-                        </div>
+                        </div> -->
                     </slot>
                 </el-form-item>
             </el-col>

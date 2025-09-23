@@ -1,17 +1,21 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, Component } from 'vue'
 import type { ProFormItemType } from './form-item.type'
 import type { ColProps, FormInstance } from 'element-plus'
 
-type StringOrUndefined = string | undefined
+export interface FooterBtn {
+    text?: string
+    icon?: string | Component
+    hide?: boolean
+}
+
 export type ProFormFooterConfig = {
-    // 重置、搜索
-    hideBtns?: [boolean, boolean]
-    btnTexts?: [StringOrUndefined, StringOrUndefined]
     align?: 'left' | 'center' | 'right'
     onSubmit?: Function
     onReset?: Function
     col?: Partial<ColProps>
+    resetBtn?: FooterBtn | boolean
+    submitBtn?: FooterBtn | boolean
 }
 
 export const proFormProps = {
