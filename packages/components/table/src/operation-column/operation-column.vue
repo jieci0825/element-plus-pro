@@ -12,7 +12,7 @@ import { isBoolean, omit } from '@jc/element-plus-pro-utils'
 
 const props = defineProps({
     config: {
-        type: Object as PropType<OperationColumnConfig>,
+        type: Object as PropType<Required<OperationColumnConfig>>,
         required: true
     },
     scoped: {
@@ -56,7 +56,7 @@ const defaultBtnConfig = {
 
 function getBtnConfig(type: 'view' | 'edit' | 'delete') {
     const key = `${type}Btn`
-    const option: any = (props.config?.btnConfig as any)?.[key]
+    const option: any = (props.config.btnConfig as any)?.[key]
 
     if (isBoolean(option) && option === false) {
         return undefined
@@ -128,6 +128,7 @@ const renderPropsList = [
                 :icon="item.icon"
                 :type="item.type"
                 :disabled="item.disabled"
+                @click="item.onClick || (() => 1)"
                 >{{ item.text }}</el-button
             >
         </template>

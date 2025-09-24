@@ -22,7 +22,7 @@ const handleRemove = () => {
 
 function updateValue() {
     const files = fileList.value.map((item) => {
-        return { raw: item.raw, url: URL.createObjectURL(item.raw) }
+        return { raw: item.raw, url: URL.createObjectURL(item.raw!) }
     })
     attrs['onUpdate:modelValue'] && attrs['onUpdate:modelValue'](files)
 }

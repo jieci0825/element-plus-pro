@@ -1,4 +1,4 @@
 export interface FileItem {
     raw: File
-    url: string | undefined
+    url: string
 }

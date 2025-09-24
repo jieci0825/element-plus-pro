@@ -21,7 +21,16 @@ const defaultConfig = {
     }
 }
 
-const config = computed(() => {
+interface Config {
+    accept: string
+    limit: number
+    size: number
+    mode: MyFormItemUploadMode
+    multiple: boolean
+    onExceed: () => void
+}
+
+const config = computed<Config>(() => {
     return { ...defaultConfig, ...attrs }
 })
 const isSingle = computed(() => {
@@ -36,13 +45,13 @@ const compMap: CompMap = {
     thumb: Thumb
 }
 
-const inputFileRef = ref(null)
+const inputFileRef = ref<HTMLElement | null>(null)
 const showPreview = ref(false)
 const fileList = ref<FileItem[]>([])
 const prevewList = ref<string[]>([])
 
 const fileChange = (e: Event) => {
-    const files = (e.target as HTMLInputElement).files
+    const files = (e.target as HTMLInputElement).files || []
 
     if (isSingle.value) {
         // 如果是单文件上传，则无需判断文件数量，因为会直接替换
@@ -112,7 +121,7 @@ const previewFile = (index: number) => {
             v-if="compMap[config.mode]"
             :is="compMap[config.mode]"
             :file-list="fileList"
-            @select="inputFileRef.click()"
+            @select="inputFileRef && inputFileRef?.click()"
             @remove="removeFile"
             @preview="previewFile"
         ></Component>

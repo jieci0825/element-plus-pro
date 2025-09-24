@@ -46,7 +46,7 @@ function processFormItemDefaultValue(
     const defaults = {
         customSlot: false,
         hidden: false,
-        span: formProps.span || 24,
+        col: { span: 24 },
         type: 'input'
     }
 
