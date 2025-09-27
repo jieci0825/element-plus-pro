@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import ProForm from '../../../form'
-import { ref, computed, inject } from 'vue'
+import { ref, computed, inject, onMounted } from 'vue'
 import { tableContextKey } from '../constants'
 import { isObject } from '@jc/element-plus-pro-utils'
 import {
@@ -9,6 +9,7 @@ import {
     ArrowDown,
     ArrowUp
 } from '@element-plus/icons-vue'
+import { useEventListener, useThrottleFn } from '@vueuse/core'
 import './search.scss'
 
 const tabelContextInject = inject(tableContextKey)
@@ -53,7 +54,95 @@ const getProFormProps = () => {
     return defaultProFormProps
 }
 
-// daterange datetimerange 这两个占据两列
+const isExpand = ref(false)
+// 使用计算属性得到每个搜索表单项配置应该占据的列数
+const formItemCols = computed(() => {
+    // 如果是  ['daterange', 'datetimerange']，则占据两列
+    return searchFormItems.value.map((item) => {
+        if (item.type === 'daterange' || item.type === 'datetimerange') {
+            return 2
+        }
+        return 1
+    })
+})
+
+function getWindowWidth() {
+    return window.innerWidth
+}
+
+// 得到第一行需要显示的formItem索引
+function getFirstRowShowIndex() {
+    const w = getWindowWidth()
+    let col = 1
+    if (w >= 1920) {
+        col = 4
+    } else if (w >= 1200) {
+        col = 3
+    } else if (w >= 768) {
+        col = 2
+    }
+
+    let count = 1 // 初始为 1，因为默认 footer 占据一列
+    let index = 0
+    for (let i = 0; i < formItemCols.value.length; i++) {
+        if (count >= col) {
+            index = i
+            break
+        }
+        count += formItemCols.value[i]
+    }
+
+    return index
+}
+
+// 展开方法
+const handleExpand = () => {
+    const formItems = Array.from(
+        document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
+    )
+
+    formItems.forEach((item: HTMLElement) => {
+        item.style.display = 'block'
+    })
+}
+
+// 折叠
+const handleCollapse = () => {
+    // 得到当前屏幕应该占据的列数
+    const index = getFirstRowShowIndex()
+    // 根据 index 显示第一行应显示的表单项，隐藏其余
+    const formItems = Array.from(
+        document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
+    ).slice(0, -1) // 排除最后一个，因为最后一个为 footer
+    formItems.forEach((item: HTMLElement, i: number) => {
+        // i = 0 时，不会隐藏
+        if (i === 0) return
+        item.style.display = i < index ? 'block' : 'none'
+    })
+}
+
+// 切换
+const handleToggle = () => {
+    isExpand.value = !isExpand.value
+    if (isExpand.value) {
+        handleExpand()
+    } else {
+        handleCollapse()
+    }
+}
+
+// 当处于折叠状态时，监听窗口大小变化并重新折叠（useEventListener）
+const onResize = useThrottleFn(() => {
+    if (!isExpand.value) {
+        handleCollapse()
+    }
+}, 200)
+useEventListener(window, 'resize', onResize)
+
+// 在刚进入页面时，调用一次折叠
+onMounted(() => {
+    handleCollapse()
+})
 </script>
 
 <template>
@@ -63,8 +152,16 @@ const getProFormProps = () => {
                 <div class="footer-wrap">
                     <el-button :icon="RefreshLeft">重置</el-button>
                     <el-button type="primary" :icon="Search">搜索</el-button>
-                    <el-link type="primary" :underline="false">
-                        展开<el-icon size="18"><ArrowDown /></el-icon>
+                    <el-link
+                        type="primary"
+                        :underline="false"
+                        @click="handleToggle"
+                    >
+                        {{ isExpand ? '收起' : '展开' }}
+                        <el-icon size="18">
+                            <ArrowDown v-if="!isExpand" />
+                            <ArrowUp v-else />
+                        </el-icon>
                     </el-link>
                 </div>
             </template>
