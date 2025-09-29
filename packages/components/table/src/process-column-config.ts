@@ -11,8 +11,8 @@ import type { ProTableProps } from './table'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
-    const raw = cloneDeep(tableConfig.tableColumns)
-    for (const item of tableConfig.tableColumns) {
+    const tableColumns = cloneDeep(tableConfig.tableColumns)
+    for (const item of tableColumns) {
         // 处理对齐方式
         if (item.align === undefined) {
             item.align = item.align || tableConfig.align || 'center'
@@ -21,7 +21,7 @@ export function processColumnConfig(tableConfig: ProTableProps) {
         item.cell = normalizePresetCell(item.cell)
     }
 
-    return [raw]
+    return [tableConfig.tableColumns]
 }
 
 const presetCellTypeDefaultOptMap: {
