@@ -76,14 +76,6 @@ export const proTableProps = {
     },
 
     /**
-     * @description 总数
-     */
-    total: {
-        type: Number,
-        default: 0
-    },
-
-    /**
      * @description 表格列配置
      */
     tableColumns: {
@@ -114,10 +106,32 @@ export const proTableProps = {
     },
 
     /**
-     * @description 请求接口配置
+     * @description 请求表格数据的 api
      */
-    requestApiConfig: {
-        type: Object as PropType<RequestApiConfig>
+    requestApi: {
+        type: Object as PropType<(params: any) => Promise<any>>
+    },
+
+    /**
+     * @description 是否自动执行请求 api
+     */
+    requestAuto: {
+        type: Boolean,
+        default: true
+    },
+
+    /**
+     * @description 表格 api 请求错误监听
+     */
+    requestError: {
+        type: Function as PropType<(params: any) => void>
+    },
+
+    /**
+     * @description 返回数据的回调函数，可以对数据进行处理
+     */
+    dataCallback: {
+        type: Function as PropType<(data: any) => any>
     },
 
     /**
@@ -126,6 +140,46 @@ export const proTableProps = {
     componentStyle: {
         type: String as PropType<'' | 'card'>,
         default: ''
+    },
+
+    /**
+     * @description 是否需要分页
+     */
+    pagination: {
+        type: Boolean,
+        default: true
+    },
+
+    /**
+     * @description 表格标题
+     */
+    title: {
+        type: String,
+        default: ''
+    },
+
+    /**
+     * @description 功能按钮
+     */
+    toolButton: {
+        type: Array as PropType<('refresh' | 'setting' | 'search')[] | boolean>,
+        default: () => ['refresh', 'setting', 'search']
+    },
+
+    /**
+     * @description 行key：用来优化 Table 的渲染，当表格数据多选时，所指定的 id ==> 非必传（默认为 id）
+     */
+    rowKey: {
+        type: String,
+        default: 'id'
+    },
+
+    /**
+     * @description 查询初始参数
+     */
+    initParam: {
+        type: Object,
+        default: () => ({})
     }
 } as const
 
@@ -148,27 +202,3 @@ export interface ProTableContext {
         newValue: any
     ) => void
 }
-
-// !参考
-/*
-export interface ProTableProps {
-  columns: ColumnProps[]; // 列配置项  ==> 必传
-  data?: any[]; // 静态 table data 数据，若存在则不会使用 requestApi 返回的 data ==> 非必传
-  requestApi?: (params: any) => Promise<any>; // 请求表格数据的 api ==> 非必传
-  requestAuto?: boolean; // 是否自动执行请求 api ==> 非必传（默认为true）
-  requestError?: (params: any) => void; // 表格 api 请求错误监听 ==> 非必传
-  dataCallback?: (data: any) => any; // 返回数据的回调函数，可以对数据进行处理 ==> 非必传
-  title?: string; // 表格标题 ==> 非必传
-  pagination?: boolean; // 是否需要分页组件 ==> 非必传（默认为true）
-  initParam?: any; // 初始化请求参数 ==> 非必传（默认为{}）
-  border?: boolean; // 是否带有纵向边框 ==> 非必传（默认为true）
-  toolButton?: ("refresh" | "setting" | "search")[] | boolean; // 是否显示表格功能按钮 ==> 非必传（默认为true）
-  rowKey?: string; // 行数据的 Key，用来优化 Table 的渲染，当表格数据多选时，所指定的 id ==> 非必传（默认为 id）
-  searchCol?: number | Record<BreakPoint, number>; // 表格搜索项 每列占比配置 ==> 非必传 { xs: 1, sm: 2, md: 2, lg: 3, xl: 4 }
-}
-
-作者：HalseySpicy
-链接：https://juejin.cn/post/7166068828202336263/
-来源：稀土掘金
-著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-*/
