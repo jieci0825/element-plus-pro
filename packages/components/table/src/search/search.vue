@@ -12,6 +12,7 @@ import {
 import { useEventListener, useThrottleFn } from '@vueuse/core'
 import './search.scss'
 
+const emit = defineEmits(['search', 'reset'])
 const tabelContextInject = inject(tableContextKey)
 
 // 提取需要列配置
@@ -101,7 +102,7 @@ const handleExpand = () => {
         document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
     )
 
-    formItems.forEach((item: HTMLElement) => {
+    formItems.forEach((item: any) => {
         item.style.display = 'block'
     })
 }
@@ -114,7 +115,7 @@ const handleCollapse = () => {
     const formItems = Array.from(
         document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
     ).slice(0, -1) // 排除最后一个，因为最后一个为 footer
-    formItems.forEach((item: HTMLElement, i: number) => {
+    formItems.forEach((item: any, i: number) => {
         // i = 0 时，不会隐藏
         if (i === 0) return
         item.style.display = i < index ? 'block' : 'none'
@@ -143,15 +144,32 @@ useEventListener(window, 'resize', onResize)
 onMounted(() => {
     handleCollapse()
 })
+
+const proFormRef = ref()
+
+const handleReset = () => {
+    proFormRef.value.resetFields()
+}
+
+const handleSearch = () => {
+    emit('search', model.value)
+}
 </script>
 
 <template>
     <div class="pro-table__search--inner">
-        <ProForm v-model="model" v-bind="getProFormProps()">
+        <ProForm ref="proFormRef" v-model="model" v-bind="getProFormProps()">
             <template #footer>
                 <div class="footer-wrap">
-                    <el-button :icon="RefreshLeft">重置</el-button>
-                    <el-button type="primary" :icon="Search">搜索</el-button>
+                    <el-button :icon="RefreshLeft" @click="handleReset"
+                        >重置</el-button
+                    >
+                    <el-button
+                        type="primary"
+                        :icon="Search"
+                        @click="handleSearch"
+                        >搜索</el-button
+                    >
                     <el-link
                         type="primary"
                         :underline="false"

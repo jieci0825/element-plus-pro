@@ -55,7 +55,7 @@ const cellCompMap: { [key in PresetCellType]: Component } = {
 }
 
 const getElTableColumnProps = (item: ProTableColumnType) => {
-    const omitKeys = ['label', 'cell', 'hidden']
+    const omitKeys = ['label', 'cell', 'hidden', 'isQuery']
     const defaultProps = {
         showOverflowTooltip: true
     }
@@ -135,7 +135,9 @@ const isUsePresetCell = (cell: any) => {
             <template #default="scoped">
                 <OperationColumn
                     :scoped="scoped"
-                    :config="props.operationColumnConfig"
+                    :config="
+                        props.operationColumnConfig as Required<OperationColumnConfig>
+                    "
                 />
             </template>
         </el-table-column>
