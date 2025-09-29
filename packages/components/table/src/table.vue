@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
 import { ProTableSearch } from './search'
-import { ProTableToolbar } from './toolbar'
 import { proTableEmits, proTableProps } from './table'
 import { computed, provide, useAttrs } from 'vue'
 import {
@@ -11,6 +10,7 @@ import {
 import './table.scss'
 import { tableContextKey } from './constants'
 import { isObject } from '@jc/element-plus-pro-utils'
+import { Refresh, Setting, Search, Plus, Delete } from '@element-plus/icons-vue'
 
 defineOptions({
     name: 'ProTable'
@@ -66,8 +66,34 @@ provide(tableContextKey, {
             <ProTableSearch @search="onSearch"></ProTableSearch>
         </div>
         <div class="pro-table__content">
-            <div class="pro-table__toolbar">
-                <ProTableToolbar></ProTableToolbar>
+            <div class="pro-table__header">
+                <div class="pro-table__header--left">
+                    <slot name="tableHeaderLeft">
+                        <div
+                            v-if="props.title"
+                            class="pro-table__header--left--title"
+                        >
+                            <span>{{ props.title }}</span>
+                        </div>
+                        <div class="pro-table__header--left--btns">
+                            <slot name="tableHeaderLeftBtns">
+                                <el-button :icon="Plus" type="primary"
+                                    >添加数据</el-button
+                                >
+                                <el-button :icon="Delete" type="danger" plain
+                                    >批量删除</el-button
+                                >
+                            </slot>
+                        </div>
+                    </slot>
+                </div>
+                <div class="pro-table__header--right">
+                    <slot name="tableHeaderRight">
+                        <el-button circle :icon="Refresh"></el-button>
+                        <el-button circle :icon="Setting"></el-button>
+                        <el-button circle :icon="Search"></el-button>
+                    </slot>
+                </div>
             </div>
             <div class="pro-table__data">
                 <TableData
