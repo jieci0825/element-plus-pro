@@ -21,7 +21,7 @@ export function processColumnConfig(tableConfig: ProTableProps) {
         item.cell = normalizePresetCell(item.cell)
     }
 
-    return [tableConfig.tableColumns]
+    return [tableConfig.tableColumns, tableColumns]
 }
 
 const presetCellTypeDefaultOptMap: {

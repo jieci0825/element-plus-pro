@@ -70,7 +70,7 @@ export const proTableProps = {
     /**
      * @description 表格数据
      */
-    tableData: {
+    data: {
         type: Array,
         default: () => []
     },
@@ -109,7 +109,7 @@ export const proTableProps = {
      * @description 请求表格数据的 api
      */
     requestApi: {
-        type: Object as PropType<(params: any) => Promise<any>>
+        type: Function as PropType<(params: any) => Promise<any>>
     },
 
     /**
@@ -159,10 +159,20 @@ export const proTableProps = {
     },
 
     /**
+     * @description 是否显示 Header 部分
+     */
+    showHeader: {
+        type: Boolean,
+        default: true
+    },
+
+    /**
      * @description 功能按钮
      */
     toolButton: {
-        type: Array as PropType<('refresh' | 'setting' | 'search')[] | boolean>,
+        type: [Array, Boolean] as PropType<
+            ('refresh' | 'setting' | 'search')[] | boolean
+        >,
         default: () => ['refresh', 'setting', 'search']
     },
 
@@ -177,7 +187,7 @@ export const proTableProps = {
     /**
      * @description 查询初始参数
      */
-    initParam: {
+    initParams: {
         type: Object,
         default: () => ({})
     }

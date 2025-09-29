@@ -10,7 +10,7 @@ import {
 import './table.scss'
 import { tableContextKey } from './constants'
 import { isObject } from '@jc/element-plus-pro-utils'
-import { useHeader } from './hooks'
+import { useHeader, useTable } from './hooks'
 
 defineOptions({
     name: 'ProTable'
@@ -20,7 +20,7 @@ const attrs = useAttrs()
 const props = defineProps(proTableProps)
 const emit = defineEmits(proTableEmits)
 
-const [originTableColumnConfig] = processColumnConfig(props)
+const [originTableColumnConfig, formatTableColumns] = processColumnConfig(props)
 
 const operationColumnConfig = computed(() => {
     return generateOperationColumnConfig(props)
@@ -42,6 +42,18 @@ const componentStyleClass = computed(() => {
     return ''
 })
 
+const { tableData, onSearchParamsChange } = useTable({
+    api: props.requestApi,
+    isPageable: props.pagination,
+    initParam: props.initParams,
+    dataCallBack: props.dataCallback,
+    requestError: props.requestError
+})
+// 如果需要自动执行请求，则加载组件直接执行一次
+if (!!props.requestAuto) {
+    onSearchParamsChange({})
+}
+
 const showSearch = computed(() => {
     // 如果有搜索列配置，则显示搜索栏
     const searchColumns = originTableColumnConfig.filter((item) =>
@@ -51,7 +63,7 @@ const showSearch = computed(() => {
 })
 
 const onSearch = (payload: any) => {
-    emit('search', payload)
+    onSearchParamsChange(payload)
 }
 
 // 搜索区域显隐（仅在存在搜索列时可见）
@@ -67,7 +79,7 @@ const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
 })
 
 provide(tableContextKey, {
-    tableColumns: props.tableColumns,
+    tableColumns: formatTableColumns,
     cellChange: onCellChange
 })
 </script>
@@ -75,7 +87,10 @@ provide(tableContextKey, {
 <template>
     <div :class="['pro-table', componentStyleClass]">
         <div class="pro-table__search" v-if="showSearch" v-show="searchVisible">
-            <ProTableSearch @search="onSearch"></ProTableSearch>
+            <ProTableSearch
+                :init-params="props.initParams"
+                @search="onSearch"
+            ></ProTableSearch>
         </div>
         <div class="pro-table__content">
             <div class="pro-table__header" v-if="!!props.showHeader">
@@ -90,22 +105,24 @@ provide(tableContextKey, {
                     <slot name="tableHeader"> </slot>
                 </div>
                 <div class="pro-table__header--right" v-if="isToolButton">
-                    <el-button
-                        circle
-                        v-for="item in toolBtns"
-                        :key="item.key"
-                        :icon="item.icon"
-                        :title="item.title"
-                        @click="handleToolButtonClick(item.key)"
-                    ></el-button>
+                    <slot name="toolButton">
+                        <el-button
+                            circle
+                            v-for="item in toolBtns"
+                            :key="item.key"
+                            :icon="item.icon"
+                            :title="item.title"
+                            @click="handleToolButtonClick(item.key)"
+                        ></el-button>
+                    </slot>
                 </div>
             </div>
             <div class="pro-table__data">
                 <TableData
                     v-bind="attrs"
-                    :table-data="props.tableData"
+                    :table-data="tableData"
                     :operation-column-config="operationColumnConfig"
-                    :table-columns="props.tableColumns"
+                    :table-columns="formatTableColumns"
                 >
                     <template
                         v-for="(_, slotName) in $slots"

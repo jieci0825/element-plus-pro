@@ -12,6 +12,7 @@ import {
 import { useEventListener, useThrottleFn } from '@vueuse/core'
 import './search.scss'
 
+const props = defineProps(['initParams'])
 const emit = defineEmits(['search', 'reset'])
 const tabelContextInject = inject(tableContextKey)
 
@@ -34,15 +35,7 @@ const searchFormItems = computed<any[]>(() => {
     })
 })
 
-const model = ref({})
-
-// function tableColumns2Model() {
-//     tableColumns.value.forEach((item) => {
-//         // TODO 默认值可以让外部传入一个对象，然后使用这个对象的默认值
-//         model.value[item.prop] = ''
-//     })
-// }
-// tableColumns2Model()
+const model = ref({ ...props.initParams })
 
 const getProFormProps = () => {
     const defaultProFormProps = {
