@@ -10,7 +10,7 @@ import {
 import './table.scss'
 import { tableContextKey } from './constants'
 import { isObject } from '@jc/element-plus-pro-utils'
-import { Refresh, Setting, Search, Plus, Delete } from '@element-plus/icons-vue'
+import { useHeader } from './hooks'
 
 defineOptions({
     name: 'ProTable'
@@ -42,7 +42,7 @@ const componentStyleClass = computed(() => {
     return ''
 })
 
-const isShowSearch = computed(() => {
+const showSearch = computed(() => {
     // 如果有搜索列配置，则显示搜索栏
     const searchColumns = originTableColumnConfig.filter((item) =>
         isObject(item.search)
@@ -54,6 +54,8 @@ const onSearch = (payload: any) => {
     console.log(payload)
 }
 
+const { isToolButton, toolBtns } = useHeader(props)
+
 provide(tableContextKey, {
     tableColumns: props.tableColumns,
     cellChange: onCellChange
@@ -62,25 +64,29 @@ provide(tableContextKey, {
 
 <template>
     <div :class="['pro-table', componentStyleClass]">
-        <div class="pro-table__search" v-if="isShowSearch">
+        <div class="pro-table__search" v-if="showSearch">
             <ProTableSearch @search="onSearch"></ProTableSearch>
         </div>
         <div class="pro-table__content">
-            <div class="pro-table__header">
+            <div class="pro-table__header" v-if="!!props.showHeader">
                 <div class="pro-table__header--left">
                     <!-- TODO 补全传递的数据，批量选中的数据 -->
                     <div
-                        v-if="props.title"
                         class="pro-table__header--left--title"
+                        v-if="props.title"
                     >
                         <span>{{ props.title }}</span>
                     </div>
                     <slot name="tableHeader"> </slot>
                 </div>
-                <div class="pro-table__header--right">
-                    <el-button circle :icon="Refresh"></el-button>
-                    <el-button circle :icon="Setting"></el-button>
-                    <el-button circle :icon="Search"></el-button>
+                <div class="pro-table__header--right" v-if="isToolButton">
+                    <el-button
+                        circle
+                        v-for="item in toolBtns"
+                        :key="item.key"
+                        :icon="item.icon"
+                        :title="item.title"
+                    ></el-button>
                 </div>
             </div>
             <div class="pro-table__data">

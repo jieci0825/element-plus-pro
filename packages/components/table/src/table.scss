@@ -43,13 +43,13 @@ $gap: 15px;
             .pro-table__header--left {
                 display: flex;
                 align-items: center;
-                gap: $gap * 2;
                 flex: 1;
 
                 &--title {
                     font-size: 22px;
                     font-weight: bold;
                     color: var(--el-text-color-primary, #303133);
+                    margin-right: $gap * 2;
                 }
             }
         }
