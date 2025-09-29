@@ -47,11 +47,7 @@ const isShowSearch = computed(() => {
     const searchColumns = originTableColumnConfig.filter((item) =>
         isObject(item.search)
     )
-    if (searchColumns.length > 0) {
-        return true
-    } else {
-        return false
-    }
+    return searchColumns.length > 0
 })
 
 const onSearch = (payload: any) => {
