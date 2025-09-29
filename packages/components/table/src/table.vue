@@ -2,7 +2,7 @@
 import TableData from './table-data.vue'
 import { ProTableSearch } from './search'
 import { proTableEmits, proTableProps } from './table'
-import { computed, provide, useAttrs } from 'vue'
+import { computed, provide, useAttrs, ref } from 'vue'
 import {
     generateOperationColumnConfig,
     processColumnConfig
@@ -51,10 +51,20 @@ const showSearch = computed(() => {
 })
 
 const onSearch = (payload: any) => {
-    console.log(payload)
+    emit('search', payload)
 }
 
-const { isToolButton, toolBtns } = useHeader(props)
+// 搜索区域显隐（仅在存在搜索列时可见）
+const searchVisible = ref(true)
+const toggleSearchVisible = () => {
+    searchVisible.value = !searchVisible.value
+}
+
+const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
+    actions: {
+        toggleSearchVisible
+    }
+})
 
 provide(tableContextKey, {
     tableColumns: props.tableColumns,
@@ -64,7 +74,7 @@ provide(tableContextKey, {
 
 <template>
     <div :class="['pro-table', componentStyleClass]">
-        <div class="pro-table__search" v-if="showSearch">
+        <div class="pro-table__search" v-if="showSearch" v-show="searchVisible">
             <ProTableSearch @search="onSearch"></ProTableSearch>
         </div>
         <div class="pro-table__content">
@@ -86,6 +96,7 @@ provide(tableContextKey, {
                         :key="item.key"
                         :icon="item.icon"
                         :title="item.title"
+                        @click="handleToolButtonClick(item.key)"
                     ></el-button>
                 </div>
             </div>

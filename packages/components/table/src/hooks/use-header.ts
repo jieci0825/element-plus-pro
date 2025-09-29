@@ -5,8 +5,17 @@ import type { ProTableProps } from '../table'
 
 type ToolButtonTypes = 'refresh' | 'setting' | 'search'
 
-export function useHeader(props: ProTableProps) {
+type UseHeaderActions = {
+    toggleSearchVisible?: () => void
+}
+
+type Options = {
+    actions: UseHeaderActions
+}
+
+export function useHeader(props: ProTableProps, options: Options) {
     const { toolButton } = props
+    const { actions = {} } = options
 
     const isToolButton = computed(() => {
         return isArray(toolButton) ? !!toolButton.length : !!toolButton
@@ -46,6 +55,7 @@ export function useHeader(props: ProTableProps) {
                 // TODO
                 break
             case 'search':
+                actions.toggleSearchVisible && actions.toggleSearchVisible()
                 break
         }
     }
