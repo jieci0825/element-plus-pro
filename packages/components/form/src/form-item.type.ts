@@ -3,8 +3,7 @@ import type {
     FormItemProps,
     InputProps,
     InputNumberProps,
-    TimeSelectProps,
-    TimePickerDefaultProps,
+    TimePickerDefaultPropsPublic,
     SelectProps,
     CheckboxGroupProps,
     SwitchProps,
@@ -207,14 +206,12 @@ export type MyFormItemPropsByColorWithTopLevel = {
 
 export type MyFormItemPropsByDatePickType = {
     type?: DatePickType
-    props?: Partial<
-        Omit<TimeSelectProps | TimePickerDefaultProps, 'modelValue'>
-    >
+    props?: Partial<Omit<TimePickerDefaultPropsPublic, 'modelValue'>>
 }
 export type MyFormItemPropsByDatePickTypeWithTopLevel = {
     type?: DatePickType
 } & MyFormItemPropsByDatePickType &
-    Partial<Omit<TimeSelectProps | TimePickerDefaultProps, 'modelValue'>>
+    Partial<Omit<TimePickerDefaultPropsPublic, 'modelValue'>>
 
 export type MyFormItemPropsByTypes =
     | MyFormItemPropsByInputWithTopLevel

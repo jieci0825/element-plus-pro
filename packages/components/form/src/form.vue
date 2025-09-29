@@ -87,6 +87,14 @@ function getColProps(item: ProFormItemType | ProFormFooterConfig) {
     return { ...defaultColProps, ...(props.col || {}), ...(item.col || {}) }
 }
 
+const getFormItemClassByType = (type: string) => {
+    const ranges = ['daterange', 'datetimerange']
+    if (ranges.includes(type)) {
+        return 'jc-pro-form-item-range'
+    }
+    return `jc-pro-form-item-${type}`
+}
+
 defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
@@ -97,6 +105,7 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                 v-for="item in items"
                 :key="item.key"
                 v-bind="getColProps(item)"
+                :class="getFormItemClassByType(item.type!)"
             >
                 <el-form-item
                     v-if="!item.hideLabel"
@@ -122,7 +131,11 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
                     </template>
                 </template>
             </el-col>
-            <el-col v-if="showFooter" v-bind="getColProps(fullFooterConfig)">
+            <el-col
+                class="jc-pro-form-item-footer"
+                v-if="showFooter"
+                v-bind="getColProps(fullFooterConfig)"
+            >
                 <el-form-item>
                     <slot name="footer">
                         <div
