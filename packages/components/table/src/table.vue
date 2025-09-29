@@ -68,31 +68,19 @@ provide(tableContextKey, {
         <div class="pro-table__content">
             <div class="pro-table__header">
                 <div class="pro-table__header--left">
-                    <slot name="tableHeaderLeft">
-                        <div
-                            v-if="props.title"
-                            class="pro-table__header--left--title"
-                        >
-                            <span>{{ props.title }}</span>
-                        </div>
-                        <div class="pro-table__header--left--btns">
-                            <slot name="tableHeaderLeftBtns">
-                                <el-button :icon="Plus" type="primary"
-                                    >添加数据</el-button
-                                >
-                                <el-button :icon="Delete" type="danger" plain
-                                    >批量删除</el-button
-                                >
-                            </slot>
-                        </div>
-                    </slot>
+                    <!-- TODO 补全传递的数据，批量选中的数据 -->
+                    <div
+                        v-if="props.title"
+                        class="pro-table__header--left--title"
+                    >
+                        <span>{{ props.title }}</span>
+                    </div>
+                    <slot name="tableHeader"> </slot>
                 </div>
                 <div class="pro-table__header--right">
-                    <slot name="tableHeaderRight">
-                        <el-button circle :icon="Refresh"></el-button>
-                        <el-button circle :icon="Setting"></el-button>
-                        <el-button circle :icon="Search"></el-button>
-                    </slot>
+                    <el-button circle :icon="Refresh"></el-button>
+                    <el-button circle :icon="Setting"></el-button>
+                    <el-button circle :icon="Search"></el-button>
                 </div>
             </div>
             <div class="pro-table__data">

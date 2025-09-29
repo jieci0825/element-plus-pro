@@ -190,7 +190,8 @@ export const proTableEmits = {
         row: Record<string, any>,
         column: ProTableColumnType,
         newValue: any
-    ) => true
+    ) => true,
+    search: (params: Record<string, any>) => true
 }
 export type ProTableEmits = typeof proTableEmits
 
