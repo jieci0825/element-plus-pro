@@ -10,6 +10,7 @@ import {
 } from './process-column-config'
 import './table.scss'
 import { tableContextKey } from './constants'
+import { isObject } from '@jc/element-plus-pro-utils'
 
 defineOptions({
     name: 'ProTable'
@@ -41,6 +42,22 @@ const componentStyleClass = computed(() => {
     return ''
 })
 
+const isShowSearch = computed(() => {
+    // 如果有搜索列配置，则显示搜索栏
+    const searchColumns = originTableColumnConfig.filter((item) =>
+        isObject(item.search)
+    )
+    if (searchColumns.length > 0) {
+        return true
+    } else {
+        return false
+    }
+})
+
+const onSearch = (payload: any) => {
+    console.log(payload)
+}
+
 provide(tableContextKey, {
     tableColumns: props.tableColumns,
     cellChange: onCellChange
@@ -49,8 +66,8 @@ provide(tableContextKey, {
 
 <template>
     <div :class="['pro-table', componentStyleClass]">
-        <div class="pro-table__search">
-            <ProTableSearch></ProTableSearch>
+        <div class="pro-table__search" v-if="isShowSearch">
+            <ProTableSearch @search="onSearch"></ProTableSearch>
         </div>
         <div class="pro-table__content">
             <div class="pro-table__toolbar">
