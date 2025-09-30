@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import TableData from './table-data.vue'
+import ProDrawer from '../../drawer'
+import { ColumnController } from './column-controller'
 import { ProTableSearch } from './search'
 import { proTableEmits, proTableProps } from './table'
 import { computed, provide, useAttrs, ref } from 'vue'
@@ -20,7 +22,9 @@ const attrs = useAttrs()
 const props = defineProps(proTableProps)
 const emit = defineEmits(proTableEmits)
 
-const [originTableColumnConfig, formatTableColumns] = processColumnConfig(props)
+const [originTableColumnConfig, _formatTableColumns] =
+    processColumnConfig(props)
+const formatTableColumns = ref(_formatTableColumns)
 
 const operationColumnConfig = computed(() => {
     return generateOperationColumnConfig(props)
@@ -75,16 +79,30 @@ const searchVisible = ref(true)
 const toggleSearchVisible = () => {
     searchVisible.value = !searchVisible.value
 }
-
+// 列控制器面板显示隐藏
+const drawerVisible = ref(false)
+const openDrawerVisible = () => {
+    drawerVisible.value = true
+}
 const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
     actions: {
         toggleSearchVisible,
-        refresh: fetchData
+        refresh: fetchData,
+        openDrawerVisible
     }
 })
 
+const handleColumnShowOrHide = (payload: any) => {
+    const item = formatTableColumns.value.find(
+        (item) => item.prop === payload.prop
+    )
+    if (item) {
+        item.hidden = !payload.hidden
+    }
+}
+
 provide(tableContextKey, {
-    tableColumns: formatTableColumns,
+    tableColumns: _formatTableColumns,
     cellChange: onCellChange
 })
 </script>
@@ -142,5 +160,13 @@ provide(tableContextKey, {
             </div>
             <div class="pro-table__pagination"></div>
         </div>
+
+        <ProDrawer v-model="drawerVisible" title="列控制器" size="300px">
+            <ColumnController
+                :all-slots="$slots"
+                :columns="originTableColumnConfig"
+                @change="handleColumnShowOrHide"
+            />
+        </ProDrawer>
     </div>
 </template>

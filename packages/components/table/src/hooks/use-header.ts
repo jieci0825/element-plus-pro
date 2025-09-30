@@ -1,13 +1,14 @@
 import { computed } from 'vue'
-import { isArray } from 'lodash-es'
+import { isArray, isFunction } from 'lodash-es'
 import { Refresh, Operation, Search } from '@element-plus/icons-vue'
 import type { ProTableProps } from '../table'
 
 type ToolButtonTypes = 'refresh' | 'setting' | 'search'
 
 type UseHeaderActions = {
-    toggleSearchVisible?: () => void
+    toggleSearchVisible?: Function
     refresh?: Function
+    openDrawerVisible?: Function
 }
 
 type Options = {
@@ -50,13 +51,15 @@ export function useHeader(props: ProTableProps, options: Options) {
     const handleToolButtonClick = (key: ToolButtonTypes) => {
         switch (key) {
             case 'refresh':
-                actions.refresh && actions.refresh()
+                isFunction(actions.refresh) && actions.refresh()
                 break
             case 'setting':
-                // TODO
+                isFunction(actions.openDrawerVisible) &&
+                    actions.openDrawerVisible()
                 break
             case 'search':
-                actions.toggleSearchVisible && actions.toggleSearchVisible()
+                isFunction(actions.toggleSearchVisible) &&
+                    actions.toggleSearchVisible()
                 break
         }
     }

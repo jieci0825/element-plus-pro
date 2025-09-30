@@ -94,8 +94,8 @@ const isUsePresetCell = (cell: any) => {
         ></el-table-column>
         <template v-for="item in props.tableColumns" :key="item.prop">
             <el-table-column
-                :label="getLabel(item.label)"
                 v-if="!item.hidden"
+                :label="getLabel(item.label)"
                 v-bind="getElTableColumnProps(item)"
             >
                 <template v-if="!isString(item.label)" #header>
