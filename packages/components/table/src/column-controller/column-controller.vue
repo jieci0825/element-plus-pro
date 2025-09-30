@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isNumber, isObject, isString } from '@jc/element-plus-pro-utils'
+import { isObject, isString } from '@jc/element-plus-pro-utils'
 import { markRaw } from 'vue'
 import { ProTableColumnType } from '../table'
 import { ref } from 'vue'

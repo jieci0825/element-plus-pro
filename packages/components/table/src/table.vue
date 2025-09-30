@@ -119,7 +119,6 @@ provide(tableContextKey, {
         <div class="pro-table__content">
             <div class="pro-table__header" v-if="!!props.showHeader">
                 <div class="pro-table__header--left">
-                    <!-- TODO 补全传递的数据，批量选中的数据 -->
                     <div
                         class="pro-table__header--left--title"
                         v-if="props.title"
