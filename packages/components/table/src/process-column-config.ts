@@ -1,3 +1,4 @@
+import { markRaw } from 'vue'
 import { isObject, isString } from '@jc/element-plus-pro-utils'
 import { isPresetCellType, isPresetCellTypeProps } from './table-cell.type'
 import { cloneDeep } from 'lodash-es'
@@ -19,6 +20,12 @@ export function processColumnConfig(tableConfig: ProTableProps) {
         }
 
         item.cell = normalizePresetCell(item.cell)
+
+        if (!isString(item.label) && isObject(item.label?.render)) {
+            item.label = {
+                render: markRaw(item.label.render)
+            }
+        }
     }
 
     return [tableConfig.tableColumns, tableColumns]
