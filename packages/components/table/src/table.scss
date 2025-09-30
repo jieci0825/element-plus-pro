@@ -64,11 +64,12 @@ $gap: 15px;
             width: 100%;
             height: 100%;
 
-            // --el-text-color-primary
-
-            th.el-table__cell {
-                background-color: var(--el-fill-color-light);
-                color: var(--el-text-color-primary);
+            .el-table__header-wrapper {
+                th.el-table__cell,
+                [class*='el-table-fixed-column'] {
+                    background-color: var(--el-fill-color-light);
+                    color: var(--el-text-color-primary);
+                }
             }
         }
     }
