@@ -42,7 +42,7 @@ const componentStyleClass = computed(() => {
     return ''
 })
 
-const { tableData, onSearchParamsChange } = useTable({
+const { tableData, onSearchParamsChange, fetchData } = useTable({
     api: props.requestApi,
     isPageable: props.pagination,
     initParam: props.initParams,
@@ -66,6 +66,10 @@ const onSearch = (payload: any) => {
     onSearchParamsChange(payload)
 }
 
+const onReset = () => {
+    onSearchParamsChange({})
+}
+
 // 搜索区域显隐（仅在存在搜索列时可见）
 const searchVisible = ref(true)
 const toggleSearchVisible = () => {
@@ -74,7 +78,8 @@ const toggleSearchVisible = () => {
 
 const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
     actions: {
-        toggleSearchVisible
+        toggleSearchVisible,
+        refresh: fetchData
     }
 })
 
@@ -89,6 +94,7 @@ provide(tableContextKey, {
         <div class="pro-table__search" v-if="showSearch" v-show="searchVisible">
             <ProTableSearch
                 :init-params="props.initParams"
+                @reset="onReset"
                 @search="onSearch"
             ></ProTableSearch>
         </div>
@@ -118,11 +124,13 @@ provide(tableContextKey, {
                 </div>
             </div>
             <div class="pro-table__data">
+                <!-- 透传所有的属性和事件 -->
                 <TableData
                     v-bind="attrs"
                     :table-data="tableData"
                     :operation-column-config="operationColumnConfig"
                     :table-columns="formatTableColumns"
+                    :selection="props.selection"
                 >
                     <template
                         v-for="(_, slotName) in $slots"

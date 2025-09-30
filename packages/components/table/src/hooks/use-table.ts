@@ -9,7 +9,7 @@ interface Options {
     requestError: (error: any) => void
 }
 
-export function useTable(options: Required<Options>) {
+export function useTable(options: Partial<Options>) {
     const defaultOptions: Options = {
         api: () => Promise.resolve(),
         initParam: {},
@@ -119,6 +119,7 @@ export function useTable(options: Required<Options>) {
 
     return {
         ...toRefs(state),
+        fetchData,
         onSearchParamsChange,
         onPageChange,
         onPageSizeChange

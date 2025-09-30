@@ -33,6 +33,10 @@ const props = defineProps({
     operationColumnConfig: {
         type: [null, Object] as PropType<OperationColumnConfig | null>,
         default: null
+    },
+    selection: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -81,6 +85,13 @@ const isUsePresetCell = (cell: any) => {
 
 <template>
     <el-table :data="props.tableData" v-bind="elTableProps">
+        <!-- 多选 -->
+        <el-table-column
+            width="50"
+            type="selection"
+            v-if="props.selection"
+            :align="'center'"
+        ></el-table-column>
         <el-table-column
             v-bind="getElTableColumnProps(item)"
             v-for="item in props.tableColumns"

@@ -142,6 +142,7 @@ const proFormRef = ref()
 
 const handleReset = () => {
     proFormRef.value.resetFields()
+    emit('reset')
 }
 
 const handleSearch = () => {

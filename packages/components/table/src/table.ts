@@ -190,6 +190,14 @@ export const proTableProps = {
     initParams: {
         type: Object,
         default: () => ({})
+    },
+
+    /**
+     * @description 是否开启多选
+     */
+    selection: {
+        type: Boolean,
+        default: false
     }
 } as const
 

@@ -7,6 +7,7 @@ type ToolButtonTypes = 'refresh' | 'setting' | 'search'
 
 type UseHeaderActions = {
     toggleSearchVisible?: () => void
+    refresh?: Function
 }
 
 type Options = {
@@ -49,7 +50,7 @@ export function useHeader(props: ProTableProps, options: Options) {
     const handleToolButtonClick = (key: ToolButtonTypes) => {
         switch (key) {
             case 'refresh':
-                // TODO 即直接调用一次当前请求方法
+                actions.refresh && actions.refresh()
                 break
             case 'setting':
                 // TODO
