@@ -92,38 +92,42 @@ const isUsePresetCell = (cell: any) => {
             v-if="props.selection"
             :align="'center'"
         ></el-table-column>
-        <el-table-column
-            v-bind="getElTableColumnProps(item)"
-            v-for="item in props.tableColumns"
-            :key="item.prop"
-            :label="getLabel(item.label)"
-        >
-            <template v-if="!isString(item.label)" #header>
-                <slot v-if="item.label?.slot" :name="item.label.slot"></slot>
-                <Component v-else :is="item.label?.render" />
-            </template>
-            <!-- 没有则不使用插槽处理单元格渲染-遵循ep的默认行为 -->
-            <template v-if="item.cell" #default="scoped">
-                <Component
-                    v-if="isUsePresetCell(item.cell)"
-                    v-bind="omit(item, ['prop', 'cell'])"
-                    :is="getCellComp(item?.cell)"
-                    :scoped="scoped"
-                    :prop="item.prop"
-                    :cellOpt="item.cell"
-                ></Component>
-                <Component
-                    v-else-if="(item.cell as any)?.render"
-                    :is="() => (item.cell as any)?.render(scoped.row)"
-                />
-                <div v-else-if="(item.cell as any)?.slot">
+        <template v-for="item in props.tableColumns" :key="item.prop">
+            <el-table-column
+                :label="getLabel(item.label)"
+                v-if="!item.hidden"
+                v-bind="getElTableColumnProps(item)"
+            >
+                <template v-if="!isString(item.label)" #header>
                     <slot
-                        :name="(item.cell as any).slot"
-                        :row="scoped.row"
+                        v-if="item.label?.slot"
+                        :name="item.label.slot"
                     ></slot>
-                </div>
-            </template>
-        </el-table-column>
+                    <Component v-else :is="item.label?.render" />
+                </template>
+                <!-- 没有则不使用插槽处理单元格渲染-遵循ep的默认行为 -->
+                <template v-if="item.cell" #default="scoped">
+                    <Component
+                        v-if="isUsePresetCell(item.cell)"
+                        v-bind="omit(item, ['prop', 'cell'])"
+                        :is="getCellComp(item?.cell)"
+                        :scoped="scoped"
+                        :prop="item.prop"
+                        :cellOpt="item.cell"
+                    ></Component>
+                    <Component
+                        v-else-if="(item.cell as any)?.render"
+                        :is="() => (item.cell as any)?.render(scoped.row)"
+                    />
+                    <div v-else-if="(item.cell as any)?.slot">
+                        <slot
+                            :name="(item.cell as any).slot"
+                            :row="scoped.row"
+                        ></slot>
+                    </div>
+                </template>
+            </el-table-column>
+        </template>
         <!-- 操作列 -->
         <el-table-column
             v-if="props.operationColumnConfig"
