@@ -62,8 +62,9 @@ export const proFormProps = {
     // 其他属性则会直接透传给 el-form
 } as const
 
-export type ProFormProps = ExtractPropTypes<typeof proFormProps> &
-    Omit<FormInstance['$props'], 'modelValue'>
+export type ProFormProps =
+    | ExtractPropTypes<typeof proFormProps>
+    | Omit<FormInstance['$props'], 'modelValue'>
 
 export const proFormEmits = {
     [UPDATE_MODEL_EVENT]: (value: any) => true,
