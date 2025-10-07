@@ -135,7 +135,9 @@ const formItems: ProFormItemType[] = [
 ]
 
 const footerConfig: ProFormFooterConfig = {
-    align: 'center'
+    align: 'right',
+    submitBtn: true,
+    resetBtn: true
 }
 
 interface RuleForm {
