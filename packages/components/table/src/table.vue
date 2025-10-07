@@ -3,6 +3,7 @@ import TableData from './table-data.vue'
 import ProDrawer from '../../drawer'
 import { ColumnController } from './column-controller'
 import { ProTableSearch } from './search'
+import { ProTablePagination } from './pagination'
 import { proTableEmits, proTableProps } from './table'
 import { computed, provide, useAttrs, ref } from 'vue'
 import {
@@ -46,7 +47,14 @@ const componentStyleClass = computed(() => {
     return ''
 })
 
-const { tableData, onSearchParamsChange, fetchData } = useTable({
+const {
+    tableData,
+    onSearchParamsChange,
+    fetchData,
+    pageable,
+    onPageChange,
+    onPageSizeChange
+} = useTable({
     api: props.requestApi,
     isPageable: props.pagination,
     initParam: props.initParams,
@@ -157,7 +165,13 @@ provide(tableContextKey, {
                     </template>
                 </TableData>
             </div>
-            <div class="pro-table__pagination"></div>
+            <div class="pro-table__pagination">
+                <ProTablePagination
+                    :pageable="pageable"
+                    :handle-current-change="onPageChange"
+                    :handle-size-change="onPageSizeChange"
+                />
+            </div>
         </div>
 
         <ProDrawer v-model="drawerVisible" title="列控制器" size="300px">
