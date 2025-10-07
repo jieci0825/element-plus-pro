@@ -2,7 +2,6 @@
 import type { PropType } from 'vue'
 import type {
     OperationColumnConfig,
-    OperationColumnConfigBtnOption,
     DisplayMode
 } from './operation-column.type'
 import { computed } from 'vue'
