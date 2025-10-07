@@ -2,6 +2,9 @@ import type { ButtonType, TableColumnInstance } from 'element-plus'
 import type { HeaderConfig } from '../common.type'
 import { Component } from 'vue'
 
+// 按钮展示模式：icon-text:图标+文本；icon-only:图标；text-only:文本
+export type DisplayMode = 'icon-text' | 'icon-only' | 'text-only'
+
 export interface BtnConfig {
     text?: string
     onClick?: Function
@@ -13,8 +16,8 @@ export interface BtnConfig {
 export interface OperationColumnConfigBtnOption {
     // 是否以文本按钮的样式展示
     isTextBtn: boolean
-    // 按钮展示模式：icon-text:图标+文本；icon-only:图标；text-only:文本
-    displayMode: 'icon-text' | 'icon-only' | 'text-only'
+    // 按钮展示模式
+    displayMode: DisplayMode
     editBtn: BtnConfig | boolean
     viewBtn: BtnConfig | boolean
     deleteBtn: BtnConfig | boolean

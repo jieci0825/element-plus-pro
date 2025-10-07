@@ -2,7 +2,8 @@
 import type { PropType } from 'vue'
 import type {
     OperationColumnConfig,
-    OperationColumnConfigBtnOption
+    OperationColumnConfigBtnOption,
+    DisplayMode
 } from './operation-column.type'
 import { computed } from 'vue'
 import { ElLink, ElButton } from 'element-plus'
@@ -79,17 +80,9 @@ function getBtnConfig(type: 'view' | 'edit' | 'delete') {
     return merged
 }
 
-function isShowTextOrIcon(
-    displayMode: OperationColumnConfigBtnOption['displayMode'] | undefined
-) {
-    const mode = (displayMode ?? 'icon-text') as
-        | 'icon-only'
-        | 'icon-text'
-        | 'text-only'
-    const map: Record<
-        'icon-only' | 'icon-text' | 'text-only',
-        { text: boolean; icon: boolean }
-    > = {
+function isShowTextOrIcon(displayMode: DisplayMode | undefined) {
+    const mode = displayMode ?? 'icon-text'
+    const map: Record<DisplayMode, { text: boolean; icon: boolean }> = {
         'icon-only': { text: false, icon: true },
         'icon-text': { text: true, icon: true },
         'text-only': { text: true, icon: false }
