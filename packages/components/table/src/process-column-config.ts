@@ -8,12 +8,14 @@ import type {
     CellConfig,
     CellRenderConfig
 } from './table-cell.type'
-import type { ProTableProps } from './table'
+import type { ProTableProps, ProTableColumnType } from './table'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
 
 export function processColumnConfig(tableConfig: ProTableProps) {
     const tableColumns = cloneDeep(tableConfig.tableColumns)
-    for (const item of tableColumns) {
+
+    // 递归处理列配置
+    function processColumn(item: ProTableColumnType) {
         // 处理对齐方式
         if (item.align === undefined) {
             item.align = item.align || tableConfig.align || 'center'
@@ -26,6 +28,17 @@ export function processColumnConfig(tableConfig: ProTableProps) {
                 render: markRaw(item.label.render)
             }
         }
+
+        // 递归处理子级表头
+        if (item.children && Array.isArray(item.children)) {
+            for (const child of item.children) {
+                processColumn(child)
+            }
+        }
+    }
+
+    for (const item of tableColumns) {
+        processColumn(item)
     }
 
     return [tableConfig.tableColumns, tableColumns]

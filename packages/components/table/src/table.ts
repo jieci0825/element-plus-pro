@@ -15,7 +15,7 @@ export interface ProTableColumnType
     /**
      * @description 字段名-对应数据中的字段名
      */
-    prop: string
+    prop?: string
 
     /**
      * @description 单元格配置-不传递默认为 EP 的默认行为
@@ -36,6 +36,11 @@ export interface ProTableColumnType
      * @description 搜索配置
      */
     search?: SearchType
+
+    /**
+     * @description 子列
+     */
+    children?: ProTableColumnType[]
 
     /**
      * @description 枚举值

@@ -3,9 +3,9 @@ import OperationColumn from './operation-column/operation-column.vue'
 import { isString, omit } from '@jc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
 import type { ProTableColumnType } from './table'
-import type { PropType, Component } from 'vue'
+import type { PropType } from 'vue'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
-import TableColumnRecursive from './table-column-recursive.vue'
+import TableColumn from './table-column.vue'
 
 const props = defineProps({
     tableData: {
@@ -52,15 +52,19 @@ const getLabel = (label: any) => {
         <el-table-column
             width="50"
             type="selection"
+            align="center"
             v-if="props.selection"
-            :align="'center'"
         ></el-table-column>
         <!-- 表格列 -->
-        <TableColumnRecursive :tableColumns="props.tableColumns">
+        <TableColumn
+            v-for="(column, index) in props.tableColumns"
+            :key="column.prop || index"
+            :column="column"
+        >
             <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
-                <slot :name="slotName" :row="slotProps.row"></slot>
+                <slot :name="slotName" v-bind="slotProps"></slot>
             </template>
-        </TableColumnRecursive>
+        </TableColumn>
         <!-- 操作列 -->
         <el-table-column
             v-if="props.operationColumnConfig"
