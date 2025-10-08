@@ -23,6 +23,7 @@ $gap: 15px;
         width: 100%;
         min-height: 50px;
         padding: $gap;
+        flex-shrink: 0;
     }
 
     &__content {
@@ -76,6 +77,7 @@ $gap: 15px;
     }
 
     &__pagination {
+        flex-shrink: 0;
         width: 100%;
     }
 
