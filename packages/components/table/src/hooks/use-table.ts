@@ -64,10 +64,10 @@ export function useTable(options: Partial<Options>) {
         try {
             const resp = await options.api(state.totalParams)
 
-            const _data = resp.data || resp
+            let _data = resp.data || resp
 
             if (isFunction(options.dataCallBack)) {
-                resp.data = options.dataCallBack(_data)
+                _data = options.dataCallBack(_data)
             }
 
             if (options.isPageable) {
@@ -78,7 +78,6 @@ export function useTable(options: Partial<Options>) {
                 state.pageable.total = _data.length
             }
         } catch (error) {
-            console.log('error', error)
             if (isFunction(options.requestError)) {
                 options.requestError(error)
             }

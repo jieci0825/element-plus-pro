@@ -177,14 +177,6 @@ export const proTableProps = {
     },
 
     /**
-     * @description 行key：用来优化 Table 的渲染，当表格数据多选时，所指定的 id ==> 非必传（默认为 id）
-     */
-    rowKey: {
-        type: String,
-        default: 'id'
-    },
-
-    /**
      * @description 查询初始参数
      */
     initParams: {

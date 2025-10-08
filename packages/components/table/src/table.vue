@@ -165,7 +165,7 @@ provide(tableContextKey, {
                     </template>
                 </TableData>
             </div>
-            <div class="pro-table__pagination">
+            <div class="pro-table__pagination" v-if="!!props.pagination">
                 <ProTablePagination
                     :pageable="pageable"
                     :handle-current-change="onPageChange"
