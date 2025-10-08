@@ -14,6 +14,7 @@ import './table.scss'
 import { tableContextKey } from './constants'
 import { isObject } from '@jc/element-plus-pro-utils'
 import { useHeader, useTable } from './hooks'
+import { useSlots } from 'vue'
 
 defineOptions({
     name: 'ProTable'
@@ -118,6 +119,8 @@ const handleColumnShowOrHide = (payload: any) => {
     }
 }
 
+const slots: any = useSlots()
+
 provide(tableContextKey, {
     tableColumns: _formatTableColumns,
     cellChange: onCellChange
@@ -168,10 +171,10 @@ provide(tableContextKey, {
                     :loading="showLoading"
                 >
                     <template
-                        v-for="(_, slotName) in $slots"
+                        v-for="(_, slotName) in slots"
                         #[slotName]="slotProps"
                     >
-                        <slot :name="slotName" :slotProps="slotProps"></slot>
+                        <slot :name="slotName" :row="slotProps.row"></slot>
                     </template>
                 </TableData>
             </div>

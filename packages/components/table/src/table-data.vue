@@ -2,24 +2,10 @@
 import OperationColumn from './operation-column/operation-column.vue'
 import { isString, omit } from '@jc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
-import {
-    CellConfig,
-    isPresetCellTypeProps,
-    PresetCellType
-} from './table-cell.type'
-import {
-    TxtCell,
-    ImageCell,
-    SwitchCell,
-    InputCell,
-    InputNumberCell,
-    SelectCell,
-    ProgressCell,
-    EnumCell
-} from './table-cell'
 import type { ProTableColumnType } from './table'
 import type { PropType, Component } from 'vue'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
+import TableColumnRecursive from './table-column-recursive.vue'
 
 const props = defineProps({
     tableData: {
@@ -51,39 +37,8 @@ const elTableProps = computed(() => {
     return omit(attrs, ['data'])
 })
 
-const cellCompMap: { [key in PresetCellType]: Component } = {
-    txt: TxtCell,
-    image: ImageCell,
-    input: InputCell,
-    switch: SwitchCell,
-    progress: ProgressCell,
-    input_number: InputNumberCell,
-    select: SelectCell,
-    enum: EnumCell
-}
-
-const getElTableColumnProps = (item: ProTableColumnType) => {
-    const omitKeys = ['label', 'cell', 'hidden', 'isQuery']
-    const defaultProps = {
-        showOverflowTooltip: true
-    }
-    return { ...defaultProps, ...omit(item, omitKeys) }
-}
-
-const getCellComp = (cell: CellConfig | undefined) => {
-    if (isPresetCellTypeProps(cell)) {
-        return cellCompMap[cell.cellType]
-    }
-    // TODO
-    return undefined
-}
-
 const getLabel = (label: any) => {
     return isString(label) ? label : undefined
-}
-
-const isUsePresetCell = (cell: any) => {
-    return isPresetCellTypeProps(cell)
 }
 </script>
 
@@ -100,42 +55,12 @@ const isUsePresetCell = (cell: any) => {
             v-if="props.selection"
             :align="'center'"
         ></el-table-column>
-        <template v-for="item in props.tableColumns" :key="item.prop">
-            <el-table-column
-                v-if="!item.hidden"
-                :label="getLabel(item.label)"
-                v-bind="getElTableColumnProps(item)"
-            >
-                <template v-if="!isString(item.label)" #header>
-                    <slot
-                        v-if="item.label?.slot"
-                        :name="item.label.slot"
-                    ></slot>
-                    <Component v-else :is="item.label?.render" />
-                </template>
-                <!-- 没有则不使用插槽处理单元格渲染-遵循ep的默认行为 -->
-                <template v-if="item.cell" #default="scoped">
-                    <Component
-                        v-if="isUsePresetCell(item.cell)"
-                        v-bind="omit(item, ['prop', 'cell'])"
-                        :is="getCellComp(item?.cell)"
-                        :scoped="scoped"
-                        :prop="item.prop"
-                        :cellOpt="item.cell"
-                    ></Component>
-                    <Component
-                        v-else-if="(item.cell as any)?.render"
-                        :is="() => (item.cell as any)?.render(scoped.row)"
-                    />
-                    <div v-else-if="(item.cell as any)?.slot">
-                        <slot
-                            :name="(item.cell as any).slot"
-                            :row="scoped.row"
-                        ></slot>
-                    </div>
-                </template>
-            </el-table-column>
-        </template>
+        <!-- 表格列 -->
+        <TableColumnRecursive :tableColumns="props.tableColumns">
+            <template v-for="(_, slotName) in $slots" #[slotName]="slotProps">
+                <slot :name="slotName" :row="slotProps.row"></slot>
+            </template>
+        </TableColumnRecursive>
         <!-- 操作列 -->
         <el-table-column
             v-if="props.operationColumnConfig"
