@@ -34,7 +34,9 @@ export function useTable(options: Partial<Options>) {
         // 外部传入的初始搜索参数
         searchInitParams: options.initParam || {},
         // 搜索表单+分页
-        totalParams: {}
+        totalParams: {},
+        // loading 状态
+        isLoading: false
     })
 
     /**
@@ -62,6 +64,7 @@ export function useTable(options: Partial<Options>) {
         if (!options.api || !isFunction(options.api)) return
 
         try {
+            state.isLoading = true
             const resp = await options.api(state.totalParams)
 
             let _data = resp.data || resp
@@ -81,6 +84,8 @@ export function useTable(options: Partial<Options>) {
             if (isFunction(options.requestError)) {
                 options.requestError(error)
             }
+        } finally {
+            state.isLoading = false
         }
     }
 

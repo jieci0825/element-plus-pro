@@ -190,6 +190,14 @@ export const proTableProps = {
     selection: {
         type: Boolean,
         default: false
+    },
+
+    /**
+     * @description 是否显示加载状态，默认开启（在有 requestApi 时自动控制）
+     */
+    loading: {
+        type: Boolean,
+        default: true
     }
 } as const
 

@@ -53,7 +53,8 @@ const {
     fetchData,
     pageable,
     onPageChange,
-    onPageSizeChange
+    onPageSizeChange,
+    isLoading
 } = useTable({
     api: props.requestApi,
     isPageable: props.pagination,
@@ -65,6 +66,14 @@ const {
 if (!!props.requestAuto) {
     onSearchParamsChange({})
 }
+
+/**
+ * 是否显示 loading
+ * 当 loading 为 true 且正在请求时显示加载状态
+ */
+const showLoading = computed(() => {
+    return props.loading && isLoading.value
+})
 
 const showSearch = computed(() => {
     // 如果有搜索列配置，则显示搜索栏
@@ -156,6 +165,7 @@ provide(tableContextKey, {
                     :operation-column-config="operationColumnConfig"
                     :table-columns="formatTableColumns"
                     :selection="props.selection"
+                    :loading="showLoading"
                 >
                     <template
                         v-for="(_, slotName) in $slots"

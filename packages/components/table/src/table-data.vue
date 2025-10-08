@@ -37,6 +37,10 @@ const props = defineProps({
     selection: {
         type: Boolean,
         default: false
+    },
+    loading: {
+        type: Boolean,
+        default: false
     }
 })
 
@@ -84,7 +88,11 @@ const isUsePresetCell = (cell: any) => {
 </script>
 
 <template>
-    <el-table :data="props.tableData" v-bind="elTableProps">
+    <el-table
+        :data="props.tableData"
+        v-bind="elTableProps"
+        v-loading="props.loading"
+    >
         <!-- 多选 -->
         <el-table-column
             width="50"

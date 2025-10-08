@@ -8,6 +8,7 @@ $gap: 15px;
     gap: $gap;
     overflow: hidden;
     background-color: transparent;
+    position: relative;
 
     &.is-card {
         .pro-table__search,
@@ -76,5 +77,18 @@ $gap: 15px;
 
     &__pagination {
         width: 100%;
+    }
+
+    .pro-table-custom-loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.9);
+        z-index: 2000;
     }
 }
