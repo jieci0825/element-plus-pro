@@ -23,6 +23,10 @@ defineOptions({
     name: 'TableColumn'
 })
 
+defineSlots<{
+    [key: string]: (props: any) => any
+}>()
+
 const props = defineProps({
     column: {
         type: Object as PropType<ProTableColumnType>,
