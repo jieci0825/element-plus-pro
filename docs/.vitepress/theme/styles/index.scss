@@ -1,0 +1,11 @@
+/**
+ * VitePress 主题样式入口
+ * 按模块组织导入各个样式文件
+ */
+
+// 1. 主题变量
+@use './variable.scss';
+
+// 2. 组件样式
+@use './button.scss';
+@use './hero.scss';

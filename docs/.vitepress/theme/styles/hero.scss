@@ -1,0 +1,15 @@
+/**
+ * 首页 Hero 组件样式
+ * 自定义首页标题渐变效果
+ */
+
+.VPHero .name {
+    background: linear-gradient(
+        120deg,
+        var(--vp-c-brand-1) 30%,
+        var(--vp-c-brand-3)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

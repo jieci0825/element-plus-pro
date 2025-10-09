@@ -1,0 +1,30 @@
+/**
+ * 按钮组件样式
+ * 自定义按钮的品牌色样式
+ */
+
+/* 浅色模式按钮样式 */
+:root {
+    --vp-button-brand-border: var(--vp-c-brand-1);
+    --vp-button-brand-text: #ffffff;
+    --vp-button-brand-bg: var(--vp-c-brand-1);
+    --vp-button-brand-hover-border: var(--vp-c-brand-2);
+    --vp-button-brand-hover-text: #ffffff;
+    --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+    --vp-button-brand-active-border: var(--vp-c-brand-1);
+    --vp-button-brand-active-text: #ffffff;
+    --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
+
+/* 深色模式按钮样式 */
+.dark {
+    --vp-button-brand-border: var(--vp-c-brand-1);
+    --vp-button-brand-text: #1b1b1f;
+    --vp-button-brand-bg: var(--vp-c-brand-1);
+    --vp-button-brand-hover-border: var(--vp-c-brand-2);
+    --vp-button-brand-hover-text: #1b1b1f;
+    --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+    --vp-button-brand-active-border: var(--vp-c-brand-1);
+    --vp-button-brand-active-text: #1b1b1f;
+    --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
