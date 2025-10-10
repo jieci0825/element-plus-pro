@@ -1,12 +1,21 @@
 import { defineConfig } from 'vitepress'
+import { demoContainer } from './plugins/demo-container'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
     title: 'Element Plus Pro',
     description: 'A Vue3 component library based on Element Plus',
+    markdown: {
+        config(md) {
+            demoContainer(md)
+        }
+    },
     vite: {
         server: {
-            port: 5651
+            port: 5651,
+            fs: {
+                allow: ['..']
+            }
         }
     },
     themeConfig: {

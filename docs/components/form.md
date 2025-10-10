@@ -4,20 +4,8 @@
 
 ## 基础用法
 
-```vue
-<template>
-  <pro-form :config="formConfig" v-model="formData" />
-</template>
-
-<script setup>
-import { ref } from 'vue'
-
-const formData = ref({})
-const formConfig = ref({
-  // 表单配置
-})
-</script>
-```
+:::demo /examples/form/basic.vue 基础用法
+:::
 
 ## API
 

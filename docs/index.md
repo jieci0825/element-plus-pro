@@ -3,8 +3,12 @@ layout: home
 
 hero:
   name: "Element Plus Pro"
-  text: "基于 Element Plus 的高级组件库"
-  tagline: 为 Vue3 应用提供更强大的组件支持
+  text: "简单快速、告别Repeat"
+  tagline: 配置驱动的 Vue3 组件库，基于 JSON Schema 声明式开发，让复杂表单与表格开发更简单高效
+  image:
+    light: /images/hero-light.svg
+    dark: /images/hero-dark.svg
+    alt: Element Plus Pro
   actions:
     - theme: brand
       text: 快速开始
@@ -20,7 +24,5 @@ features:
     details: 支持搜索、分页、列控制等高级功能，满足各种表格需求
   - title: 🎨 基于 Element Plus
     details: 完全基于 Element Plus 构建，保持一致的设计风格和使用体验
-  - title: 📦 开箱即用
-    details: 提供完整的 TypeScript 类型定义，开箱即用
 ---
 
