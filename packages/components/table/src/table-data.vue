@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import OperationColumn from './operation-column/operation-column.vue'
-import { isString, omit } from '@jc/element-plus-pro-utils'
+import { OperationColumn } from './operation-column'
+import { omit } from '@jc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
 import type { ProTableColumnType } from './table'
 import type { PropType } from 'vue'
-import type { OperationColumnConfig } from './operation-column/operation-column.type'
+import type { OperationColumnConfig } from './operation-column'
 import TableColumn from './table-column.vue'
 
 const props = defineProps({
@@ -36,10 +36,6 @@ const attrs = useAttrs()
 const elTableProps = computed(() => {
     return omit(attrs, ['data'])
 })
-
-const getLabel = (label: any) => {
-    return isString(label) ? label : undefined
-}
 </script>
 
 <template>
@@ -66,33 +62,12 @@ const getLabel = (label: any) => {
             </template>
         </TableColumn>
         <!-- 操作列 -->
-        <el-table-column
+        <OperationColumn
             v-if="props.operationColumnConfig"
-            v-bind="omit(props.operationColumnConfig, ['label', 'btnProps'])"
-            :label="getLabel(props.operationColumnConfig.label)"
-        >
-            <template
-                v-if="!isString(props.operationColumnConfig.label)"
-                #header
-            >
-                <slot
-                    v-if="props.operationColumnConfig?.label?.slot"
-                    :name="props.operationColumnConfig.label.slot"
-                ></slot>
-                <Component
-                    v-else
-                    :is="props.operationColumnConfig?.label?.render"
-                />
-            </template>
-            <template #default="scoped">
-                <OperationColumn
-                    :scoped="scoped"
-                    :config="
-                        props.operationColumnConfig as Required<OperationColumnConfig>
-                    "
-                />
-            </template>
-        </el-table-column>
+            :operation-column-config="
+                props.operationColumnConfig as Required<OperationColumnConfig>
+            "
+        ></OperationColumn>
         <!-- 承接原 el-table 拥有的插槽 -->
         <template #empty>
             <slot name="empty"></slot>
