@@ -275,4 +275,4 @@ export interface ProFormItemCommonType
     col?: Partial<ColProps>
 }
 
-export type ProFormItemType = ProFormItemCommonType & MyFormItemPropsByTypes
+export type ProFormItemConfig = ProFormItemCommonType & MyFormItemPropsByTypes

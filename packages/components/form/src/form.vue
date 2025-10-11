@@ -10,7 +10,7 @@ import { isFunction, isString } from '@jc/element-plus-pro-utils'
 import { JcLabelTooltip } from './jc-comps'
 import { formFooterProcess } from './form-footer-process'
 import type { FormInstance } from 'element-plus'
-import type { ProFormItemType } from './form-item.type'
+import type { ProFormItemConfig } from './form-item.type'
 
 defineOptions({
     name: 'ProForm'
@@ -35,7 +35,7 @@ const [getComp] = createFormItemCompMap(formData, {
     onUpdateModelValue: updateFormValue
 })
 
-const getFormItemLabelComp = (item: ProFormItemType) => {
+const getFormItemLabelComp = (item: ProFormItemConfig) => {
     if (isString(item.label)) {
         if (item.tooltip && isString(item.tooltip)) {
             return h(JcLabelTooltip, {
@@ -79,7 +79,7 @@ const handleReset = () => {
     emit('reset')
 }
 
-function getColProps(item: ProFormItemType | ProFormFooterConfig) {
+function getColProps(item: ProFormItemConfig | ProFormFooterConfig) {
     const defaultColProps = {
         span: 24
     }

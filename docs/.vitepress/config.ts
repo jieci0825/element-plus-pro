@@ -5,6 +5,15 @@ import { demoContainer } from './plugins/demo-container'
 export default defineConfig({
     title: 'Element Plus Pro',
     description: 'A Vue3 component library based on Element Plus',
+    head: [
+        [
+            'link',
+            {
+                rel: 'stylesheet',
+                href: '//at.alicdn.com/t/c/font_5038042_3ca1x4lvz3d.css'
+            }
+        ]
+    ],
     markdown: {
         config(md) {
             demoContainer(md)

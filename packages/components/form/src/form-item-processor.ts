@@ -7,12 +7,12 @@ import {
     isUndefined,
     omit
 } from '@jc/element-plus-pro-utils'
-import type { ProFormItemType } from './form-item.type'
+import type { ProFormItemConfig } from './form-item.type'
 
 /**
  * 处理单个表单项-el插槽
  */
-function processFormItemElSlots(item: ProFormItemType): void {
+function processFormItemElSlots(item: ProFormItemConfig): void {
     if (isFunction(item.elSlots)) {
         // 如果 elSlots 是一个函数，则将其转换为默认插槽
         item.elSlots = {
@@ -39,7 +39,7 @@ function processFormItemElSlots(item: ProFormItemType): void {
  * 处理单个表单项-默认值
  */
 function processFormItemDefaultValue(
-    item: ProFormItemType,
+    item: ProFormItemConfig,
     formProps: ProFormProps
 ): void {
     // 使用对象映射的方式批量设置默认值
@@ -52,7 +52,7 @@ function processFormItemDefaultValue(
 
     // 批量设置默认值
     Object.entries(defaults).forEach(([key, value]) => {
-        if (isUndefined(item[key as keyof ProFormItemType])) {
+        if (isUndefined(item[key as keyof ProFormItemConfig])) {
             ;(item as any)[key] = value
         }
     })
@@ -82,12 +82,12 @@ const WithProps = [
 /**
  * 处理单个表单项-props
  */
-function processFormItemProps(item: ProFormItemType): void {
+function processFormItemProps(item: ProFormItemConfig): void {
     // 如果不是 undefined，则说明用户主动配置了，无需处理
     if (!isUndefined(item.props)) return
 
     // 如果是 undefined，则根据当前 item 进行处理
-    //  -  即排除 ProFormItemType 本身具备的属性之后，其余的都作为 props 传递给 el 组件
+    //  -  即排除 ProFormItemConfig 本身具备的属性之后，其余的都作为 props 传递给 el 组件
     item.props = omit(item, WithProps)
 }
 
@@ -95,9 +95,9 @@ function processFormItemProps(item: ProFormItemType): void {
  * 处理单个表单项
  */
 function processFormItem(
-    item: ProFormItemType,
+    item: ProFormItemConfig,
     formProps: ProFormProps
-): ProFormItemType {
+): ProFormItemConfig {
     processFormItemDefaultValue(item, formProps)
     processFormItemElSlots(item)
     processFormItemProps(item)
@@ -107,7 +107,7 @@ function processFormItem(
 /**
  * 处理表单项列表：过滤隐藏项并处理每个表单项
  */
-export function processFormItems(formProps: ProFormProps): ProFormItemType[] {
+export function processFormItems(formProps: ProFormProps): ProFormItemConfig[] {
     const formItems = formProps.formItems || []
     return formItems
         .map((item) => processFormItem(item, formProps))

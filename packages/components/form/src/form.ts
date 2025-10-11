@@ -1,6 +1,6 @@
 import { UPDATE_MODEL_EVENT } from '@jc/element-plus-pro-constants'
 import type { ExtractPropTypes, PropType, Component } from 'vue'
-import type { ProFormItemType } from './form-item.type'
+import type { ProFormItemConfig } from './form-item.type'
 import type { ColProps, FormInstance } from 'element-plus'
 
 export interface FooterBtn {
@@ -31,7 +31,7 @@ export const proFormProps = {
      * @description 表单项配置
      */
     formItems: {
-        type: Array as PropType<ProFormItemType[]>,
+        type: Array as PropType<ProFormItemConfig[]>,
         default: () => []
     },
 

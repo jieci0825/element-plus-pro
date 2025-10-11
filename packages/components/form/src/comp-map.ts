@@ -7,7 +7,7 @@ import {
     ElInputNumber,
     ElSwitch
 } from 'element-plus'
-import type { ProFormItemType, ProFormItemTypeKeys } from './form-item.type'
+import type { ProFormItemConfig, ProFormItemTypeKeys } from './form-item.type'
 import { isEmptyObj } from '@jc/element-plus-pro-utils'
 import {
     JcCheckbox,
@@ -100,7 +100,7 @@ function getEffectiveType(
 function createComp(
     component: Component,
     formData: Ref<any>,
-    formItem: ProFormItemType,
+    formItem: ProFormItemConfig,
     options: any = {}
 ) {
     return h(
@@ -123,7 +123,7 @@ function createComp(
  * 创建组件映射
  */
 export function createFormItemCompMap(formData: Ref<any>, options: any = {}) {
-    function getComp(item: ProFormItemType) {
+    function getComp(item: ProFormItemConfig) {
         const renderComponent = getComponentByType(item.type)
         if (!renderComponent) return EmptyComp({ type: item.type! })
         return createComp(renderComponent, formData, item, options)

@@ -2,12 +2,12 @@
 import {
     ProForm,
     ProFormFooterConfig,
-    ProFormItemType
+    ProFormItemConfig
 } from '@jc/element-plus-pro-components'
 import { h, ref, useTemplateRef } from 'vue'
 import { FormRules } from 'element-plus'
 
-const formItems: ProFormItemType[] = [
+const formItems: ProFormItemConfig[] = [
     {
         label: '姓名',
         key: 'name',
