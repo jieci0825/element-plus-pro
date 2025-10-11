@@ -19,6 +19,11 @@ export default defineConfig({
         }
     },
     themeConfig: {
+        outline: {
+            level: 'deep',
+            label: '页面导航'
+        },
+
         // https://vitepress.dev/reference/default-theme-config
         nav: [
             { text: '首页', link: '/' },
