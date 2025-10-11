@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { demoContainer } from './plugins/demo-container'
+import { inlineTooltip } from './plugins/inline-tooltip'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -17,6 +18,7 @@ export default defineConfig({
     markdown: {
         config(md) {
             demoContainer(md)
+            inlineTooltip(md)
         }
     },
     vite: {
