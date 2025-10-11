@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, defineAsyncComponent } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const props = defineProps<{
     title?: string
@@ -10,9 +11,11 @@ const props = defineProps<{
 const showCode = ref(false)
 const copyText = async () => {
     try {
-        await navigator.clipboard.writeText(props.source)
+        await navigator.clipboard.writeText(decodeURIComponent(props.source))
+
+        ElMessage.success('复制成功')
     } catch (e) {
-        // ignore
+        ElMessage.error('复制失败')
     }
 }
 const DemoComp = defineAsyncComponent(
@@ -30,9 +33,14 @@ const highlighted = computed(() =>
         <div class="demo-preview__toolbar">
             <span class="demo-preview__title">{{ props.title }}</span>
             <div class="demo-preview__actions">
-                <button @click="copyText">复制</button>
-                <button @click="showCode = !showCode">
-                    {{ showCode ? '收起代码' : '查看代码' }}
+                <button @click="copyText" aria-label="复制">
+                    <i class="iconfont icon-copy"></i>
+                </button>
+                <button
+                    @click="showCode = !showCode"
+                    :aria-label="showCode ? '收起代码' : '查看代码'"
+                >
+                    <i class="iconfont icon-code"></i>
                 </button>
             </div>
         </div>
@@ -71,5 +79,24 @@ const highlighted = computed(() =>
 }
 .demo-preview__actions button {
     margin-left: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    color: var(--vp-c-text-1);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+/* iconfont size */
+.demo-preview__actions .iconfont {
+    font-size: 18px;
+}
+/* ensure svg inside icon renders under scoped css */
+.demo-preview__actions :deep(svg) {
+    width: 1.5em;
+    height: 1.5em;
 }
 </style>
