@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, defineAsyncComponent } from 'vue'
 
-const props = defineProps<{ title?: string; path: string; source: string }>()
+const props = defineProps<{
+    title?: string
+    path: string
+    source: string
+    highlighted?: string
+}>()
 const showCode = ref(false)
 const copyText = async () => {
     try {
@@ -13,7 +18,11 @@ const copyText = async () => {
 const DemoComp = defineAsyncComponent(
     () => import(/* @vite-ignore */ props.path)
 )
-const highlighted = computed(() => decodeURIComponent(props.source))
+const highlighted = computed(() =>
+    props.highlighted
+        ? decodeURIComponent(props.highlighted)
+        : `<pre><code class=\"language-vue\">${decodeURIComponent(props.source)}</code></pre>`
+)
 </script>
 
 <template>
@@ -32,9 +41,11 @@ const highlighted = computed(() => decodeURIComponent(props.source))
                 <component :is="DemoComp" />
             </ClientOnly>
         </div>
-        <div v-if="showCode" class="demo-preview__code">
-            <pre><code class="language-vue">{{ highlighted }}</code></pre>
-        </div>
+        <div
+            v-if="showCode"
+            class="demo-preview__code"
+            v-html="highlighted"
+        ></div>
     </div>
 </template>
 

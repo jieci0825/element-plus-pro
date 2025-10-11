@@ -55,15 +55,22 @@ export function demoContainer(md: MarkdownIt) {
                     ? path.resolve(docsRoot, '.' + rawPath)
                     : path.resolve(mdFileDir, rawPath)
 
-                // 读取示例源码，并进行 URL 编码，便于作为属性传递到组件
+                // 读取示例源码
                 const source = fs.readFileSync(resolved, 'utf-8')
+                // 原始源码编码，用于复制等功能
                 const encoded = encodeURIComponent(source)
+                // 使用与 VitePress 一致的高亮器（若存在）在构建期生成 HTML
+                const highlightedHtml =
+                    typeof md.options.highlight === 'function'
+                        ? md.options.highlight(source, 'vue', '')
+                        : md.utils.escapeHtml(source)
+                const highlightedEncoded = encodeURIComponent(highlightedHtml)
                 // 计算对外可访问的相对路径，统一分隔符为 '/'
                 const publicPath =
                     '/' + path.relative(docsRoot, resolved).replace(/\\/g, '/')
 
                 // 将数据注入到自定义的 <DemoPreview /> 组件中进行展示
-                return `\n<DemoPreview title=${JSON.stringify(title || '')} path=${JSON.stringify(publicPath)} source="${encoded}" />\n`
+                return `\n<DemoPreview title=${JSON.stringify(title || '')} path=${JSON.stringify(publicPath)} source="${encoded}" highlighted="${highlightedEncoded}" />\n`
             } else {
                 // 闭标签不输出任何内容
                 return ''
