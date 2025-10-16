@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { OperationColumn } from './operation-column'
-import { omit } from '@jc/element-plus-pro-utils'
+import { omit } from '@coderjc/element-plus-pro-utils'
 import { computed, useAttrs } from 'vue'
 import type { ProTableColumnType } from './table'
 import type { PropType } from 'vue'

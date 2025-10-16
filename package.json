@@ -13,10 +13,10 @@
         "vue": "^3.5.0"
     },
     "devDependencies": {
-        "@jc/element-plus-pro-components": "workspace:*",
-        "@jc/element-plus-pro-constants": "workspace:*",
-        "@jc/element-plus-pro-hooks": "workspace:*",
-        "@jc/element-plus-pro-utils": "workspace:*",
+        "@coderjc/element-plus-pro-components": "workspace:*",
+        "@coderjc/element-plus-pro-constants": "workspace:*",
+        "@coderjc/element-plus-pro-hooks": "workspace:*",
+        "@coderjc/element-plus-pro-utils": "workspace:*",
         "@rollup/plugin-node-resolve": "^16.0.1",
         "@types/fs-extra": "9.0.13",
         "@types/gulp": "^4.0.17",

@@ -6,7 +6,7 @@ import {
     isString,
     isUndefined,
     omit
-} from '@jc/element-plus-pro-utils'
+} from '@coderjc/element-plus-pro-utils'
 import type { ProFormItemConfig } from './form-item.type'
 
 /**

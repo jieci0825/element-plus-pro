@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { isObject, isString } from '@jc/element-plus-pro-utils'
+import { isObject, isString } from '@coderjc/element-plus-pro-utils'
 import { isPresetCellType, isPresetCellTypeProps } from './table-cell.type'
 import { cloneDeep } from 'lodash-es'
 import type {

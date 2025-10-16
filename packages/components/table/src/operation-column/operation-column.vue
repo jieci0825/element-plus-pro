@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isString, omit } from '@jc/element-plus-pro-utils'
+import { isString, omit } from '@coderjc/element-plus-pro-utils'
 import { OperationColumnConfig } from './operation-column.type'
 import OperationColumnCell from './operation-column-cell.vue'
 

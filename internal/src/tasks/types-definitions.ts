@@ -44,13 +44,17 @@ export const generateTypesDefinitions = async () => {
                     compilerOptions: {
                         lib: tsConfig.config.compilerOptions.lib, // 继承原始的 lib 配置
                         paths: {
-                            '@jc/element-plus-pro': [entryFilePath], // 路径映射：element-plus-pro -> 主入口文件
-                            '@jc/element-plus-pro-utils': [`${typesDir}/utils`],
-                            '@jc/element-plus-pro-hooks': [`${typesDir}/hooks`],
-                            '@jc/element-plus-pro-components': [
+                            '@coderjc/element-plus-pro': [entryFilePath], // 路径映射：element-plus-pro -> 主入口文件
+                            '@coderjc/element-plus-pro-utils': [
+                                `${typesDir}/utils`
+                            ],
+                            '@coderjc/element-plus-pro-hooks': [
+                                `${typesDir}/hooks`
+                            ],
+                            '@coderjc/element-plus-pro-components': [
                                 `${typesDir}/components`
                             ],
-                            '@jc/element-plus-pro-constants': [
+                            '@coderjc/element-plus-pro-constants': [
                                 `${typesDir}/constants`
                             ]
                         },

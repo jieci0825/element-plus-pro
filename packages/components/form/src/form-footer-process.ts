@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import type { FooterBtn, ProFormFooterConfig } from './form'
-import { isObject, mergeConfig } from '@jc/element-plus-pro-utils'
+import { isObject, mergeConfig } from '@coderjc/element-plus-pro-utils'
 import { cloneDeep } from 'lodash-es'
 
 function _customizer(objValue: any, srcValue: any) {

@@ -7,8 +7,9 @@ import ElementPlusPro from '../../../dist/element-plus-pro/es/index.mjs'
 
 export default {
     ...DefaultTheme,
-    enhanceApp({ app }) {
-        DefaultTheme.enhanceApp?.({ app })
+    enhanceApp(ctx) {
+        DefaultTheme.enhanceApp?.(ctx)
+        const { app } = ctx
         app.use(ElementPlus)
         app.use(ElementPlusPro as any)
         app.component('DemoPreview', DemoPreview)

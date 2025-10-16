@@ -1,5 +1,5 @@
-import { withInstall } from '@jc/element-plus-pro-utils'
-import type { SFCWithInstall } from '@jc/element-plus-pro-utils'
+import { withInstall } from '@coderjc/element-plus-pro-utils'
+import type { SFCWithInstall } from '@coderjc/element-plus-pro-utils'
 import Form from './src/form.vue'
 
 export const ProForm: SFCWithInstall<typeof Form> = withInstall(Form)

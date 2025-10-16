@@ -1,4 +1,4 @@
-import { SFCWithInstall, withInstall } from '@jc/element-plus-pro-utils'
+import { SFCWithInstall, withInstall } from '@coderjc/element-plus-pro-utils'
 import Drawer from './src/drawer.vue'
 
 export const ProDrawer: SFCWithInstall<typeof Drawer> = withInstall(Drawer)

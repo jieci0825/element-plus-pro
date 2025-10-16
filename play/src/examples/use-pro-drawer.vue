@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ProDrawer } from '@jc/element-plus-pro-components'
+import { ProDrawer } from '@coderjc/element-plus-pro-components'
 import { ref } from 'vue'
 
 const visible = ref(false)

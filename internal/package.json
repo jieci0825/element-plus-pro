@@ -1,5 +1,5 @@
 {
-    "name": "@jc/element-plus-pro-build",
+    "name": "@coderjc/element-plus-pro-build",
     "version": "0.0.1",
     "private": true,
     "description": "Build Toolchain for Element Plus",

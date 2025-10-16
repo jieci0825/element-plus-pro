@@ -5,7 +5,7 @@ import { inject } from 'vue'
 import './enum-cell.scss'
 import { tableContextKey } from '../../constants'
 import { ElTag } from 'element-plus'
-import { isObject, omit } from '@jc/element-plus-pro-utils'
+import { isObject, omit } from '@coderjc/element-plus-pro-utils'
 
 const props = defineProps({
     scoped: {

@@ -1,4 +1,4 @@
-import { isFunction } from '@jc/element-plus-pro-utils'
+import { isFunction } from '@coderjc/element-plus-pro-utils'
 import { reactive, toRefs } from 'vue'
 
 interface Options {

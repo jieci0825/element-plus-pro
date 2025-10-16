@@ -3,7 +3,7 @@ import {
     ProForm,
     ProFormFooterConfig,
     ProFormItemConfig
-} from '@jc/element-plus-pro-components'
+} from '@coderjc/element-plus-pro-components'
 import { h, ref, useTemplateRef } from 'vue'
 import { FormRules } from 'element-plus'
 

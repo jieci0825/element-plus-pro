@@ -2,10 +2,10 @@
 import {
     ProTable,
     type ProTableColumnType
-} from '@jc/element-plus-pro-components'
+} from '@coderjc/element-plus-pro-components'
 import { ElButton, ElMessage } from 'element-plus'
 import { h, ref } from 'vue'
-import type { OperationColumnConfig } from '@jc/element-plus-pro-components'
+import type { OperationColumnConfig } from '@coderjc/element-plus-pro-components'
 
 const tableColumns: ProTableColumnType[] = [
     // {
@@ -59,36 +59,59 @@ const tableColumns: ProTableColumnType[] = [
             isCircle: true
         }
     },
+    { label: '状态', prop: 'status', cell: 'switch' },
     {
-        label: { slot: 'age' },
-        prop: 'age',
-        width: 120,
-        cell: {
-            cellType: 'input_number',
-            min: 0,
-            max: 100,
-            step: 1,
-            size: 'small'
-            // slot: 'ageCell'
-        }
-    },
-    {
-        label: '地址',
-        prop: 'address',
-        width: 120,
-        // formatter(row) {
-        //     console.log(row)
-        //     return 'formatter'
-        // },
-        cell: {
-            cellType: 'select',
-            options: [
-                { label: '华北', value: '华北' },
-                { label: '华南', value: '华南' },
-                { label: '西南', value: '西南' },
-                { label: '东北', value: '东北' }
-            ]
-        }
+        label: '其他信息',
+        minWidth: 300,
+        children: [
+            {
+                label: { slot: 'age' },
+                prop: 'age',
+                width: 120,
+                cell: {
+                    // cellType: 'input_number',
+                    // min: 0,
+                    // max: 100,
+                    // step: 1,
+                    // size: 'small'
+                    slot: 'ageCell'
+                }
+            },
+            {
+                label: '地址',
+                prop: 'address',
+                width: 120,
+                // formatter(row) {
+                //     console.log(row)
+                //     return 'formatter'
+                // },
+                cell: {
+                    cellType: 'select',
+                    options: [
+                        { label: '华北', value: '华北' },
+                        { label: '华南', value: '华南' },
+                        { label: '西南', value: '西南' },
+                        { label: '东北', value: '东北' }
+                    ]
+                }
+            },
+            {
+                label: '电话',
+                prop: 'phone',
+                width: 150,
+                search: { type: 'input', placeholder: '请输入电话查询' }
+            },
+            {
+                label: '生日',
+                prop: 'birthday',
+                search: {
+                    type: 'daterange',
+                    startPlaceholder: '开始时间',
+                    endPlaceholder: '结束时间'
+                }
+            },
+            { label: '邮箱', prop: 'email' }
+        ]
     },
     // {
     //     label: 'HP',
@@ -101,13 +124,6 @@ const tableColumns: ProTableColumnType[] = [
     //         }
     //     }
     // },
-    { label: '状态', prop: 'status', cell: 'switch' },
-    {
-        label: '电话',
-        prop: 'phone',
-        width: 150,
-        search: { type: 'input', placeholder: '请输入电话查询' }
-    },
     { label: '描述', prop: 'desc', cell: 'input', width: 200 },
     {
         label: '职业',
@@ -120,16 +136,6 @@ const tableColumns: ProTableColumnType[] = [
             // formatValue(value, row) {
             //     return value
             // }
-        }
-    },
-    { label: '邮箱', prop: 'email' },
-    {
-        label: '生日',
-        prop: 'birthday',
-        search: {
-            type: 'daterange',
-            startPlaceholder: '开始时间',
-            endPlaceholder: '结束时间'
         }
     }
 ]
@@ -189,6 +195,7 @@ const headerClick = () => {
                 :operation-column="operateionColumn"
                 :init-params="{ username: '' }"
                 :selection="true"
+                element-loading-text="coderjc"
                 @header-click="headerClick"
                 @cell-change="handleCellChange"
             >
@@ -203,9 +210,9 @@ const headerClick = () => {
                         >年龄</el-tag
                     >
                 </template>
-                <template #ageCell="{ slotProps }">
+                <template #ageCell="{ row }">
                     <span style="color: orange; font-weight: bold">{{
-                        slotProps.row.age
+                        row.age
                     }}</span>
                 </template>
             </ProTable>

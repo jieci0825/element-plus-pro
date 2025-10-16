@@ -2,7 +2,7 @@
 import ProForm from '../../../form'
 import { ref, computed, inject, onMounted } from 'vue'
 import { tableContextKey } from '../constants'
-import { isObject } from '@jc/element-plus-pro-utils'
+import { isObject } from '@coderjc/element-plus-pro-utils'
 import {
     Search,
     RefreshLeft,

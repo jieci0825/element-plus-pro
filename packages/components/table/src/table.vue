@@ -12,7 +12,7 @@ import {
 } from './process-column-config'
 import './table.scss'
 import { tableContextKey } from './constants'
-import { isObject } from '@jc/element-plus-pro-utils'
+import { isObject } from '@coderjc/element-plus-pro-utils'
 import { useHeader, useTable } from './hooks'
 import { useSlots } from 'vue'
 

@@ -16,10 +16,10 @@
         "rootDir": ".",
         "types": [],
         "paths": {
-            "@jc/element-plus-pro-utils": ["packages/utils"],
-            "@jc/element-plus-pro-constants": ["packages/constants"],
-            "@jc/element-plus-pro-components": ["packages/components"],
-            "@jc/element-plus-pro-components/*": ["packages/components/*"]
+            "@coderjc/element-plus-pro-utils": ["packages/utils"],
+            "@coderjc/element-plus-pro-constants": ["packages/constants"],
+            "@coderjc/element-plus-pro-components": ["packages/components"],
+            "@coderjc/element-plus-pro-components/*": ["packages/components/*"]
         },
         "preserveSymlinks": true
     }

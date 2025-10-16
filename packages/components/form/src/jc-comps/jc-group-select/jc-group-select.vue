@@ -3,7 +3,7 @@ import {
     getElDefaultSlot,
     getElDefaultSlotAndToComponent,
     omit
-} from '@jc/element-plus-pro-utils'
+} from '@coderjc/element-plus-pro-utils'
 import { useAttrs } from 'vue'
 
 const attrs: any = useAttrs()

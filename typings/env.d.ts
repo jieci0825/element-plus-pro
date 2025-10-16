@@ -1,5 +1,5 @@
 import type { vShow, Component } from 'vue'
-import type { INSTALLED_KEY } from '@jc/element-plus-pro-constants'
+import type { INSTALLED_KEY } from '@coderjc/element-plus-pro-constants'
 
 declare global {
     namespace JSX {

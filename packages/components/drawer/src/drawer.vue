@@ -3,7 +3,7 @@ import { ElDrawer } from 'element-plus'
 import './drawer.scss'
 import { proDrawerEmits, proDrawerProps } from './drawer'
 import { computed, toRef, useAttrs, useTemplateRef } from 'vue'
-import { useComponentProxy } from '@jc/element-plus-pro-hooks'
+import { useComponentProxy } from '@coderjc/element-plus-pro-hooks'
 type DrawerExpose = { handleClose: () => void }
 
 defineOptions({

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UploadFilled } from '@element-plus/icons-vue'
-import { omit } from '@jc/element-plus-pro-utils'
+import { omit } from '@coderjc/element-plus-pro-utils'
 import { useAttrs, ref } from 'vue'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 

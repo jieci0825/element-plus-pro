@@ -8,7 +8,7 @@ import { computed } from 'vue'
 import { ElLink, ElButton } from 'element-plus'
 import './operation-column.scss'
 import { View, Delete, EditPen } from '@element-plus/icons-vue'
-import { isBoolean, omit } from '@jc/element-plus-pro-utils'
+import { isBoolean, omit } from '@coderjc/element-plus-pro-utils'
 
 const props = defineProps({
     config: {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
 import { SwitchCellTypeProps } from '../../table-cell.type'
-import { omit } from '@jc/element-plus-pro-utils'
+import { omit } from '@coderjc/element-plus-pro-utils'
 
 const props = defineProps({
     scoped: {

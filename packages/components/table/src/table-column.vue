@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isArray, isString, omit } from '@jc/element-plus-pro-utils'
+import { isArray, isString, omit } from '@coderjc/element-plus-pro-utils'
 import {
     CellConfig,
     CellRenderConfig,
