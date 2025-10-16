@@ -22,12 +22,13 @@ const flattenSearchColumns = (columns: any[]): any[] => {
 
     const traverse = (cols: any[]) => {
         cols.forEach((col) => {
+            if (isObject(col.search)) {
+                // 如果是叶子节点且配置了 search，添加到结果中
+                result.push(col)
+            }
             if (col.children && col.children.length > 0) {
                 // 如果有 children，递归处理子列
                 traverse(col.children)
-            } else if (isObject(col.search)) {
-                // 如果是叶子节点且配置了 search，添加到结果中
-                result.push(col)
             }
         })
     }
