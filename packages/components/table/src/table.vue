@@ -15,6 +15,7 @@ import { tableContextKey } from './constants'
 import { isObject } from '@coderjc/element-plus-pro-utils'
 import { useHeader, useTable } from './hooks'
 import { useSlots } from 'vue'
+import { flattenSearchColumns } from './helpers'
 
 defineOptions({
     name: 'ProTable'
@@ -78,9 +79,7 @@ const showLoading = computed(() => {
 
 const showSearch = computed(() => {
     // 如果有搜索列配置，则显示搜索栏
-    const searchColumns = originTableColumnConfig.filter((item) =>
-        isObject(item.search)
-    )
+    const searchColumns = flattenSearchColumns(originTableColumnConfig)
     return searchColumns.length > 0
 })
 
@@ -111,9 +110,9 @@ const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
 })
 
 const handleColumnShowOrHide = (payload: any) => {
-    const item = formatTableColumns.value.find(
-        (item) => item.prop === payload.prop
-    )
+    const item = formatTableColumns.value.find((col) => {
+        return col.prop === payload.prop
+    })
     if (item) {
         item.hidden = !payload.hidden
     }

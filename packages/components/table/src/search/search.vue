@@ -2,7 +2,6 @@
 import ProForm from '../../../form'
 import { ref, computed, inject, onMounted } from 'vue'
 import { tableContextKey } from '../constants'
-import { isObject } from '@coderjc/element-plus-pro-utils'
 import {
     Search,
     RefreshLeft,
@@ -11,31 +10,11 @@ import {
 } from '@element-plus/icons-vue'
 import { useEventListener, useThrottleFn } from '@vueuse/core'
 import './search.scss'
+import { flattenSearchColumns } from '../helpers'
 
 const props = defineProps(['initParams'])
 const emit = defineEmits(['search', 'reset'])
 const tabelContextInject = inject(tableContextKey)
-
-// 递归提取所有配置了 search 的列（包括嵌套列的叶子节点）
-const flattenSearchColumns = (columns: any[]): any[] => {
-    const result: any[] = []
-
-    const traverse = (cols: any[]) => {
-        cols.forEach((col) => {
-            if (isObject(col.search)) {
-                // 如果是叶子节点且配置了 search，添加到结果中
-                result.push(col)
-            }
-            if (col.children && col.children.length > 0) {
-                // 如果有 children，递归处理子列
-                traverse(col.children)
-            }
-        })
-    }
-
-    traverse(columns)
-    return result
-}
 
 // 提取需要列配置
 const tableColumns = computed(() => {
