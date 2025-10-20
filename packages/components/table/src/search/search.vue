@@ -74,12 +74,19 @@ function getFirstRowShowIndex() {
 
     let count = 1 // 初始为 1，因为默认 footer 占据一列
     let index = 0
+
+    // 如果所有的 formItemCols 的值加起来小于 col，则表示没有需要折叠隐藏的
+    if (formItemCols.value.reduce((a, b) => a + b, 0) <= col - count) {
+        return formItemCols.value.length - 1
+    }
+
+    // 如果不满足上面的拦截条件，则需要计算需要折叠隐藏的表单项索引
     for (let i = 0; i < formItemCols.value.length; i++) {
+        count += formItemCols.value[i]
         if (count >= col) {
             index = i
             break
         }
-        count += formItemCols.value[i]
     }
 
     return index
@@ -98,12 +105,11 @@ const handleExpand = () => {
 
 // 折叠
 const handleCollapse = () => {
-    // 得到当前屏幕应该占据的列数
     const index = getFirstRowShowIndex()
     // 根据 index 显示第一行应显示的表单项，隐藏其余
     const formItems = Array.from(
         document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
-    ).slice(0, -1) // 排除最后一个，因为最后一个为 footer
+    ).slice(index, -1) // 排除最后一个，因为最后一个为 footer
     formItems.forEach((item: any, i: number) => {
         // i = 0 时，不会隐藏
         if (i === 0) return
