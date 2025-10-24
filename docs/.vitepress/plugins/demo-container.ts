@@ -24,7 +24,15 @@ import container from 'markdown-it-container'
  * 5. 返回 <DemoPreview title path source /> HTML 字符串，交由主题组件渲染。
  */
 
-export function demoContainer(md: MarkdownIt) {
+interface DemoContainerOptions {
+    srcDir?: string
+}
+
+export function demoContainer(
+    md: MarkdownIt,
+    options: DemoContainerOptions = {}
+) {
+    const { srcDir } = options
     // 注册 'demo' 容器，并提供自定义 render 回调
     md.use(container, 'demo', {
         render(tokens, idx, _options, env) {
@@ -65,9 +73,17 @@ export function demoContainer(md: MarkdownIt) {
                         ? md.options.highlight(source, 'vue', '')
                         : md.utils.escapeHtml(source)
                 const highlightedEncoded = encodeURIComponent(highlightedHtml)
-                // 计算对外可访问的相对路径，统一分隔符为 '/'
-                const publicPath =
-                    '/' + path.relative(docsRoot, resolved).replace(/\\/g, '/')
+
+                // 计算对外可访问的路径
+                // DemoPreview 组件使用动态 import，需要提供相对于 demo-preview.vue 的路径
+                // demo-preview.vue 位于 .vitepress/theme/components/ 下
+                const demoPreviewPath = path.resolve(
+                    docsRoot,
+                    '.vitepress/theme/components/demo-preview.vue'
+                )
+                const publicPath = path
+                    .relative(path.dirname(demoPreviewPath), resolved)
+                    .replace(/\\/g, '/')
 
                 // 将数据注入到自定义的 <DemoPreview /> 组件中进行展示
                 return `\n<DemoPreview title=${JSON.stringify(title || '')} path=${JSON.stringify(publicPath)} source="${encoded}" highlighted="${highlightedEncoded}" />\n`

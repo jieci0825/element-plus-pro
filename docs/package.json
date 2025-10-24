@@ -9,10 +9,13 @@
         "docs:preview": "vitepress preview"
     },
     "devDependencies": {
-        "element-plus": "catalog:",
         "markdown-it-container": "^4.0.0",
         "sass": "^1.93.2",
         "vitepress": "^1.6.4",
         "vue": "^3.4.0"
+    },
+    "dependencies": {
+        "@coderjc/element-plus-pro": "^0.0.4",
+        "vitepress-gen-navs": "^0.1.3"
     }
 }
