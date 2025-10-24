@@ -3,7 +3,7 @@ import DemoPreview from './components/demo-preview.vue'
 import './styles/index.scss'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import ElementPlusPro from '../../../dist/element-plus-pro/es/index.mjs'
+import ElementPlusPro from '@coderjc/element-plus-pro'
 
 export default {
     ...DefaultTheme,

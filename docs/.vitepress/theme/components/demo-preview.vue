@@ -1,6 +1,15 @@
 <script setup lang="ts">
-import { computed, ref, defineAsyncComponent } from 'vue'
+import { computed, ref, shallowRef, watch } from 'vue'
 import { ElMessage } from 'element-plus'
+import type { Component } from 'vue'
+
+// 使用 import.meta.glob 预加载所有示例组件
+// eager: true 表示同步加载，避免异步问题
+// @ts-expect-error - Vite 的 import.meta.glob 在运行时是可用的
+const modules = import.meta.glob<{ default: Component }>(
+    '../../../examples/**/*.vue',
+    { eager: true }
+)
 
 const props = defineProps<{
     title?: string
@@ -18,9 +27,31 @@ const copyText = async () => {
         ElMessage.error('复制失败')
     }
 }
-const DemoComp = defineAsyncComponent(
-    () => import(/* @vite-ignore */ props.path)
+
+// 存储加载的组件
+const DemoComp = shallowRef<Component | null>(null)
+
+// 根据 path 动态加载对应的组件
+watch(
+    () => props.path,
+    (path) => {
+        const matchedKey = Object.keys(modules).find((key) => {
+            // 将模块路径标准化进行匹配
+            const normalizedKey = key.replace('../../../', '/')
+            return normalizedKey === path || key.endsWith(path)
+        })
+
+        if (matchedKey) {
+            // eager: true 时，modules[matchedKey] 已经是解析后的模块
+            DemoComp.value = modules[matchedKey].default
+        } else {
+            console.error(`示例组件未找到: ${path}`)
+            DemoComp.value = null
+        }
+    },
+    { immediate: true }
 )
+
 const highlighted = computed(() =>
     props.highlighted
         ? decodeURIComponent(props.highlighted)
@@ -46,7 +77,7 @@ const highlighted = computed(() =>
         </div>
         <div class="demo-preview__render">
             <ClientOnly>
-                <component :is="DemoComp" />
+                <component v-if="DemoComp" :is="DemoComp" />
             </ClientOnly>
         </div>
         <div
