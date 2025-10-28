@@ -4,6 +4,7 @@ import { SwitchCellTypeProps } from '../../table-cell.type'
 import { inject } from 'vue'
 import './switch-cell.scss'
 import { tableContextKey } from '../../constants'
+import { ElSwitch } from 'element-plus'
 
 const props = defineProps({
     scoped: {

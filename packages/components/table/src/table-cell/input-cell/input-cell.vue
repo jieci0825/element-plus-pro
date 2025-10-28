@@ -3,6 +3,7 @@ import { PropType, ref, watch, inject } from 'vue'
 import type { InputCellTypeProps } from '../../table-cell.type'
 import './input-cell.scss'
 import { tableContextKey } from '../../constants'
+import { ElInput } from 'element-plus'
 
 const props = defineProps({
     scoped: {

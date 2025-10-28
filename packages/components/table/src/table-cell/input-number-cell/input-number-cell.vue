@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PropType, ref, watch, inject } from 'vue'
+import { ElInputNumber } from 'element-plus'
 import type { InputNumberCellTypeProps } from '../../table-cell.type'
 import './input-number-cell.scss'
 import { tableContextKey } from '../../constants'
@@ -48,5 +49,3 @@ const onChange = () => {
         />
     </div>
 </template>
-
-

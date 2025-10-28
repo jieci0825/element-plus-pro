@@ -4,7 +4,7 @@ import type { PropType } from 'vue'
 import { TxtCellTypeProps } from '../../table-cell.type'
 import { DocumentCopy } from '@element-plus/icons-vue'
 import { useClipboard } from '@vueuse/core'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElIcon } from 'element-plus'
 import './txt-cell.scss'
 
 const props = defineProps({

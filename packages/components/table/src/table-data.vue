@@ -6,6 +6,7 @@ import type { ProTableColumnType } from './table'
 import type { PropType } from 'vue'
 import type { OperationColumnConfig } from './operation-column'
 import TableColumn from './table-column.vue'
+import { ElTable, ElTableColumn, vLoading } from 'element-plus'
 
 const props = defineProps({
     tableData: {

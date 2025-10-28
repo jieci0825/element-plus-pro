@@ -18,6 +18,7 @@ import {
 } from './table-cell'
 import type { PropType, Component } from 'vue'
 import type { ProTableColumnType } from './table'
+import { ElTableColumn } from 'element-plus'
 
 defineOptions({
     name: 'TableColumn'

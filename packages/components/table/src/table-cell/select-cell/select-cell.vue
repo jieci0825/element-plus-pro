@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PropType, ref, watch, inject } from 'vue'
+import { ElSelect, ElOption } from 'element-plus'
 import type { SelectCellTypeProps } from '../../table-cell.type'
 import './select-cell.scss'
 import { tableContextKey } from '../../constants'

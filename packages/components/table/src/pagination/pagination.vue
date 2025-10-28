@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ElPagination } from 'element-plus'
+
 interface Pageable {
     page: number
     pageSize: number

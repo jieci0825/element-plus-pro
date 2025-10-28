@@ -4,6 +4,7 @@ import {
     omit
 } from '@coderjc/element-plus-pro-utils'
 import { useAttrs } from 'vue'
+import { ElSelect, ElOption } from 'element-plus'
 
 const attrs: any = useAttrs()
 const slots = defineSlots()

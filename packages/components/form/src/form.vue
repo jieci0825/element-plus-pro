@@ -2,7 +2,7 @@
 import { useTemplateRef, computed, toRef, h } from 'vue'
 import { proFormEmits, type ProFormFooterConfig, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
-import { ElForm, ElRow, ElCol, ElFormItem } from 'element-plus'
+import { ElForm, ElRow, ElCol, ElFormItem, ElButton } from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@coderjc/element-plus-pro-constants'
 import { useComponentProxy } from '@coderjc/element-plus-pro-hooks'
 import { createFormItemCompMap } from './comp-map'

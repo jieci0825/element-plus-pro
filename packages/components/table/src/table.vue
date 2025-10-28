@@ -15,6 +15,7 @@ import { tableContextKey } from './constants'
 import { useHeader, useTable } from './hooks'
 import { useSlots } from 'vue'
 import { flattenSearchColumns } from './helpers'
+import { ElButton } from 'element-plus'
 
 defineOptions({
     name: 'ProTable'

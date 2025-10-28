@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
+import { ElIcon } from 'element-plus'
 import './thumb.scss'
 
 const props = defineProps(['fileList', 'limit'])

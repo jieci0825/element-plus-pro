@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import './jc-label-tooltip.scss'
+import { ElTooltip } from 'element-plus'
 
 const props = defineProps({
     label: {

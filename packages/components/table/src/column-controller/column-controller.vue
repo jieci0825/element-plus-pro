@@ -3,6 +3,7 @@ import { isObject, isString } from '@coderjc/element-plus-pro-utils'
 import { markRaw } from 'vue'
 import { ProTableColumnType } from '../table'
 import { ref } from 'vue'
+import { ElTable, ElTableColumn, ElSwitch } from 'element-plus'
 
 const props = defineProps(['columns', 'allSlots'])
 

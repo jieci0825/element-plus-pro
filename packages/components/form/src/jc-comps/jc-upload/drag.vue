@@ -2,6 +2,7 @@
 import { UploadFilled } from '@element-plus/icons-vue'
 import { omit } from '@coderjc/element-plus-pro-utils'
 import { useAttrs, ref } from 'vue'
+import { ElUpload, ElIcon } from 'element-plus'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 
 const attrs: any = useAttrs()

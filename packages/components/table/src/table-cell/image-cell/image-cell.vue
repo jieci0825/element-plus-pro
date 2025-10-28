@@ -2,6 +2,7 @@
 import { computed, PropType } from 'vue'
 import { ImageCellTypeProps } from '../../table-cell.type'
 import { Picture as IconPicture } from '@element-plus/icons-vue'
+import { ElImage, ElIcon } from 'element-plus'
 import { inject } from 'vue'
 import './image-cell.scss'
 import { tableContextKey } from '../../constants'

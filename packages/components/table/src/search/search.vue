@@ -11,6 +11,7 @@ import {
 import { useEventListener, useThrottleFn } from '@vueuse/core'
 import './search.scss'
 import { flattenSearchColumns } from '../helpers'
+import { ElButton, ElLink, ElIcon } from 'element-plus'
 
 const props = defineProps(['initParams'])
 const emit = defineEmits(['search', 'reset'])

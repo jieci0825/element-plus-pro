@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PropType, computed } from 'vue'
+import { ElProgress } from 'element-plus'
 import { SwitchCellTypeProps } from '../../table-cell.type'
 import { omit } from '@coderjc/element-plus-pro-utils'
 
