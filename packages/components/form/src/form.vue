@@ -11,6 +11,7 @@ import { JcLabelTooltip } from './jc-comps'
 import { formFooterProcess } from './form-footer-process'
 import type { FormInstance } from 'element-plus'
 import type { ProFormItemConfig } from './form-item.type'
+import './form.scss'
 
 defineOptions({
     name: 'ProForm'
@@ -99,72 +100,76 @@ defineExpose(useComponentProxy<FormInstance>(elFormInstance))
 </script>
 
 <template>
-    <el-form ref="elFormRef" :model="formData" v-bind="$attrs">
-        <el-row :gutter="props.gutter">
-            <el-col
-                v-for="item in items"
-                :key="item.key"
-                v-bind="getColProps(item)"
-                :class="getFormItemClassByType(item.type!)"
-            >
-                <el-form-item
-                    v-if="!item.hideLabel"
-                    :label="isString(item.label) ? item.label : undefined"
-                    :prop="item.key"
+    <div class="pro-form">
+        <el-form ref="elFormRef" :model="formData" v-bind="$attrs">
+            <el-row :gutter="props.gutter">
+                <el-col
+                    v-for="item in items"
+                    :key="item.key"
+                    v-bind="getColProps(item)"
+                    :class="getFormItemClassByType(item.type!)"
                 >
-                    <template v-if="getFormItemLabelComp(item)" #label>
-                        <Component :is="getFormItemLabelComp(item)" />
+                    <el-form-item
+                        v-if="!item.hideLabel"
+                        :label="isString(item.label) ? item.label : undefined"
+                        :prop="item.key"
+                    >
+                        <template v-if="getFormItemLabelComp(item)" #label>
+                            <Component :is="getFormItemLabelComp(item)" />
+                        </template>
+                        <template v-if="item.customSlot">
+                            <slot :name="item.key"></slot>
+                        </template>
+                        <template v-else>
+                            <Component :is="getComp(item)" />
+                        </template>
+                    </el-form-item>
+                    <template v-else :prop="item.key">
+                        <template v-if="item.customSlot">
+                            <slot :name="item.key"></slot>
+                        </template>
+                        <template v-else>
+                            <Component :is="getComp(item)" />
+                        </template>
                     </template>
-                    <template v-if="item.customSlot">
-                        <slot :name="item.key"></slot>
-                    </template>
-                    <template v-else>
-                        <Component :is="getComp(item)" />
-                    </template>
-                </el-form-item>
-                <template v-else :prop="item.key">
-                    <template v-if="item.customSlot">
-                        <slot :name="item.key"></slot>
-                    </template>
-                    <template v-else>
-                        <Component :is="getComp(item)" />
-                    </template>
-                </template>
-            </el-col>
-            <el-col
-                class="jc-pro-form-item-footer"
-                v-if="showFooter"
-                v-bind="getColProps(fullFooterConfig)"
-            >
-                <el-form-item>
-                    <slot name="footer">
-                        <div
-                            :class="[
-                                'footer',
-                                `footer--${fullFooterConfig?.align || 'right'}`
-                            ]"
-                        >
-                            <el-button
-                                :icon="fullFooterConfig.resetBtn.icon"
-                                v-if="!fullFooterConfig.resetBtn.hide"
-                                @click="handleReset"
-                                >{{ fullFooterConfig.resetBtn.text }}</el-button
+                </el-col>
+                <el-col
+                    class="jc-pro-form-item-footer"
+                    v-if="showFooter"
+                    v-bind="getColProps(fullFooterConfig)"
+                >
+                    <el-form-item>
+                        <slot name="footer">
+                            <div
+                                :class="[
+                                    'footer',
+                                    `footer--${fullFooterConfig?.align || 'right'}`
+                                ]"
                             >
-                            <el-button
-                                type="primary"
-                                :icon="fullFooterConfig.submitBtn.icon"
-                                v-if="!fullFooterConfig.submitBtn.hide"
-                                @click="handleSubmit"
-                                >{{
-                                    fullFooterConfig.submitBtn.text
-                                }}</el-button
-                            >
-                        </div>
-                    </slot>
-                </el-form-item>
-            </el-col>
-        </el-row>
-    </el-form>
+                                <el-button
+                                    :icon="fullFooterConfig.resetBtn.icon"
+                                    v-if="!fullFooterConfig.resetBtn.hide"
+                                    @click="handleReset"
+                                    >{{
+                                        fullFooterConfig.resetBtn.text
+                                    }}</el-button
+                                >
+                                <el-button
+                                    type="primary"
+                                    :icon="fullFooterConfig.submitBtn.icon"
+                                    v-if="!fullFooterConfig.submitBtn.hide"
+                                    @click="handleSubmit"
+                                    >{{
+                                        fullFooterConfig.submitBtn.text
+                                    }}</el-button
+                                >
+                            </div>
+                        </slot>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+        </el-form>
+    </div>
 </template>
 
 <style lang="scss" scoped>
