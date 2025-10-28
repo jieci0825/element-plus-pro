@@ -4,7 +4,10 @@ import { inlineTooltip } from './plugins/inline-tooltip'
 import { genNavs } from 'vitepress-gen-navs'
 
 const { nav, sidebar } = genNavs({
-    dir: './document'
+    dir: './document',
+    nav: {
+        depth: 1
+    }
 })
 
 export default defineConfig({

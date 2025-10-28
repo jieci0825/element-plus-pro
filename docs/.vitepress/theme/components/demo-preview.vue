@@ -77,7 +77,11 @@ const highlighted = computed(() =>
         </div>
         <div class="demo-preview__render">
             <ClientOnly>
-                <component v-if="DemoComp" :is="DemoComp" />
+                <component
+                    v-if="DemoComp"
+                    :is="DemoComp"
+                    :title="props.title"
+                />
             </ClientOnly>
         </div>
         <div
@@ -106,6 +110,7 @@ const highlighted = computed(() =>
     background: var(--vp-c-bg);
 }
 .demo-preview__code {
+    font-size: 14px;
     border-top: 1px solid var(--vp-c-divider);
 }
 .demo-preview__actions button {
