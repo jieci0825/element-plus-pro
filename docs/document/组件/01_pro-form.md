@@ -1,11 +1,57 @@
-# Form 表单
+---
+title: ProForm 表单
+---
 
-高级表单组件，支持配置化生成表单。
+# ProForm 表单
 
 ## 基础用法
+主要通过 type 属性来区分表单项类型，key 是必须的。还会演示如何将属性透传给 ElementPlus 组件。
 
-:::demo /examples/form/basic.vue 基础用法
+:::demo /examples/pro-form/basic.vue 基础用法
 :::
+
+## 使用原 ElementPlus 组件的插槽
+如果需要使用原 ElementPlus 组件的插槽，可以通过 `elSlots` 属性来透传。传递建议使用函数传递。
+
+:::demo /examples/pro-form/el-slots.vue 使用原 ElementPlus 组件的插槽
+:::
+
+## 自定义插槽
+当默认提供的 `type` 不满足需求时，可以通过 `customSlot` 属性来启用自定义插槽，插槽名默认取当前项 `key`。
+
+:::demo /examples/pro-form/custom-slot.vue 自定义插槽
+:::
+
+## 规则校验
+这一步的使用与原 `ElForm` 的使用方式一致。
+
+:::demo /examples/pro-form/validate.vue 规则校验
+:::
+
+## 表单布局
+通过 `gutter` 属性来设置表单项间距，通过 `col` 属性来设置表单项所占栅格数。一般而言，如果 `col` 没有排列多列的时候，`gutter` 属性设置的值看起来是无效的。 `col` 可以全局配置，也可以单独给表单项配置。
+
+:::demo /examples/pro-form/layout.vue 表单布局
+:::
+
+
+## 表单页脚
+当默认提供的页脚你不需要的时候，可以设置 `null` 关闭，通过 `footerConfig` 属性来设置表单页脚。
+
+:::demo /examples/pro-form/footer.vue 表单页脚
+:::
+
+## 文件上传
+:::danger type 为 upload 时
+此类型存在一些特殊，并没有完全继承 `el-upload` 的属性，而是基于此进行了简单的封装，因为文件上传的场景无法完全覆盖，所以选择给出了两个比较常见模式，`drag` 和 `thumb`。 如果需要更加复杂的文件上传，可以使用 ``customSlot` 自定义插槽。
+:::
+
+:::demo /examples/pro-form/upload.vue 文件上传
+:::
+
+
+
+
 
 ## ProForm API
 
@@ -51,10 +97,11 @@
 | --- | --- | --- | --- | --- |
 | mode | 上传模式 | ^[enum]`drag(拖拽) \| thumb(缩略图)` | `thumb` | ✅ |
 | accept | 接受的文件类型，同原生 accept | `string` | `image/*` | ❌ |
-| size | 文件大小限制 | `number` | `5m` | ❌ |
+| fileSize | 文件大小限制（单位：字节） | `number` | `5242880 (5MB)` | ❌ |
 | limit | 文件数量限制 | `number` | `10` | ❌ |
 | multiple | 是否多选 | `boolean` | `false` | ❌ |
-| onExceed | 超出数量回调 | ^[function]`(currentFiles: File[], files: File[]) => void` | `--` | ❌ |
+| onExceed | 超出数量回调 | ^[function]`() => void` | `默认通过 Message 形式提示` | ❌ |
+| onFileSizeExceed | 超出文件大小回调 | ^[function]`(currentFile: File) => void` | `默认通过 Message 形式提示` | ❌ |
 | tip | 提示文本（仅 drag 模式生效） | `string` | `--` | ❌ |
 
 
@@ -64,5 +111,5 @@
 | 事件名 | 说明 | 回调参数 |
 | --- | --- | --- |
 | update:modelValue | 表单数据更新时触发 | `(value: object) => void` |
-| submit | 提交时触发 | `(value: any, errInfo: any) => void` |
-| reset | 重置时触发 | `() => void` |
+| submit | 提交时触发，仅开启时 `footerConfig`  有效 | `(value: any) => void` |
+| reset | 重置时触发，仅开启时 `footerConfig`  有效 | `() => void` |

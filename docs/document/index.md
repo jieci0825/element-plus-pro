@@ -12,10 +12,10 @@ hero:
   actions:
     - theme: brand
       text: 快速开始
-      link: /guide/getting-started
+      link: /指南/01_introduction
     - theme: alt
       text: 组件列表
-      link: /components/form
+      link: /组件/01_pro-form
 
 features:
   - title: 💪 强大的 Form 组件
