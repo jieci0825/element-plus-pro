@@ -32,8 +32,8 @@ const CompMap: Record<string, Component> = {
     textarea: ElInput,
     switch: ElSwitch,
     color: ElColorPicker,
-    upload: JcUpload,
     // 多组件
+    upload: JcUpload,
     select: JcSelect,
     group_select: JcGroupSelect,
     radio: JcRadio,

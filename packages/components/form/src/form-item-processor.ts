@@ -1,12 +1,12 @@
-import type { ProFormProps } from './form'
+import { h } from 'vue'
 import {
     EMPTY_OBJ,
     isFunction,
     isObject,
-    isString,
     isUndefined,
     omit
 } from '@coderjc/element-plus-pro-utils'
+import type { ProFormProps } from './form'
 import type { ProFormItemConfig } from './form-item.type'
 
 /**
@@ -22,9 +22,13 @@ function processFormItemElSlots(item: ProFormItemConfig): void {
     }
 
     if (isObject(item.elSlots)) {
-        // 如果 elSlots 是一个对象，则遍历其属性，如果属性值是字符串，则将其转换为函数
+        // 如果 elSlots 是一个对象，则遍历其属性，则将其转换为函数
         for (const [key, value] of Object.entries(item.elSlots)) {
-            if (isString(value)) {
+            if (isFunction(value)) {
+                item.elSlots[key] = value
+            } else if (isObject(value)) {
+                item.elSlots[key] = () => h(value)
+            } else {
                 item.elSlots[key] = () => value
             }
         }
