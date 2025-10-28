@@ -67,7 +67,7 @@ export type ProFormProps = ExtractPropTypes<typeof proFormProps> &
 
 export const proFormEmits = {
     [UPDATE_MODEL_EVENT]: (value: any) => true,
-    submit: (value: any, errInfo: any) => true,
+    submit: (value: any) => true,
     reset: () => true
 }
 export type ProFormEmits = typeof proFormEmits

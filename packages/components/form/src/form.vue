@@ -60,14 +60,10 @@ const handleSubmit = async () => {
         return
     }
 
-    let errInfo: any = null
-
-    await elFormInstance.value?.validate((valid, fields) => {
-        if (!valid) {
-            errInfo = fields
-        }
-    })
-    emit('submit', formData.value, errInfo)
+    try {
+        await elFormInstance.value?.validate()
+        emit('submit', formData.value)
+    } catch (error) {}
 }
 
 const handleReset = () => {
