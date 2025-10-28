@@ -1,7 +1,7 @@
 import { computed } from 'vue'
-import type { FooterBtn, ProFormFooterConfig } from './form'
 import { isObject, mergeConfig } from '@coderjc/element-plus-pro-utils'
 import { cloneDeep } from 'lodash-es'
+import type { FooterBtn, ProFormFooterConfig } from './form'
 
 function _customizer(objValue: any, srcValue: any) {
     // 当默认配置是一个对象，但是传入的用户配置不是一个对象的时候，就需要进行特殊处理
@@ -23,14 +23,20 @@ interface InnerProFormFooterConfig extends Required<ProFormFooterConfig> {
 }
 
 export function formFooterProcess(footerConfig: ProFormFooterConfig | null) {
-    let copyFooterConfig: any = cloneDeep(footerConfig || {})
-
     const showFooter = computed(() => {
-        if (copyFooterConfig === undefined || isObject(copyFooterConfig)) {
+        if (
+            footerConfig === undefined ||
+            isObject(footerConfig) ||
+            !!footerConfig
+        ) {
             return true
         }
         return false
     })
+
+    let copyFooterConfig: any = isObject(footerConfig)
+        ? cloneDeep(footerConfig)
+        : {}
 
     const defaultFooterConfig: ProFormFooterConfig = {
         align: 'right',
