@@ -9,11 +9,14 @@ interface Pageable {
 
 interface PaginationProps {
     pageable: Pageable
+    pageSizes?: number[]
     handleSizeChange: (size: number) => void
     handleCurrentChange: (currentPage: number) => void
 }
 
-const props = defineProps<PaginationProps>()
+const props = withDefaults(defineProps<PaginationProps>(), {
+    pageSizes: () => [10, 25, 50, 100]
+})
 </script>
 
 <template>
@@ -22,7 +25,7 @@ const props = defineProps<PaginationProps>()
             :background="true"
             :current-page="props.pageable.page"
             :page-size="props.pageable.pageSize"
-            :page-sizes="[10, 25, 50, 100]"
+            :page-sizes="props.pageSizes"
             :total="props.pageable.total"
             layout="total, sizes, ->, prev, pager, next, jumper"
             @size-change="props.handleSizeChange"

@@ -172,13 +172,15 @@ export type MyFormItemPropsByUpload = {
     props?: any
     mode: MyFormItemUploadMode
     accept?: string
-    // 文件大小限制
-    size?: number
+    // 文件大小限制（单位：字节）
+    fileSize?: number
     // 文件数量限制
     limit?: number
     multiple?: boolean
     // 文件选取之后数量超出的回调
-    onExceed?: (currentFiles: File[], files: File[]) => void
+    onExceed?: () => void
+    // 文件大小超出限制的回调
+    onFileSizeExceed?: (currentFile: File) => void
     // 提示文本，在 drag 模式下生效
     tip?: string
 }

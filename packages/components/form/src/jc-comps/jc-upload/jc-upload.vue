@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import Thumb from './thumb.vue'
+import Drag from './drag.vue'
 import { useAttrs, computed, ref } from 'vue'
 import { MyFormItemUploadMode } from '../../form-item.type'
 import { ElMessage, ElImageViewer } from 'element-plus'
 import type { Component } from 'vue'
 import type { FileItem } from './jc-upload.type'
-import Thumb from './thumb.vue'
-import Drag from './drag.vue'
 import './jc-upload.scss'
 
 const attrs: any = useAttrs()
@@ -13,26 +13,43 @@ const attrs: any = useAttrs()
 const defaultConfig = {
     accept: 'image/*',
     limit: 10,
-    size: 1024 * 1024 * 5, // 5M
+    fileSize: 1024 * 1024 * 5, // 5M
     mode: 'thumb',
     multiple: true,
     onExceed: () => {
-        ElMessage.warning('超出文件数量限制，最大数量为：' + config.value.limit)
+        ElMessage.warning(`超出文件数量限制，最大数量为：${config.value.limit}`)
+    },
+    onFileSizeExceed: (file: File) => {
+        ElMessage.warning(
+            `${file.name} 文件大小超出限制-${formatFileSize(config.value.fileSize)}`
+        )
+    }
+}
+
+function formatFileSize(size: number): string {
+    if (size < 1024) {
+        return `${size}B`
+    } else if (size < 1024 * 1024) {
+        return `${(size / 1024).toFixed(2)}KB`
+    } else {
+        return `${(size / 1024 / 1024).toFixed(2)}MB`
     }
 }
 
 interface Config {
     accept: string
     limit: number
-    size: number
+    fileSize: number
     mode: MyFormItemUploadMode
     multiple: boolean
-    onExceed: () => void
+    onExceed: Function
+    onFileSizeExceed: Function
 }
 
 const config = computed<Config>(() => {
     return { ...defaultConfig, ...attrs }
 })
+
 const isSingle = computed(() => {
     return config.value.limit === 1
 })
@@ -53,17 +70,11 @@ const prevewList = ref<string[]>([])
 const fileChange = (e: Event) => {
     const files = (e.target as HTMLInputElement).files || []
 
-    if (isSingle.value) {
-        // 如果是单文件上传，则无需判断文件数量，因为会直接替换
-    } else if (files.length + fileList.value.length > config.value.limit) {
-        config.value.onExceed && config.value.onExceed()
-        return
-    }
-
     // 如果本次选择的文件，存在大小不合法，则不添加到fileList中
     for (let i = 0; i < files.length; i++) {
         const file = files[i]
         if (!checkFileSize(file)) {
+            config.value.onFileSizeExceed(file)
             continue
         }
 
@@ -79,6 +90,13 @@ const fileChange = (e: Event) => {
         }
     }
 
+    if (isSingle.value) {
+        // 如果是单文件上传，则无需判断文件数量，因为会直接替换
+    } else if (files.length + fileList.value.length > config.value.limit) {
+        config.value.onExceed && config.value.onExceed()
+        return
+    }
+
     updateValue()
 }
 
@@ -88,7 +106,7 @@ function updateValue() {
 
 // 校验文件大小
 function checkFileSize(file: File) {
-    return file.size <= config.value.size
+    return file.size <= config.value.fileSize
 }
 
 // 检测是否为图片文件

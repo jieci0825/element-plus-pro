@@ -11,8 +11,8 @@ export interface FooterBtn {
 
 export type ProFormFooterConfig = {
     align?: 'left' | 'center' | 'right'
-    onSubmit?: Function
-    onReset?: Function
+    onSubmit?: (data: any) => void
+    onReset?: () => void
     col?: Partial<ColProps>
     resetBtn?: FooterBtn | boolean
     submitBtn?: FooterBtn | boolean

@@ -144,7 +144,7 @@ export const proTableProps = {
      */
     componentStyle: {
         type: String as PropType<'' | 'card'>,
-        default: ''
+        default: 'card'
     },
 
     /**
@@ -203,6 +203,30 @@ export const proTableProps = {
     loading: {
         type: Boolean,
         default: true
+    },
+
+    /**
+     * @description 初始页码
+     */
+    page: {
+        type: Number,
+        default: 1
+    },
+
+    /**
+     * @description 初始每页显示条数
+     */
+    pageSize: {
+        type: Number,
+        default: 10
+    },
+
+    /**
+     * @description 每页显示个数选择器的选项设置
+     */
+    pageSizes: {
+        type: Array as PropType<number[]>,
+        default: () => [10, 25, 50, 100]
     }
 } as const
 
@@ -213,8 +237,7 @@ export const proTableEmits = {
         row: Record<string, any>,
         column: ProTableColumnType,
         newValue: any
-    ) => true,
-    search: (params: Record<string, any>) => true
+    ) => true
 }
 export type ProTableEmits = typeof proTableEmits
 

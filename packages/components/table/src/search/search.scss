@@ -1,6 +1,9 @@
 .pro-table__search--inner {
     width: 100%;
     height: 100%;
+    // 启用容器查询
+    container-type: inline-size;
+    container-name: search-form;
 
     .el-form-item {
         width: 100%;
@@ -35,7 +38,7 @@
         // grid-auto-flow: row dense;
     }
 
-    @media (min-width: 768px) {
+    @container search-form (min-width: 480px) {
         .el-row {
             grid-template-columns: repeat(2, 1fr);
 
@@ -52,19 +55,19 @@
         }
     }
 
-    @media (min-width: 992px) {
+    @container search-form (min-width: 992px) {
         .el-row {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
-    @media (min-width: 1200px) {
+    @container search-form (min-width: 1200px) {
         .el-row {
             grid-template-columns: repeat(3, 1fr);
         }
     }
 
-    @media (min-width: 1920px) {
+    @container search-form (min-width: 1920px) {
         .el-row {
             grid-template-columns: repeat(4, 1fr);
         }

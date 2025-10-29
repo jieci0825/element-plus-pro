@@ -56,7 +56,7 @@ const { showFooter, fullFooterConfig } = formFooterProcess(props.footerConfig)
 const handleSubmit = async () => {
     const onSubmit = fullFooterConfig?.onSubmit
     if (onSubmit && isFunction(onSubmit)) {
-        onSubmit()
+        onSubmit(formData.value)
         return
     }
 

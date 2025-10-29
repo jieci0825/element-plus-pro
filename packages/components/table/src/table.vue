@@ -62,7 +62,10 @@ const {
     isPageable: props.pagination,
     initParam: props.initParams,
     dataCallBack: props.dataCallback,
-    requestError: props.requestError
+    requestError: props.requestError,
+    staticData: props.data, // 新增：传入静态数据
+    page: props.page,
+    pageSize: props.pageSize
 })
 // 如果需要自动执行请求，则加载组件直接执行一次
 if (!!props.requestAuto) {
@@ -110,6 +113,7 @@ const { isToolButton, toolBtns, handleToolButtonClick } = useHeader(props, {
 })
 
 const handleColumnShowOrHide = (payload: any) => {
+    // @ts-ignore
     const item = formatTableColumns.value.find((col) => {
         return col.prop === payload.prop
     })
@@ -180,6 +184,7 @@ provide(tableContextKey, {
             <div class="pro-table__pagination" v-if="!!props.pagination">
                 <ProTablePagination
                     :pageable="pageable"
+                    :page-sizes="props.pageSizes"
                     :handle-current-change="onPageChange"
                     :handle-size-change="onPageSizeChange"
                 />
