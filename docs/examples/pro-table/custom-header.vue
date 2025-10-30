@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { h } from 'vue'
 import { mockUserList } from './data.js'
-import { ElIcon } from 'element-plus'
-import { User, Phone, Message, Briefcase } from '@element-plus/icons-vue'
+import { ElIcon, ElTag } from 'element-plus'
+import { Briefcase } from '@element-plus/icons-vue'
 import type { ProTableColumnType } from '@coderjc/element-plus-pro'
-import { ElTag } from 'element-plus'
 
 // 静态数据，取前 5 条
 const tableData = mockUserList.slice(0, 5)
 
-const columns = [
+const columns: ProTableColumnType[] = [
     {
         prop: 'username',
         label: {

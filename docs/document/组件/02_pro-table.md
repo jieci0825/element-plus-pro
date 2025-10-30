@@ -22,17 +22,26 @@ ProTable 是对 ElementPlus Table 的高级封装，提供了更简洁的 API �
 
 ## 不同类型的单元格
 
-通过列配置中的 `cell` 属性，可以设置不同类型的单元格。支持图片、开关、输入框、下拉选择等预设类型，也支持通过 `slot` 插槽或 `render` 函数自定义渲染。
+通过列配置中的 `cell` 属性，可以设置不同类型的单元格。支持图片、开关、输入框、下拉选择等预设类型，也支持通过 `slot` 插槽或 `render` 函数自定义渲染。这两者的级别**同时高于**预设单元格类型。
+
 
 :::demo /examples/pro-table/cell-types.vue 不同类型的单元格
 :::
 
 ## 自定义表头
 
-表头支持两种自定义方式：通过 `render` 函数或通过插槽（`slot`）。在列配置的 `label` 属性中传递配置对象即可。
+表头支持两种自定义方式：通过 `render` 函数或通过插槽（`slot`）。在列配置的 `label` 属性中传递配置对象即可。`render` 优先级**低于** `slot` 配置。
 
 :::demo /examples/pro-table/custom-header.vue 自定义表头
 :::
+
+## 操作列
+
+通常情况下，操作列最常见的按钮就是编辑和删除，所以针对这个情况，我单独做了一个操作列的配置。
+
+:::demo /examples/pro-table/operation-column.vue 操作列
+:::
+
 
 ## ProTable API
 
@@ -58,6 +67,9 @@ ProTable 是对 ElementPlus Table 的高级封装，提供了更简洁的 API �
 | initParams | 查询初始参数 | ^[object]`Record<string, any>` | `{}` | ❌ |
 | selection | 是否开启多选 | `boolean` | `false` | ❌ |
 | loading | 是否显示加载状态 | `boolean` | `true` | ❌ |
+| page | 初始页码 | `number` | `1` | ❌ |
+| pageSize | 初始每页显示条数 | `number` | `10` | ❌ |
+| pageSizes | 每页显示个数选择器的选项设置 | ^[array]`number[]` | `[10, 25, 50, 100]` | ❌ |
 
 其余属性将透传给 `ElTable`。
 
@@ -83,7 +95,7 @@ ProTable 是对 ElementPlus Table 的高级封装，提供了更简洁的 API �
 
 | 参数 | 说明 | 类型 | 必填 |
 | --- | --- | --- | --- |
-| render | 渲染函数（优先级高于 slot） | ^[function]`() => Component` | ❌ |
+| render | 渲染函数（优先级低于 slot） | ^[function]`() => Component` | ❌ |
 | slot | 插槽名称 | `string` | ❌ |
 
 #### CellConfig
@@ -111,7 +123,7 @@ ProTable 是对 ElementPlus Table 的高级封装，提供了更简洁的 API �
 
 | 参数 | 说明 | 类型 | 必填 |
 | --- | --- | --- | --- |
-| render | 渲染函数（优先级高于 slot） | ^[function]`(row: any) => Component` | ❌ |
+| render | 渲染函数（优先级低于 slot） | ^[function]`(row: any) => Component` | ❌ |
 | slot | 插槽名称 | `string` | ❌ |
 
 #### SearchType
