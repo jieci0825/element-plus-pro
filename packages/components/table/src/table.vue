@@ -63,7 +63,7 @@ const {
     initParam: props.initParams,
     dataCallBack: props.dataCallback,
     requestError: props.requestError,
-    staticData: props.data, // 新增：传入静态数据
+    staticData: props.data,
     page: props.page,
     pageSize: props.pageSize
 })

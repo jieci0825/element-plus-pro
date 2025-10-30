@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, Component, PropType } from 'vue'
+import type { ExtractPropTypes, PropType } from 'vue'
 import type { CellConfig } from './table-cell.type'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
 import type { TableColumnInstance } from 'element-plus'
@@ -53,23 +53,7 @@ export interface ProTableColumnType
 
 export type Request = Function
 
-export type HeaderToolbarConfig = {
-    // 新增、删除所选
-    hideLeftBtns?: [boolean, boolean]
-    // 刷新、列配置、搜索
-    hideRightBtns?: [boolean, boolean, boolean]
-    leftSlot: string | Component
-    rightSlot: string | Component
-}
-
-export type RequestApiConfig =
-    | {
-          get: (params: Record<string, any>) => Promise<any>
-          create?: (params: Record<string, any>) => Promise<any>
-          update?: (params: Record<string, any>) => Promise<any>
-          remove?: (params: Record<string, any>) => Promise<any>
-      }
-    | ((params: Record<string, any>) => Promise<any>)
+export type RequestApiConfig = (params: Record<string, any>) => Promise<any>
 
 export const proTableProps = {
     /**
@@ -92,14 +76,8 @@ export const proTableProps = {
      * @description 操作列-即在表格末尾添加一列，用于存放操作按钮，如果需要配置，可以传递配置对象
      */
     operationColumn: {
-        type: Object as PropType<OperationColumnConfig>
-    },
-
-    /**
-     * @description 表头工具栏配置
-     */
-    headerToolbarConfig: {
-        type: Object as PropType<HeaderToolbarConfig>
+        type: [Object, null] as PropType<OperationColumnConfig | null>,
+        default: null
     },
 
     /**

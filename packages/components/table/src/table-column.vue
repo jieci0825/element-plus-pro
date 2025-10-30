@@ -137,16 +137,16 @@ const hasChildren = (item: ProTableColumnType) => {
                 :prop="props.column.prop"
                 :cellOpt="props.column.cell"
             ></Component>
-            <Component
-                v-else-if="getCellRender(props.column.cell)"
-                :is="() => getCellRender(props.column.cell)!(scoped.row)"
-            />
             <div v-else-if="getCellSlot(props.column.cell)">
                 <slot
                     :name="getCellSlot(props.column.cell)"
                     :row="scoped.row"
                 ></slot>
             </div>
+            <Component
+                v-else-if="getCellRender(props.column.cell)"
+                :is="() => getCellRender(props.column.cell)!(scoped.row)"
+            />
         </template>
     </el-table-column>
 </template>

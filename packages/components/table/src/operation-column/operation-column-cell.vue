@@ -25,32 +25,33 @@ const isTextBtn = computed(() => !!props.config.btnConfig.isTextBtn)
 const textOrIcon = computed(() =>
     isShowTextOrIcon(props.config.btnConfig.displayMode)
 )
+const isPlain = computed(() => props.config.btnConfig?.plain ?? true)
 
 // TODO 补全默认的 onClick 行为
 const defaultBtnConfig = {
     view: {
         text: '查看',
-        onClick: undefined,
+        onClick: () => true,
         icon: View,
         type: 'primary',
         disabled: false,
-        plain: true
+        plain: isPlain.value
     },
     edit: {
         text: '编辑',
-        onClick: undefined,
+        onClick: () => true,
         icon: EditPen,
         type: 'primary',
         disabled: false,
-        plain: true
+        plain: isPlain.value
     },
     delete: {
         text: '删除',
-        onClick: undefined,
+        onClick: () => true,
         icon: Delete,
         type: 'danger',
         disabled: false,
-        plain: true
+        plain: isPlain.value
     }
 }
 
@@ -107,7 +108,7 @@ const renderPropsList = [
                 :icon="item.icon"
                 :type="item.type"
                 :disabled="item.disabled"
-                @click="item.onClick || (() => 1)"
+                @click="item.onClick(scoped.row)"
                 >{{ item.text }}</el-link
             >
         </template>
@@ -120,7 +121,7 @@ const renderPropsList = [
                 :icon="item.icon"
                 :type="item.type"
                 :disabled="item.disabled"
-                @click="item.onClick || (() => 1)"
+                @click="item.onClick(scoped.row)"
                 >{{ item.text }}</el-button
             >
         </template>

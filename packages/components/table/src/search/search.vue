@@ -74,6 +74,9 @@ function getFirstRowShowIndex() {
         col = 3
     } else if (w >= 480) {
         col = 2
+    } else {
+        // 如果只命中只能展示一列，则返回 0
+        return 0
     }
 
     let count = 1 // 初始为 1，因为默认 footer 占据一列
@@ -109,10 +112,15 @@ const handleExpand = () => {
 
 // 折叠
 const handleCollapse = () => {
+    if (!searchInnerRef.value) return
+
     const index = getFirstRowShowIndex()
+
     // 根据 index 显示第一行应显示的表单项，隐藏其余
     const formItems = Array.from(
-        document.querySelectorAll('.pro-table__search--inner .el-row .el-col')
+        searchInnerRef.value.querySelectorAll(
+            '.pro-table__search--inner .el-row .el-col'
+        )
     ).slice(0, -1) // 排除最后一个，因为最后一个为 footer
 
     formItems.forEach((item: any, i: number) => {
