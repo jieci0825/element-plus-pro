@@ -5,16 +5,17 @@ import {
     ProFormItemConfig
 } from '@coderjc/element-plus-pro-components'
 import { h, ref, useTemplateRef } from 'vue'
-import { FormRules } from 'element-plus'
+import { ElIcon, ElInput, ElNotification, FormRules } from 'element-plus'
+import { Search } from '@element-plus/icons-vue'
 
 const formItems: ProFormItemConfig[] = [
-    {
-        label: '姓名',
-        key: 'name',
-        type: 'input',
-        placeholder: '请输入姓名',
-        tooltip: '可以是网名'
-    },
+    // {
+    //     label: '姓名',
+    //     key: 'name',
+    //     type: 'input',
+    //     placeholder: '请输入姓名',
+    //     tooltip: '可以是网名'
+    // },
     {
         label: '个人主页',
         key: 'homepage',
@@ -25,7 +26,8 @@ const formItems: ProFormItemConfig[] = [
         elSlots: {
             // prepend: () => 'Http://'
             // - or 如果是字符串则可以直接书写
-            prepend: 'Http://'
+            prepend: 'Http://',
+            append: () => h(ElIcon, null, () => h(Search))
         }
     },
     {
@@ -39,9 +41,14 @@ const formItems: ProFormItemConfig[] = [
     {
         label: '头像',
         type: 'upload',
-        mode: 'drag',
+        mode: 'thumb',
         key: 'avatar',
-        accept: '*'
+        accept: '*',
+        limit: 1,
+        fileSize: 1 * 1024 * 1024,
+        onFileSizeExceed(file: File) {
+            console.log('sss', file)
+        }
     },
     {
         label: '自定义',
@@ -137,8 +144,9 @@ const formItems: ProFormItemConfig[] = [
 const footerConfig: ProFormFooterConfig = {
     align: 'right',
     submitBtn: true,
-    resetBtn: true
+    resetBtn: false
 }
+// const footerConfig = null
 
 interface RuleForm {
     name: string
@@ -160,8 +168,12 @@ const handleValidate = () => {
     formInstance.value.validate()
 }
 
-const handleSubmit = (value, errInfo) => {
-    console.log(value, errInfo)
+const handleSubmit = (value) => {
+    ElNotification({
+        title: '表单数据',
+        message: JSON.stringify(value, null, 2),
+        type: 'success'
+    })
 }
 </script>
 

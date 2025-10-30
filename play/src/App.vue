@@ -6,7 +6,7 @@ import UseProDrawer from './examples/use-pro-drawer.vue'
 
 <template>
     <!-- <h1>hello，欢迎使用 element-plus-pro</h1> -->
-    <UseProForm />
-    <!-- <UseProTable /> -->
+    <!-- <UseProForm /> -->
+    <UseProTable />
     <!-- <UseProDrawer /> -->
 </template>
