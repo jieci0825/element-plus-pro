@@ -4,9 +4,9 @@
     "description": "Element Plus Pro Documentation",
     "type": "module",
     "scripts": {
-        "docs:dev": "vitepress dev",
-        "docs:build": "vitepress build",
-        "docs:preview": "vitepress preview"
+        "dev": "vitepress dev",
+        "build": "vitepress build",
+        "preview": "vitepress preview"
     },
     "devDependencies": {
         "markdown-it-container": "^4.0.0",
