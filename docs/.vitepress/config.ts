@@ -18,6 +18,14 @@ export default defineConfig({
         [
             'link',
             {
+                rel: 'icon',
+                type: 'image/svg+xml',
+                href: '/images/hero-light.svg'
+            }
+        ],
+        [
+            'link',
+            {
                 rel: 'stylesheet',
                 href: '//at.alicdn.com/t/c/font_5038042_3ca1x4lvz3d.css'
             }
