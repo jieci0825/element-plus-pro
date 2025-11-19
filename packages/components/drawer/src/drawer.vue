@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElDrawer } from 'element-plus'
 import './drawer.scss'
-import { proDrawerEmits, proDrawerProps } from './drawer'
+import { proDrawerEmits } from './drawer'
 import { computed, toRef, useAttrs, useTemplateRef } from 'vue'
 import { useComponentProxy } from '@coderjc/element-plus-pro-hooks'
 type DrawerExpose = { handleClose: () => void }
@@ -10,7 +10,7 @@ defineOptions({
     name: 'ProDrawer'
 })
 
-const props = defineProps(proDrawerProps)
+const props = defineProps(['modelValue'])
 const emit = defineEmits(proDrawerEmits)
 const attrs = useAttrs()
 

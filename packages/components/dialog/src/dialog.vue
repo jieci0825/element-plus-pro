@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElDialog } from 'element-plus'
 import './dialog.scss'
-import { proDialogEmits, proDialogProps } from './dialog'
+import { proDialogEmits } from './dialog'
 import { computed, toRef, useAttrs, useTemplateRef } from 'vue'
 import { useComponentProxy } from '@coderjc/element-plus-pro-hooks'
 
@@ -11,7 +11,7 @@ defineOptions({
     name: 'ProDialog'
 })
 
-const props = defineProps(proDialogProps)
+const props = defineProps(['modelValue', 'autoHeight'])
 const emit = defineEmits(proDialogEmits)
 const attrs = useAttrs()
 
