@@ -47,7 +47,7 @@ const handleSubmit = (data) => {
 </script>
 
 <template>
-    <div class="demo-container">
+    <div class="container">
         <ProForm
             v-model="value"
             label-width="80px"
@@ -58,7 +58,7 @@ const handleSubmit = (data) => {
 </template>
 
 <style scoped lang="scss">
-.demo-container {
+.container {
     width: 400px;
 }
 </style>

@@ -47,7 +47,7 @@ const formItems2: ProFormItemConfig[] = [
 </script>
 
 <template>
-    <div class="demo-container">
+    <div class="container">
         <div class="title">thumb</div>
         <ProForm
             v-model="value"
@@ -68,7 +68,7 @@ const formItems2: ProFormItemConfig[] = [
 </template>
 
 <style scoped lang="scss">
-.demo-container {
+.container {
     width: 400px;
 
     .title {

@@ -15,7 +15,7 @@ const inputValue = ref('')
 </script>
 
 <template>
-    <div class="demo-container">
+    <div class="container">
         <el-button :fullscreen="false" @click="handleOpen" type="primary"
             >打开</el-button
         >
@@ -36,7 +36,7 @@ const inputValue = ref('')
 </template>
 
 <style lang="scss" scoped>
-.demo-container {
+.container {
     width: 400px;
 }
 </style>

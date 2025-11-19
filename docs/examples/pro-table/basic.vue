@@ -41,13 +41,13 @@ const columns: ProTableColumnType[] = [
 </script>
 
 <template>
-    <div class="demo-container">
+    <div class="container">
         <ProTable :request-api="getUserList" :table-columns="columns" />
     </div>
 </template>
 
 <style scoped lang="scss">
-.demo-container {
+.container {
     width: 100%;
     height: 700px;
 }

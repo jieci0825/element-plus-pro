@@ -16,7 +16,7 @@ const columns: ProTableColumnType[] = [
 </script>
 
 <template>
-    <div class="demo-container">
+    <div class="container">
         <ProTable
             :data="tableData"
             :table-columns="columns"
@@ -24,9 +24,3 @@ const columns: ProTableColumnType[] = [
         />
     </div>
 </template>
-
-<style scoped lang="scss">
-.demo-container {
-    width: 100%;
-}
-</style>
