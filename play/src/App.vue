@@ -2,11 +2,15 @@
 import UseProForm from './examples/use-pro-form.vue'
 import UseProTable from './examples/use-pro-table.vue'
 import UseProDrawer from './examples/use-pro-drawer.vue'
+import UseProDialog from './examples/use-pro-dialog.vue'
+import UseProFormDialog from './examples/use-pro-form-dialog.vue'
 </script>
 
 <template>
     <!-- <h1>hello，欢迎使用 element-plus-pro</h1> -->
     <!-- <UseProForm /> -->
-    <UseProTable />
+    <!-- <UseProTable /> -->
     <!-- <UseProDrawer /> -->
+    <!-- <UseProDialog /> -->
+    <UseProFormDialog />
 </template>
