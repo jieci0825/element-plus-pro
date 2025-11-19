@@ -15,9 +15,9 @@
         "vue": "^3.4.0"
     },
     "dependencies": {
-        "@coderjc/element-plus-pro": "^0.0.12",
         "@element-plus/icons-vue": "^2.3.2",
         "element-plus": "^2.11.5",
+        "link": "^2.1.1",
         "vitepress-gen-navs": "^0.1.3"
     }
 }

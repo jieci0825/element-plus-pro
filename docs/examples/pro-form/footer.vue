@@ -68,7 +68,7 @@ const footerConfig: ProFormFooterConfig = {
 </script>
 
 <template>
-    <div class="container">
+    <div class="demo-container">
         <ProForm
             v-model="value"
             label-width="80px"
@@ -80,7 +80,7 @@ const footerConfig: ProFormFooterConfig = {
 </template>
 
 <style scoped lang="scss">
-.container {
+.demo-container {
     width: 400px;
 }
 </style>

@@ -82,7 +82,7 @@ const columns: ProTableColumnType[] = [
 </script>
 
 <template>
-    <div class="container">
+    <div class="demo-container">
         <ProTable
             component-style=""
             :data="tableData"
@@ -99,3 +99,9 @@ const columns: ProTableColumnType[] = [
         </ProTable>
     </div>
 </template>
+
+<style scoped lang="scss">
+.demo-container {
+    width: 100%;
+}
+</style>

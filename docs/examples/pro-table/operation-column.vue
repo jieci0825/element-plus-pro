@@ -72,7 +72,7 @@ const operationColumn: OperationColumnConfig = {
 </script>
 
 <template>
-    <div class="container">
+    <div class="demo-container">
         <ProTable
             :request-api="getUserList"
             :table-columns="columns"
@@ -82,7 +82,7 @@ const operationColumn: OperationColumnConfig = {
 </template>
 
 <style scoped lang="scss">
-.container {
+.demo-container {
     width: 100%;
     height: 700px;
 }
