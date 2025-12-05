@@ -161,12 +161,7 @@ const handleReset = () => {
 }
 
 const handleSearch = () => {
-    // 在此处拼接参数
-    const params = {
-        ...props.initParams,
-        ...model.value
-    }
-    emit('search', params)
+    emit('search', model.value)
 }
 </script>
 

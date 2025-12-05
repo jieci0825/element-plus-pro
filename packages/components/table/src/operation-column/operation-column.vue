@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ElTableColumn } from 'element-plus'
 import { isString, omit } from '@coderjc/element-plus-pro-utils'
 import { OperationColumnConfig } from './operation-column.type'
 import OperationColumnCell from './operation-column-cell.vue'
