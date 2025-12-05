@@ -10,6 +10,7 @@ import type {
 
 interface BaseSearchType {
     label?: string | Component
+    prop?: string
 }
 
 interface InputSearchType

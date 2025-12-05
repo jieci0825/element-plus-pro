@@ -26,7 +26,7 @@ const searchFormItems = computed<any[]>(() => {
     return tableColumns.value.map((item) => {
         return {
             ...item.search,
-            key: item.prop,
+            key: item.search?.prop ?? item.prop,
             label: item?.search?.label ?? item.label
         }
     })
@@ -161,7 +161,12 @@ const handleReset = () => {
 }
 
 const handleSearch = () => {
-    emit('search', model.value)
+    // 在此处拼接参数
+    const params = {
+        ...props.initParams,
+        ...model.value
+    }
+    emit('search', params)
 }
 </script>
 
