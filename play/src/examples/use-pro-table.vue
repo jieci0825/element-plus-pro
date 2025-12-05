@@ -45,6 +45,7 @@ const tableColumns: ProTableColumnType[] = [
         search: {
             label: '用户名',
             type: 'input',
+            prop: 'usernamea',
             placeholder: '请输入用户名查询'
         },
         cell: {
@@ -264,6 +265,7 @@ const getUserList = async (params: any) => {
 }
 
 const getTableData = async (params: any) => {
+    console.log('getTableData-params', params)
     // 如果需要对请求参数进行处理，则在这里处理
     return getUserList(params)
 }
@@ -446,7 +448,7 @@ const staticData = ref([
     }
 ])
 
-const showStaticMode = ref(true)
+const showStaticMode = ref(false)
 
 const toggleMode = () => {
     showStaticMode.value = !showStaticMode.value

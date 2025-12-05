@@ -9,8 +9,8 @@ import UseProFormDialog from './examples/use-pro-form-dialog.vue'
 <template>
     <!-- <h1>hello，欢迎使用 element-plus-pro</h1> -->
     <!-- <UseProForm /> -->
-    <!-- <UseProTable /> -->
+    <UseProTable />
     <!-- <UseProDrawer /> -->
     <!-- <UseProDialog /> -->
-    <UseProFormDialog />
+    <!-- <UseProFormDialog /> -->
 </template>
