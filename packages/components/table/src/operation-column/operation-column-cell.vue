@@ -30,7 +30,7 @@ const isPlain = computed(() => props.config.btnConfig?.plain ?? true)
 // TODO 补全默认的 onClick 行为
 const defaultBtnConfig = {
     view: {
-        text: '查看',
+        text: '详情',
         onClick: () => true,
         icon: View,
         type: 'primary',

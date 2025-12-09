@@ -161,9 +161,8 @@ export function generateOperationColumnConfig(
             const baseWidth = isTextBtn ? 65 : 80
             return baseWidth * btnCount
         } else {
-            // 非对象则直接返回默认值，默认只显示两个按钮
             const baseWidth = 65
-            return baseWidth * 2
+            return baseWidth * 3
         }
     }
 
@@ -175,7 +174,7 @@ export function generateOperationColumnConfig(
             isTextBtn: true,
             editBtn: true,
             deleteBtn: true,
-            viewBtn: false,
+            viewBtn: true,
             displayMode: 'icon-text'
         }
     }
