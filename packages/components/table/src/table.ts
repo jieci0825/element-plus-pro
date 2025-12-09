@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType } from 'vue'
 import type { CellConfig } from './table-cell.type'
 import type { OperationColumnConfig } from './operation-column/operation-column.type'
-import type { TableColumnInstance } from 'element-plus'
+import type { TableColumnInstance, TableInstance } from 'element-plus'
 import type { HeaderConfig } from './common.type'
 import type { SearchType } from './search'
 
@@ -226,4 +226,16 @@ export interface ProTableContext {
         prop: string | number,
         newValue: any
     ) => void
+}
+
+/**
+ * @description ProTable 组件实例暴露的方法
+ */
+export interface ProTableInstance extends TableInstance {
+    props: ProTableProps
+    emit: ProTableEmits
+    /**
+     * @description 刷新表格数据（重新请求接口）
+     */
+    refresh: () => Promise<void>
 }

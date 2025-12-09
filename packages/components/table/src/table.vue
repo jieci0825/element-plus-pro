@@ -128,6 +128,16 @@ provide(tableContextKey, {
     tableColumns: _formatTableColumns,
     cellChange: onCellChange
 })
+
+/**
+ * 暴露方法给外部调用
+ */
+defineExpose({
+    /**
+     * 刷新表格数据
+     */
+    refresh: fetchData
+})
 </script>
 
 <template>
