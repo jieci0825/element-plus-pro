@@ -145,6 +145,54 @@ ProTable 是对 ElementPlus Table 的高级封装，提供了更简洁的 API �
 
 其余事件将透传给 `ElTable`。
 
+### 方法
+
+通过 ref 可以获取到 ProTable 组件实例，调用实例方法。
+
+| 方法名 | 说明 | 类型 |
+| --- | --- | --- |
+| refresh | 刷新表格数据（重新请求接口） | `() => Promise<void>` |
+
+**使用示例：**
+
+```vue
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ProTable, type ProTableInstance } from '@coderjc/element-plus-pro-components'
+import { ElMessage } from 'element-plus'
+
+// 获取组件实例
+const proTableRef = ref<ProTableInstance>()
+
+// 删除操作示例
+const handleDelete = async (row: any) => {
+  try {
+    // 调用删除接口
+    await deleteApi(row.id)
+    ElMessage.success('删除成功')
+    
+    // 刷新表格数据
+    await proTableRef.value?.refresh()
+  } catch (error) {
+    ElMessage.error('删除失败')
+  }
+}
+
+// 手动刷新
+const handleRefresh = () => {
+  proTableRef.value?.refresh()
+}
+</script>
+
+<template>
+  <ProTable
+    ref="proTableRef"
+    :request-api="getTableData"
+    :table-columns="tableColumns"
+  />
+</template>
+```
+
 ### 插槽
 
 | 插槽名 | 说明 | 参数 |
