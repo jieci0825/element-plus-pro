@@ -1,6 +1,7 @@
 import { h, Comment } from 'vue'
 import {
     DatePickType,
+    ElCascader,
     ElColorPicker,
     ElDatePicker,
     ElInput,
@@ -32,6 +33,7 @@ const CompMap: Record<string, Component> = {
     textarea: ElInput,
     switch: ElSwitch,
     color: ElColorPicker,
+    cascader: ElCascader,
     // 多组件
     upload: JcUpload,
     select: JcSelect,
