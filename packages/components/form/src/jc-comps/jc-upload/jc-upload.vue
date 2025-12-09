@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import Thumb from './thumb.vue'
 import Drag from './drag.vue'
-import { useAttrs, computed, ref } from 'vue'
+import { useAttrs, computed, ref, watch } from 'vue'
 import { MyFormItemUploadMode } from '../../form-item.type'
 import { ElMessage, ElImageViewer } from 'element-plus'
 import type { Component } from 'vue'
 import type { FileItem } from './jc-upload.type'
 import './jc-upload.scss'
+import { isString } from '@coderjc/element-plus-pro-utils'
 
 const attrs: any = useAttrs()
 
@@ -67,6 +68,46 @@ const showPreview = ref(false)
 const fileList = ref<FileItem[]>([])
 const prevewList = ref<string[]>([])
 
+// 初始化 fileList，从 modelValue 中获取
+function initFileList(value: any) {
+    if (!value) {
+        fileList.value = []
+        return
+    }
+
+    // 如果是字符串（单个 URL）
+    if (isString(value)) {
+        fileList.value = [{ url: value }]
+        return
+    }
+
+    // 如果是字符串数组（多个 URL）
+    if (Array.isArray(value)) {
+        fileList.value = value.map((item) => {
+            if (isString(item)) {
+                return { url: item }
+            }
+            // 如果已经是 FileItem 格式
+            return item
+        })
+        return
+    }
+
+    fileList.value = []
+}
+
+// 监听 modelValue 变化
+watch(
+    () => attrs['modelValue'],
+    (newValue) => {
+        // 只在外部值变化时更新，避免内部上传时的循环更新
+        if (newValue !== fileList.value) {
+            initFileList(newValue)
+        }
+    },
+    { immediate: true }
+)
+
 const fileChange = (e: Event) => {
     const files = (e.target as HTMLInputElement).files || []
 
@@ -123,11 +164,18 @@ const removeFile = (index: number) => {
 // 预览文件
 const previewFile = (index: number) => {
     const file = fileList.value[index]
-    if (isImageFile(file.raw)) {
+    // 如果有 raw 对象，检查是否为图片文件
+    if (file.raw) {
+        if (isImageFile(file.raw)) {
+            prevewList.value[0] = file.url
+            showPreview.value = true
+        } else {
+            ElMessage.warning('该文件不支持预览')
+        }
+    } else {
+        // 如果没有 raw 对象（从 URL 初始化的），直接预览
         prevewList.value[0] = file.url
         showPreview.value = true
-    } else {
-        ElMessage.warning('该文件不支持预览')
     }
 }
 </script>

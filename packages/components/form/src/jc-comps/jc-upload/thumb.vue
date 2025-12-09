@@ -3,7 +3,7 @@ import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
 import { ElIcon } from 'element-plus'
 import './thumb.scss'
 
-const props = defineProps(['fileList', 'limit'])
+const props = defineProps(['fileList', 'limit', 'previewList'])
 const emit = defineEmits(['remove', 'select', 'preview'])
 </script>
 
