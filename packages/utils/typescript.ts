@@ -7,3 +7,15 @@ export type SFCInstallWithContext<T> = SFCWithInstall<T> & {
 }
 
 export type EmitFn<E extends EmitsOptions> = SetupContext<E>['emit']
+
+/**
+ * 提取组件的 Props 类型
+ * 支持类组件和函数式组件
+ */
+export type ExtractComponentProps<T> = T extends new (...args: any) => {
+    $props: infer P
+}
+    ? Omit<P, keyof import('vue').VNodeProps>
+    : T extends (props: infer P, ...args: any) => any
+      ? P
+      : Record<string, any>
