@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import {
     ProTable,
-    type ProTableColumnType
+    type ProTableColumnType,
+    type ProTableInstance
 } from '@coderjc/element-plus-pro-components'
-import { ElButton, ElMessage } from 'element-plus'
+import { ElButton, ElMessage, ElMessageBox } from 'element-plus'
 import { h, ref } from 'vue'
 import type { OperationColumnConfig } from '@coderjc/element-plus-pro-components'
+
+// 获取 ProTable 组件实例
+const proTableRef = ref<ProTableInstance>()
 
 const tableColumns: ProTableColumnType[] = [
     // {
@@ -270,12 +274,43 @@ const getTableData = async (params: any) => {
     return getUserList(params)
 }
 
+// 模拟删除 API
+const deleteUser = async (id: string) => {
+    // 模拟调用删除接口
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    console.log('删除用户:', id)
+}
+
+// 处理删除操作
+const handleDelete = async (row: any) => {
+    try {
+        await ElMessageBox.confirm('确定要删除这条数据吗？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+        })
+
+        // 调用删除接口
+        await deleteUser(row.id)
+        ElMessage.success('删除成功')
+
+        // 刷新表格数据
+        proTableRef.value?.refresh()
+    } catch (error) {
+        if (error !== 'cancel') {
+            ElMessage.error('删除失败')
+        }
+    }
+}
+
 const operateionColumn: OperationColumnConfig = {
     btnConfig: {
         isTextBtn: false,
         viewBtn: true,
         editBtn: true,
-        deleteBtn: true
+        deleteBtn: {
+            onClick: handleDelete
+        }
     }
 }
 
@@ -448,7 +483,7 @@ const staticData = ref([
     }
 ])
 
-const showStaticMode = ref(false)
+const showStaticMode = ref(true)
 
 const toggleMode = () => {
     showStaticMode.value = !showStaticMode.value
@@ -476,6 +511,7 @@ const toggleMode = () => {
                 :table-columns="staticTableColumns"
                 :pagination="true"
                 :selection="true"
+                :operation-column="{}"
             >
                 <template #tableHeader>
                     <el-button type="primary" @click=""> 添加数据 </el-button>
@@ -486,6 +522,7 @@ const toggleMode = () => {
         <!-- 请求模式 -->
         <div class="table-area" v-else>
             <ProTable
+                ref="proTableRef"
                 border
                 align="center"
                 title="用户列表"
@@ -501,6 +538,9 @@ const toggleMode = () => {
             >
                 <template #tableHeader>
                     <el-button type="primary">新增</el-button>
+                    <el-button type="success" @click="proTableRef?.refresh()">
+                        手动刷新
+                    </el-button>
                 </template>
                 <template #empty>
                     <el-empty description="空数据"></el-empty>

@@ -5,7 +5,13 @@ import {
     ProFormItemConfig
 } from '@coderjc/element-plus-pro-components'
 import { h, ref, useTemplateRef } from 'vue'
-import { ElIcon, ElInput, ElNotification, FormRules } from 'element-plus'
+import {
+    ElIcon,
+    ElInput,
+    ElMessage,
+    ElNotification,
+    FormRules
+} from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
 
 const formItems: ProFormItemConfig[] = [
@@ -47,7 +53,7 @@ const formItems: ProFormItemConfig[] = [
         limit: 1,
         fileSize: 1 * 1024 * 1024,
         onFileSizeExceed(file: File) {
-            console.log('sss', file)
+            ElMessage.warning('文件大小超出限制')
         }
     },
     {
@@ -159,7 +165,8 @@ const rules: FormRules<RuleForm> = {
 }
 
 const form = ref({
-    name: '张三'
+    name: '张三',
+    avatar: 'https://coderjcnodejs-1312270807.cos.ap-guangzhou.myqcloud.com/shops/0/logo/1765248226588_yv9bgenubvn.jpg'
 })
 const formInstance = useTemplateRef('formRef')
 const handleValidate = () => {
