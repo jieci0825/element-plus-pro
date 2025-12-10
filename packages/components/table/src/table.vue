@@ -15,7 +15,8 @@ import { tableContextKey } from './constants'
 import { useHeader, useTable } from './hooks'
 import { useSlots } from 'vue'
 import { flattenSearchColumns } from './helpers'
-import { ElButton } from 'element-plus'
+import { ElButton, ElIcon } from 'element-plus'
+import { CirclePlus } from '@element-plus/icons-vue'
 
 defineOptions({
     name: 'ProTable'
@@ -59,10 +60,10 @@ const {
     isLoading
 } = useTable({
     api: props.requestApi,
-    isPageable: props.pagination,
-    initParam: props.initParams,
     dataCallBack: props.dataCallback,
     requestError: props.requestError,
+    isPageable: props.pagination,
+    initParam: props.initParams,
     staticData: props.data,
     page: props.page,
     pageSize: props.pageSize
@@ -159,9 +160,12 @@ defineExpose({
                         <span>{{ props.title }}</span>
                     </div>
                     <slot name="tableHeader">
-                        <el-button type="primary" @click="emit('addAction')"
-                            >添加</el-button
-                        >
+                        <el-button type="primary" @click="emit('addAction')">
+                            <el-icon :size="16">
+                                <CirclePlus />
+                            </el-icon>
+                            <span> 添加数据</span>
+                        </el-button>
                     </slot>
                 </div>
                 <div class="pro-table__header--right" v-if="isToolButton">
