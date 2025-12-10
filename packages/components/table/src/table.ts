@@ -215,7 +215,8 @@ export const proTableEmits = {
         row: Record<string, any>,
         column: ProTableColumnType,
         newValue: any
-    ) => true
+    ) => true,
+    addAction: () => true
 }
 export type ProTableEmits = typeof proTableEmits
 

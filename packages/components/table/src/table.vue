@@ -158,7 +158,11 @@ defineExpose({
                     >
                         <span>{{ props.title }}</span>
                     </div>
-                    <slot name="tableHeader"> </slot>
+                    <slot name="tableHeader">
+                        <el-button type="primary" @click="emit('addAction')"
+                            >添加</el-button
+                        >
+                    </slot>
                 </div>
                 <div class="pro-table__header--right" v-if="isToolButton">
                     <slot name="toolButton">
