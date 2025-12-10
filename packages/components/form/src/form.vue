@@ -2,7 +2,14 @@
 import { useTemplateRef, computed, toRef, h } from 'vue'
 import { proFormEmits, type ProFormFooterConfig, proFormProps } from './form'
 import { processFormItems } from './form-item-processor'
-import { ElForm, ElRow, ElCol, ElFormItem, ElButton } from 'element-plus'
+import {
+    ElForm,
+    ElRow,
+    ElCol,
+    ElFormItem,
+    ElButton,
+    ElMessageBox
+} from 'element-plus'
 import { UPDATE_MODEL_EVENT } from '@coderjc/element-plus-pro-constants'
 import { useComponentProxy } from '@coderjc/element-plus-pro-hooks'
 import { createFormItemCompMap } from './comp-map'
@@ -72,8 +79,21 @@ const handleReset = () => {
         onReset()
         return
     }
-    elFormInstance.value?.resetFields()
-    emit('reset')
+    if (props.resetInterceptor) {
+        ElMessageBox.confirm('确定要重置表单吗？', '重置表单提示', {
+            type: 'warning'
+        })
+            .then(() => {
+                elFormInstance.value?.resetFields()
+            })
+            .catch(() => {})
+            .finally(() => {
+                emit('reset')
+            })
+    } else {
+        elFormInstance.value?.resetFields()
+        emit('reset')
+    }
 }
 
 function getColProps(item: ProFormItemConfig | ProFormFooterConfig) {

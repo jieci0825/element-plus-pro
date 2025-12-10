@@ -57,6 +57,14 @@ export const proFormProps = {
     footerConfig: {
         type: [Object, null] as PropType<ProFormFooterConfig | null>,
         default: () => ({})
+    },
+
+    /**
+     * @description 是否需要重置拦截-如果你主动配置了 onReset 方法，则不会触发重置拦截
+     */
+    resetInterceptor: {
+        type: Boolean as PropType<boolean>,
+        default: true
     }
 
     // 其他属性则会直接透传给 el-form
