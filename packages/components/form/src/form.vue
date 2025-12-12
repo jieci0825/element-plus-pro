@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTemplateRef, computed, toRef, h } from 'vue'
 import { proFormEmits, type ProFormFooterConfig, proFormProps } from './form'
-import { processFormItems } from './form-item-processor'
+import { processFormItems } from './form-item-process'
 import {
     ElForm,
     ElRow,
